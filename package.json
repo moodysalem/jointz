@@ -1,0 +1,36 @@
+{
+  "name": "jointz",
+  "private": false,
+  "version": "0.0.1",
+  "description": "TypeScript validation library",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "mocha --require ts-node/register src/**/*.test.ts",
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moodysalem/jointz.git"
+  },
+  "keywords": [
+    "typescript",
+    "validation",
+    "library"
+  ],
+  "author": "Moody Salem <moody.salem@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/moodysalem/jointz/issues"
+  },
+  "homepage": "https://github.com/moodysalem/jointz#readme",
+  "devDependencies": {
+    "@types/chai": "^4.1.6",
+    "@types/mocha": "^5.2.5",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "rimraf": "^2.6.2",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.3"
+  }
+}
