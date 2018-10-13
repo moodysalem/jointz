@@ -26,7 +26,7 @@ Then use it to construct validators
 ```js
 const Thing = jointz.object().keys({
   id: jointz.string().uuid(),
-  name: jointz.string().minLength(100).maxLength(100)
+  name: jointz.string().minLength(3).maxLength(100)
 }).requiredKeys(['id', 'name']);
 ```
 
