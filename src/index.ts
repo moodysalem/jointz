@@ -3,21 +3,26 @@ import NumberValidator from './validators/number-validator';
 import ObjectValidator from './validators/object-validator';
 import OrValidator from './validators/or-validator';
 import StringValidator from './validators/string-validator';
+import ArrayValidator from './validators/array-validator';
 
 export default class Joint {
-  static string() {
+  static string(): StringValidator {
     return new StringValidator({});
   }
 
-  static object() {
+  static object(): ObjectValidator {
     return new ObjectValidator({ allowUnknownKeys: true });
   }
 
-  static number() {
+  static number(): NumberValidator {
     return new NumberValidator({});
   }
 
-  static or(validators: Validator[]) {
+  static or(validators: Validator[]): OrValidator {
     return new OrValidator({ validators });
+  }
+
+  static array(): ArrayValidator {
+    return new ArrayValidator({});
   }
 }

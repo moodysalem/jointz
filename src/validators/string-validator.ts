@@ -5,8 +5,8 @@ const UUID_REGEX = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}
 
 interface StringValidatorOptions {
   readonly pattern?: RegExp;
-  readonly min?: number;
-  readonly max?: number;
+  readonly minLength?: number;
+  readonly maxLength?: number;
 }
 
 export default class StringValidator implements Validator {
@@ -17,11 +17,11 @@ export default class StringValidator implements Validator {
   }
 
   public minLength(min: number) {
-    return new StringValidator({ ...this.options, min });
+    return new StringValidator({ ...this.options, minLength: min });
   }
 
   public maxLength(max: number) {
-    return new StringValidator({ ...this.options, max });
+    return new StringValidator({ ...this.options, maxLength: max });
   }
 
   public pattern(pattern: RegExp) {
@@ -37,7 +37,7 @@ export default class StringValidator implements Validator {
   }
 
   validate(value: any, path: string = ''): ValidationError[] {
-    const { pattern, min, max } = this.options;
+    const { pattern, minLength, maxLength } = this.options;
 
     if (typeof value !== 'string') {
       return [ { message: `not a string`, path, value } ];
@@ -59,12 +59,12 @@ export default class StringValidator implements Validator {
       });
     }
 
-    if (min && value.length < min) {
-      errors.push({ message: `length ${value.length} was shorter than minimum length: ${min}`, path, value });
+    if (minLength && value.length < minLength) {
+      errors.push({ message: `length ${value.length} was shorter than minimum length: ${minLength}`, path, value });
     }
 
-    if (max && value.length > max) {
-      errors.push({ message: `length ${value.length} was longer than maximum length: ${max}`, path, value });
+    if (maxLength && value.length > maxLength) {
+      errors.push({ message: `length ${value.length} was longer than maximum length: ${maxLength}`, path, value });
     }
 
     return errors;
