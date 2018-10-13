@@ -1,7 +1,8 @@
 # jointz
 [![Build Status](https://travis-ci.org/moodysalem/jointz.svg?branch=master)](https://travis-ci.org/moodysalem/jointz)
 ![npm](https://img.shields.io/npm/v/jointz.svg)
-![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/jointz.svg)
+![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/jointz.svg)
+
 
 
 
