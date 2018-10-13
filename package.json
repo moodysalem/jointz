@@ -2,7 +2,7 @@
   "name": "jointz",
   "private": false,
   "version": "0.0.1",
-  "description": "TypeScript validation library",
+  "description": "Zero dependency universal TypeScript validation library",
   "main": "dist/index.js",
   "scripts": {
     "test": "mocha --require ts-node/register src/**/*.test.ts",
