@@ -1,7 +1,14 @@
 # jointz
 [![Build Status](https://travis-ci.org/moodysalem/jointz.svg?branch=master)](https://travis-ci.org/moodysalem/jointz)
 
-Simple TypeScript validation library, akin to Joi but without all the fancy stuff.
+Zero dependency universal TypeScript validation library. Similar interface to Joi but without all the bloat, built for browsers and node with zero runtime dependencies.
+
+## Features
+
+- Written in TypeScript for TypeScript
+- No dependencies
+- Supports string, number, array, and object validation
+- Fluid [Joi](https://github.com/hapijs/joi)-like interface
 
 ## Installation
 `npm i --save jointz`
