@@ -1,5 +1,9 @@
 # jointz
 [![Build Status](https://travis-ci.org/moodysalem/jointz.svg?branch=master)](https://travis-ci.org/moodysalem/jointz)
+![npm](https://img.shields.io/npm/v/jointz.svg)
+![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/jointz.svg)
+
+
 
 Zero dependency universal TypeScript validation library. Similar interface to Joi but without all the bloat, built for browsers and node with zero runtime dependencies.
 
