@@ -1,4 +1,6 @@
 # jointz
+[![Build Status](https://travis-ci.org/moodysalem/jointz.svg?branch=master)](https://travis-ci.org/moodysalem/jointz)
+
 Simple TypeScript validation library, akin to Joi but without all the fancy stuff.
 
 ## Installation
