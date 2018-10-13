@@ -1,6 +1,7 @@
 import { ValidationError, Validator } from '../interfaces';
 
 const ALPHANUMERIC_REGEX = /^[a-fA-F0-9]*$/;
+const UUID_REGEX = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
 
 interface StringValidatorOptions {
   readonly pattern?: RegExp;
@@ -15,10 +16,6 @@ export default class StringValidator implements Validator {
     this.options = options;
   }
 
-  public alphanum(): StringValidator {
-    return new StringValidator({ ...this.options, pattern: ALPHANUMERIC_REGEX });
-  }
-
   public minLength(min: number) {
     return new StringValidator({ ...this.options, min });
   }
@@ -29,6 +26,14 @@ export default class StringValidator implements Validator {
 
   public pattern(pattern: RegExp) {
     return new StringValidator({ ...this.options, pattern });
+  }
+
+  public alphanum(): StringValidator {
+    return new StringValidator({ ...this.options, pattern: ALPHANUMERIC_REGEX });
+  }
+
+  public uuid() {
+    return new StringValidator({ ...this.options, pattern: UUID_REGEX });
   }
 
   validate(value: any, path: string = ''): ValidationError[] {
@@ -42,7 +47,13 @@ export default class StringValidator implements Validator {
 
     if (pattern && !pattern.test(value)) {
       errors.push({
-        message: pattern === ALPHANUMERIC_REGEX ? 'must be alphanumeric' : 'did not match pattern',
+        message: pattern === ALPHANUMERIC_REGEX ?
+          'must be alphanumeric' :
+          (
+            pattern === UUID_REGEX ?
+              'must be a uuid' :
+              'did not match pattern'
+          ),
         path,
         value
       });

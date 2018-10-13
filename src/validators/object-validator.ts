@@ -25,6 +25,10 @@ export default class ObjectValidator implements Validator {
     return new ObjectValidator({ ...this.options, keys });
   }
 
+  public concat(keys: Keys): ObjectValidator {
+    return new ObjectValidator({ ...this.options, keys: { ...this.options.keys, ...keys } });
+  }
+
   public allowUnknownKeys(allowUnknownKeys: boolean): ObjectValidator {
     return new ObjectValidator({ ...this.options, allowUnknownKeys });
   }
