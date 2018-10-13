@@ -4,6 +4,9 @@
   "version": "0.0.1",
   "description": "Zero dependency universal TypeScript validation library",
   "main": "dist/index.js",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "test": "mocha --require ts-node/register src/**/*.test.ts",
     "clean": "rimraf dist",
