@@ -17,16 +17,16 @@ describe('jointz', () => {
 
 describe('jointz#string', () => {
   it('validates string type correctly', () => {
-    expect(jointz.string().validate('', ''))
+    expect(jointz.string().validate(''))
       .to.be.an('array').with.length(0);
-    expect(jointz.string().validate(void 0, ''))
-      .to.be.an('array').with.length(1);
-    expect(jointz.string().validate(null, ''))
-      .to.be.an('array').with.length(1);
-    expect(jointz.string().validate({}, ''))
-      .to.be.an('array').with.length(1);
-    expect(jointz.string().validate([], ''))
-      .to.be.an('array').with.length(1);
+    expect(jointz.string().validate(void 0))
+      .to.deep.eq([ { message: 'must be a string', path: '', value: void 0 } ]);
+    expect(jointz.string().validate(null))
+      .to.deep.eq([ { message: 'must be a string', path: '', value: null } ]);
+    expect(jointz.string().validate({}))
+      .to.deep.eq([ { message: 'must be a string', path: '', value: {} } ]);
+    expect(jointz.string().validate([]))
+      .to.deep.eq([ { message: 'must be a string', path: '', value: [] } ]);
   });
 
   it('validates patterns correctly', () => {

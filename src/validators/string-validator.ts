@@ -40,7 +40,7 @@ export default class StringValidator implements Validator {
     const { pattern, minLength, maxLength } = this.options;
 
     if (typeof value !== 'string') {
-      return [ { message: `not a string`, path, value } ];
+      return [ { message: `must be a string`, path, value } ];
     }
 
     const errors: ValidationError[] = [];
