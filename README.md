@@ -20,7 +20,17 @@ Zero dependency universal TypeScript validation library. Similar interface to Jo
 - Targets both browsers and node
 
 ## Installation
+
+You can install it via NPM
+
 `npm i --save jointz`
+
+Alternately you can use it in the browser via unpkg
+
+```html
+<script src="https://unpkg.com/jointz@0.0.3/dist/jointz.js" integrity="sha384-01k9TeaQ9sKN+dwFl7+C3aFYKBZ3svCyEdyr9HsSTaB4P6WHd4UoPxavu2/xIam5" crossorigin="anonymous"></script>
+```
+
 
 ## Usage
 Import the default export from `jointz`
