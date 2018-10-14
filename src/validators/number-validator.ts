@@ -33,7 +33,7 @@ export default class NumberValidator implements Validator {
     const { multipleOf, min, max } = this.options;
 
     if (typeof value !== 'number') {
-      return [ { message: `not a number`, path, value } ];
+      return [ { message: `must be a number`, path, value } ];
     }
 
     const errors: ValidationError[] = [];
@@ -46,11 +46,11 @@ export default class NumberValidator implements Validator {
       });
     }
 
-    if (min && value < min) {
+    if (typeof min !== 'undefined' && value < min) {
       errors.push({ message: `${value} must be greater than or equal to ${min}`, path, value });
     }
 
-    if (max && value > max) {
+    if (typeof max !== 'undefined' && value > max) {
       errors.push({ message: `${value} must be less than or equal to ${max}`, path, value });
     }
 

@@ -55,7 +55,11 @@ describe('jointz#string', () => {
     expect(jointz.string().alphanum().validate('abc910394018fmdsklamf19045190580fmdklasfmdslamjgrqpmzcxklvmzlmty'))
       .to.deep.eq([]);
     expect(jointz.string().alphanum().validate('abc910394018fmdsklamf19045190580fmdklasfmdslamjgrqpmzcxklvmzlmty-'))
-      .to.deep.eq([ { message: 'must be alphanumeric', path: '', value: 'abc910394018fmdsklamf19045190580fmdklasfmdslamjgrqpmzcxklvmzlmty-' } ]);
+      .to.deep.eq([ {
+      message: 'must be alphanumeric',
+      path: '',
+      value: 'abc910394018fmdsklamf19045190580fmdklasfmdslamjgrqpmzcxklvmzlmty-'
+    } ]);
   });
 
   it('validates minLength and maxLength length properly', () => {
@@ -72,6 +76,42 @@ describe('jointz#string', () => {
       .to.deep.eq([ { message: 'required key "abc" was not defined', path: '' } ]);
 
     expect(jointz.object().keys({ abc: jointz.number() }).requiredKeys([ 'abc' ]).validate({ abc: 'hello' }))
-      .to.deep.eq([ { message: 'not a number', path: '.abc', value: 'hello' } ]);
+      .to.deep.eq([ { message: 'must be a number', path: '.abc', value: 'hello' } ]);
+  });
+
+  it('validates arrays properly', () => {
+    expect(jointz.array().minLength(1).maxLength(2).items(jointz.string().alphanum().minLength(3)).validate([ 'abc', '123' ]))
+      .to.deep.eq([]);
+    expect(jointz.array().items(jointz.string().alphanum().minLength(3)).validate([ 'ab', '123' ]))
+      .to.deep.eq([ { message: 'length 2 was shorter than minimum length: 3', path: '.0', value: 'ab' } ]);
+    expect(jointz.array().items(jointz.string().alphanum().minLength(3)).validate([ 'a19-', 'de' ]))
+      .to.deep.eq([ {
+      message: 'must be alphanumeric',
+      path: '.0',
+      value: 'a19-'
+    }, { message: 'length 2 was shorter than minimum length: 3', path: '.1', value: 'de' } ]);
+  });
+
+  it('validates numbers properly', () => {
+    expect(jointz.number().validate('s'))
+      .to.deep.eq([ { message: 'must be a number', path: '', value: 's' } ]);
+    expect(jointz.number().validate({}))
+      .to.deep.eq([ { message: 'must be a number', path: '', value: {} } ]);
+    expect(jointz.number().validate(1))
+      .to.deep.eq([]);
+    expect(jointz.number().multipleOf(1).validate(1))
+      .to.deep.eq([]);
+    expect(jointz.number().multipleOf(0.5).validate(1))
+      .to.deep.eq([]);
+    expect(jointz.number().integer().validate(1))
+      .to.deep.eq([]);
+    expect(jointz.number().min(1).validate(1))
+      .to.deep.eq([]);
+    expect(jointz.number().max(1).validate(1))
+      .to.deep.eq([]);
+    expect(jointz.number().max(0).validate(1))
+      .to.deep.eq([ { message: '1 must be less than or equal to 0', path: '', value: 1 } ]);
+    expect(jointz.number().min(2).validate(1))
+      .to.deep.eq([ { message: '1 must be greater than or equal to 2', path: '', value: 1 } ]);
   });
 });

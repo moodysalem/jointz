@@ -34,11 +34,11 @@ export default class ArrayValidator implements Validator {
 
     let errors: ValidationError[] = [];
 
-    if (minLength && value.length < minLength) {
+    if (typeof minLength !== 'undefined' && value.length < minLength) {
       errors.push({ message: `array length ${value.length} was less than minimum length: ${minLength}`, path, value });
     }
 
-    if (maxLength && value.length > maxLength) {
+    if (typeof maxLength !== 'undefined' && value.length > maxLength) {
       errors.push({
         message: `array length ${value.length} was greater than maximum length: ${maxLength}`,
         path,

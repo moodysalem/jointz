@@ -59,11 +59,11 @@ export default class StringValidator implements Validator {
       });
     }
 
-    if (minLength && value.length < minLength) {
+    if (typeof minLength !== 'undefined' && value.length < minLength) {
       errors.push({ message: `length ${value.length} was shorter than minimum length: ${minLength}`, path, value });
     }
 
-    if (maxLength && value.length > maxLength) {
+    if (typeof maxLength !== 'undefined' && value.length > maxLength) {
       errors.push({ message: `length ${value.length} was longer than maximum length: ${maxLength}`, path, value });
     }
 

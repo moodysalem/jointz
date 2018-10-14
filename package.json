@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "test": "nyc mocha --require ts-node/register --require source-map-support/register \"src/**/*.test.ts\"",
-    "upload-coverage": "codecov",
+    "upload-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "clean": "rimraf dist && rimraf coverage",
     "build": "npm run clean && tsc"
   },
