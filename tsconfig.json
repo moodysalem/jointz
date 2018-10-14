@@ -7,7 +7,7 @@
     "sourceMap": true,
     "outDir": "lib/",
     "declaration": true,
-    "module": "umd"
+    "module": "commonjs"
   },
   "include": [
     "src/**/*.ts"
