@@ -1,4 +1,5 @@
 import { ValidationError, Validator } from '../interfaces';
+import uniqueString from '../util/unique-string';
 
 export interface Keys {
   [ key: string ]: Validator
@@ -17,8 +18,8 @@ export default class ObjectValidator implements Validator {
     this.options = options;
   }
 
-  public requiredKeys(requiredKeys: string[]): ObjectValidator {
-    return new ObjectValidator({ ...this.options, requiredKeys });
+  public requiredKeys(...requiredKeys: string[]): ObjectValidator {
+    return new ObjectValidator({ ...this.options, requiredKeys: uniqueString(requiredKeys) });
   }
 
   public keys(keys: Keys): ObjectValidator {
@@ -29,6 +30,14 @@ export default class ObjectValidator implements Validator {
     return new ObjectValidator({ ...this.options, keys: { ...this.options.keys, ...keys } });
   }
 
+  public merge(objectValidator: ObjectValidator) {
+    return new ObjectValidator({
+      ...this.options,
+      keys: { ...this.options.keys, ...objectValidator.options.keys },
+      requiredKeys: uniqueString((this.options.requiredKeys || []).concat(objectValidator.options.requiredKeys || []))
+    });
+  }
+
   public allowUnknownKeys(allowUnknownKeys: boolean): ObjectValidator {
     return new ObjectValidator({ ...this.options, allowUnknownKeys });
   }
@@ -37,7 +46,7 @@ export default class ObjectValidator implements Validator {
     const { requiredKeys, keys, allowUnknownKeys } = this.options;
 
     if (typeof value !== 'object' || Array.isArray(value)) {
-      return [ { message: `not an object`, path, value } ];
+      return [ { message: `must be an object`, path, value } ];
     }
 
     let errors: ValidationError[] = [];
@@ -47,7 +56,7 @@ export default class ObjectValidator implements Validator {
         if (keys && keys[ key ]) {
           errors = errors.concat(keys[ key ].validate(value[ key ], `${path}.${key}`));
         } else if (!allowUnknownKeys) {
-          errors.push({ message: `encountered unknown key "${key}"`, path });
+          errors.push({ message: `encountered unknown key "${key}"`, path, value });
         }
       }
     }
@@ -56,7 +65,7 @@ export default class ObjectValidator implements Validator {
       for (let i in requiredKeys) {
         const requiredKey = requiredKeys[ i ];
         if (typeof value[ requiredKey ] === 'undefined') {
-          errors.push({ message: `required key "${requiredKey}" was not defined`, path });
+          errors.push({ message: `required key "${requiredKey}" was not defined`, path, value });
         }
       }
     }

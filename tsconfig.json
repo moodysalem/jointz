@@ -6,7 +6,8 @@
     "noImplicitThis": true,
     "sourceMap": true,
     "outDir": "lib/",
-    "declaration": true
+    "declaration": true,
+    "module": "umd"
   },
   "include": [
     "src/**/*.ts"

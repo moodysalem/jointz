@@ -18,7 +18,7 @@ export default abstract class jointz {
     return new NumberValidator({});
   }
 
-  static or(validators: Validator[]): OrValidator {
+  static or(...validators: Validator[]): OrValidator {
     return new OrValidator({ validators });
   }
 

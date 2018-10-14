@@ -40,7 +40,7 @@ export default class NumberValidator implements Validator {
 
     if (multipleOf && value % multipleOf !== 0) {
       errors.push({
-        message: multipleOf === 1 ? 'number was not an integer' : `number was not multiple of ${multipleOf}`,
+        message: multipleOf === 1 ? 'number was not an integer' : `number was not a multiple of ${multipleOf}`,
         path,
         value
       });

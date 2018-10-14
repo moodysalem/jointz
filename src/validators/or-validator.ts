@@ -22,6 +22,6 @@ export default class OrValidator implements Validator {
       }
     }
 
-    return [ { path, message: 'did not validate with any option', value } ];
+    return [ { path, message: 'did not match any of the expected types', value } ];
   }
 }
