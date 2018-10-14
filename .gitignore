@@ -62,5 +62,6 @@ typings/
 
 .idea/
 *.iml
-dist
-coverage
+dist/
+lib/
+coverage/

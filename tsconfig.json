@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
     "strict": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "outDir": "lib/",
+    "declaration": true
   },
   "include": [
     "src/**/*.ts"
