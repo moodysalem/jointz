@@ -11,11 +11,13 @@ Zero dependency universal TypeScript validation library. Similar interface to Jo
 
 ## Features
 
-- Written in TypeScript for TypeScript
-- No dependencies
-- Supports string, number, array, and object validation
+- Written in TypeScript
+- Zero dependencies
+- Tiny
+- Supports `string`, `number`, `array`, and `object` validation
+- Implement your own validator interface
 - Fluid [Joi](https://github.com/hapijs/joi)-like interface
-- Targets browsers and node
+- Targets both browsers and node
 
 ## Installation
 `npm i --save jointz`
