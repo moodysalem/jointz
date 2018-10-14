@@ -1,7 +1,7 @@
 {
   "name": "jointz",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Zero dependency universal TypeScript validation library",
   "main": "dist/jointz.js",
   "module": "lib/index.js",
