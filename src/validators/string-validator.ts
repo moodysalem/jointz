@@ -1,6 +1,6 @@
 import { ValidationError, Validator } from '../interfaces';
 
-const ALPHANUMERIC_REGEX = /^[a-fA-F0-9]*$/;
+const ALPHANUMERIC_REGEX = /^[a-zA-Z0-9]*$/;
 const UUID_REGEX = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
 
 interface StringValidatorOptions {

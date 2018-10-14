@@ -5,7 +5,7 @@ import OrValidator from './validators/or-validator';
 import StringValidator from './validators/string-validator';
 import ArrayValidator from './validators/array-validator';
 
-export default class Joint {
+export default abstract class jointz {
   static string(): StringValidator {
     return new StringValidator({});
   }
