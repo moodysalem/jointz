@@ -15,6 +15,7 @@
     "docs": "typedoc --out docs/ src/index.ts --readme none --name jointz --mode file",
     "publish-docs": "npm run docs && gh-pages -d docs",
     "build": "npm run clean && tsc && webpack",
+    "upload-coverage": "codecov",
     "prepare": "npm run build"
   },
   "nyc": {
