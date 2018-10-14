@@ -11,10 +11,11 @@
   ],
   "scripts": {
     "test": "nyc mocha --require ts-node/register --require source-map-support/register \"src/**/*.test.ts\"",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist lib",
     "docs": "typedoc --out docs/ src/index.ts --readme none --name jointz --mode file",
     "publish-docs": "npm run docs && gh-pages -d docs",
-    "build": "npm run clean && tsc && webpack"
+    "build": "npm run clean && tsc && webpack",
+    "prepare": "npm run build"
   },
   "nyc": {
     "include": [
