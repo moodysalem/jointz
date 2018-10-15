@@ -28,7 +28,7 @@ You can install it via NPM
 Alternately you can use it in the browser via unpkg
 
 ```html
-<script src="https://unpkg.com/jointz@0.0.3/dist/jointz.js" integrity="sha384-01k9TeaQ9sKN+dwFl7+C3aFYKBZ3svCyEdyr9HsSTaB4P6WHd4UoPxavu2/xIam5" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/jointz@0.0.5/dist/jointz.js" crossorigin="anonymous"></script>
 ```
 
 
