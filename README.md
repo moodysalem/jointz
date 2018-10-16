@@ -55,7 +55,7 @@ which is empty if the `value` passes validation.
 
 ```typescript
 const myObject = { id: 'abc', name: 'hello world!' };
-const errors = Thing.validate(errors); // expect an error because id is not a uuid
+const errors = Thing.validate(myObject); // expect an error because id is not a uuid
 
 if (errors.length) {
   // Fail
