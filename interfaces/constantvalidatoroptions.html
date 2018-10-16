@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Validator | jointz</title>
+	<title>ConstantValidatorOptions | jointz</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../index.html">Globals</a>
 				</li>
 				<li>
-					<a href="validator.html">Validator</a>
+					<a href="constantvalidatoroptions.html">ConstantValidatorOptions</a>
 				</li>
 			</ul>
-			<h1>Interface Validator</h1>
+			<h1>Interface ConstantValidatorOptions</h1>
 		</div>
 	</div>
 </header>
@@ -70,61 +70,34 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Validator</span>
+						<span class="target">ConstantValidatorOptions</span>
 					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel">
-				<h3>Implemented by</h3>
-				<ul class="tsd-hierarchy">
-					<li><a href="../classes/arrayvalidator.html" class="tsd-signature-type">ArrayValidator</a></li>
-					<li><a href="../classes/constantvalidator.html" class="tsd-signature-type">ConstantValidator</a></li>
-					<li><a href="../classes/numbervalidator.html" class="tsd-signature-type">NumberValidator</a></li>
-					<li><a href="../classes/objectvalidator.html" class="tsd-signature-type">ObjectValidator</a></li>
-					<li><a href="../classes/orvalidator.html" class="tsd-signature-type">OrValidator</a></li>
-					<li><a href="../classes/stringvalidator.html" class="tsd-signature-type">StringValidator</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-external">
-							<h3>Methods</h3>
+						<section class="tsd-index-section tsd-is-external tsd-is-not-exported">
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="validator.html#validate" class="tsd-kind-icon">validate</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external tsd-is-not-exported"><a href="constantvalidatoroptions.html#allowedvalues" class="tsd-kind-icon">allowed<wbr>Values</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-external">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-external">
-					<a name="validate" class="tsd-anchor"></a>
-					<h3>validate</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">validate<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, path<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="validationerror.html" class="tsd-signature-type">ValidationError</a><span class="tsd-signature-symbol">[]</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/2c19bbe/src/interfaces.ts#L8">interfaces.ts:8</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>value: <span class="tsd-signature-type">any</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> path: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="validationerror.html" class="tsd-signature-type">ValidationError</a><span class="tsd-signature-symbol">[]</span></h4>
-						</li>
-					</ul>
+			<section class="tsd-panel-group tsd-member-group tsd-is-external tsd-is-not-exported">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external tsd-is-not-exported">
+					<a name="allowedvalues" class="tsd-anchor"></a>
+					<h3>allowed<wbr>Values</h3>
+					<div class="tsd-signature tsd-kind-icon">allowed<wbr>Values<span class="tsd-signature-symbol">:</span> <a href="../index.html#allowedvaluetypes" class="tsd-signature-type">AllowedValueTypes</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/2c19bbe/src/validators/constant-validator.ts#L10">validators/constant-validator.ts:10</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -162,9 +135,18 @@
 					<li class=" tsd-kind-interface tsd-is-external tsd-is-not-exported">
 						<a href="arrayvalidatoroptions.html" class="tsd-kind-icon">Array<wbr>Validator<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-is-external tsd-is-not-exported">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface tsd-is-external tsd-is-not-exported">
 						<a href="constantvalidatoroptions.html" class="tsd-kind-icon">Constant<wbr>Validator<wbr>Options</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external tsd-is-not-exported">
+								<a href="constantvalidatoroptions.html#allowedvalues" class="tsd-kind-icon">allowed<wbr>Values</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="keys.html" class="tsd-kind-icon">Keys</a>
 					</li>
@@ -183,18 +165,9 @@
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="validationerror.html" class="tsd-kind-icon">Validation<wbr>Error</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface tsd-is-external">
+					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="validator.html" class="tsd-kind-icon">Validator</a>
-						<ul>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-external">
-								<a href="validator.html#validate" class="tsd-kind-icon">validate</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-type-alias tsd-is-external">
 						<a href="../index.html#allowedvaluetypes" class="tsd-kind-icon">Allowed<wbr>Value<wbr>Types</a>
 					</li>

@@ -71,6 +71,7 @@
 							<h3>Classes</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-class tsd-is-external"><a href="classes/arrayvalidator.html" class="tsd-kind-icon">Array<wbr>Validator</a></li>
+								<li class="tsd-kind-class tsd-is-external"><a href="classes/constantvalidator.html" class="tsd-kind-icon">Constant<wbr>Validator</a></li>
 								<li class="tsd-kind-class tsd-is-external"><a href="classes/numbervalidator.html" class="tsd-kind-icon">Number<wbr>Validator</a></li>
 								<li class="tsd-kind-class tsd-is-external"><a href="classes/objectvalidator.html" class="tsd-kind-icon">Object<wbr>Validator</a></li>
 								<li class="tsd-kind-class tsd-is-external"><a href="classes/orvalidator.html" class="tsd-kind-icon">Or<wbr>Validator</a></li>
@@ -82,6 +83,7 @@
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-interface tsd-is-external tsd-is-not-exported"><a href="interfaces/arrayvalidatoroptions.html" class="tsd-kind-icon">Array<wbr>Validator<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-is-external tsd-is-not-exported"><a href="interfaces/constantvalidatoroptions.html" class="tsd-kind-icon">Constant<wbr>Validator<wbr>Options</a></li>
 								<li class="tsd-kind-interface tsd-is-external"><a href="interfaces/keys.html" class="tsd-kind-icon">Keys</a></li>
 								<li class="tsd-kind-interface tsd-is-external tsd-is-not-exported"><a href="interfaces/numbervalidatoroptions.html" class="tsd-kind-icon">Number<wbr>Validator<wbr>Options</a></li>
 								<li class="tsd-kind-interface tsd-is-external tsd-is-not-exported"><a href="interfaces/objectvalidatoroptions.html" class="tsd-kind-icon">Object<wbr>Validator<wbr>Options</a></li>
@@ -89,6 +91,12 @@
 								<li class="tsd-kind-interface tsd-is-external tsd-is-not-exported"><a href="interfaces/stringvalidatoroptions.html" class="tsd-kind-icon">String<wbr>Validator<wbr>Options</a></li>
 								<li class="tsd-kind-interface tsd-is-external"><a href="interfaces/validationerror.html" class="tsd-kind-icon">Validation<wbr>Error</a></li>
 								<li class="tsd-kind-interface tsd-is-external"><a href="interfaces/validator.html" class="tsd-kind-icon">Validator</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-external">
+							<h3>Type aliases</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias tsd-is-external"><a href="index.html#allowedvaluetypes" class="tsd-kind-icon">Allowed<wbr>Value<wbr>Types</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-external tsd-is-not-exported">
@@ -101,10 +109,24 @@
 						<section class="tsd-index-section tsd-is-external">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-is-external tsd-is-not-exported"><a href="index.html#issupportedvaluetype" class="tsd-kind-icon">is<wbr>Supported<wbr>Value<wbr>Type</a></li>
 								<li class="tsd-kind-function tsd-is-external"><a href="index.html#uniquestring" class="tsd-kind-icon">unique<wbr>String</a></li>
 							</ul>
 						</section>
 					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-is-external">
+					<a name="allowedvaluetypes" class="tsd-anchor"></a>
+					<h3>Allowed<wbr>Value<wbr>Types</h3>
+					<div class="tsd-signature tsd-kind-icon">Allowed<wbr>Value<wbr>Types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/2c19bbe/src/validators/constant-validator.ts#L3">validators/constant-validator.ts:3</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-external tsd-is-not-exported">
@@ -115,7 +137,7 @@
 					<div class="tsd-signature tsd-kind-icon">ALPHANUMERIC_<wbr>REGEX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/^[a-zA-Z0-9]*$/</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/6bc51e5/src/validators/string-validator.ts#L3">validators/string-validator.ts:3</a></li>
+							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/2c19bbe/src/validators/string-validator.ts#L3">validators/string-validator.ts:3</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -125,13 +147,36 @@
 					<div class="tsd-signature tsd-kind-icon">UUID_<wbr>REGEX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/6bc51e5/src/validators/string-validator.ts#L4">validators/string-validator.ts:4</a></li>
+							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/2c19bbe/src/validators/string-validator.ts#L4">validators/string-validator.ts:4</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-is-external tsd-is-not-exported">
+					<a name="issupportedvaluetype" class="tsd-anchor"></a>
+					<h3>is<wbr>Supported<wbr>Value<wbr>Type</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-is-external tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Supported<wbr>Value<wbr>Type<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/2c19bbe/src/validators/constant-validator.ts#L5">validators/constant-validator.ts:5</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-is-external">
 					<a name="uniquestring" class="tsd-anchor"></a>
 					<h3>unique<wbr>String</h3>
@@ -142,7 +187,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/6bc51e5/src/util/unique-string.ts#L1">util/unique-string.ts:1</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/2c19bbe/src/util/unique-string.ts#L1">util/unique-string.ts:1</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -171,6 +216,9 @@
 						<a href="classes/arrayvalidator.html" class="tsd-kind-icon">Array<wbr>Validator</a>
 					</li>
 					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/constantvalidator.html" class="tsd-kind-icon">Constant<wbr>Validator</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
 						<a href="classes/numbervalidator.html" class="tsd-kind-icon">Number<wbr>Validator</a>
 					</li>
 					<li class=" tsd-kind-class tsd-is-external">
@@ -187,6 +235,9 @@
 					</li>
 					<li class=" tsd-kind-interface tsd-is-external tsd-is-not-exported">
 						<a href="interfaces/arrayvalidatoroptions.html" class="tsd-kind-icon">Array<wbr>Validator<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external tsd-is-not-exported">
+						<a href="interfaces/constantvalidatoroptions.html" class="tsd-kind-icon">Constant<wbr>Validator<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="interfaces/keys.html" class="tsd-kind-icon">Keys</a>
@@ -209,11 +260,17 @@
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="interfaces/validator.html" class="tsd-kind-icon">Validator</a>
 					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="index.html#allowedvaluetypes" class="tsd-kind-icon">Allowed<wbr>Value<wbr>Types</a>
+					</li>
 					<li class=" tsd-kind-variable tsd-is-external tsd-is-not-exported">
 						<a href="index.html#alphanumeric_regex" class="tsd-kind-icon">ALPHANUMERIC_<wbr>REGEX</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-external tsd-is-not-exported">
 						<a href="index.html#uuid_regex" class="tsd-kind-icon">UUID_<wbr>REGEX</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-external tsd-is-not-exported">
+						<a href="index.html#issupportedvaluetype" class="tsd-kind-icon">is<wbr>Supported<wbr>Value<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-function tsd-is-external">
 						<a href="index.html#uniquestring" class="tsd-kind-icon">unique<wbr>String</a>
