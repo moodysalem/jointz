@@ -15,7 +15,7 @@ export default class OrValidator implements Validator {
     const { validators } = this.options;
 
     for (let i in validators) {
-      const errs = validators[ i ].validate(value);
+      const errs = validators[ i ].validate(value, path);
 
       if (errs.length === 0) {
         return [];

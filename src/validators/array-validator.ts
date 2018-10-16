@@ -29,7 +29,7 @@ export default class ArrayValidator implements Validator {
     const { items, minLength, maxLength } = this.options;
 
     if (typeof value !== 'object' || !Array.isArray(value)) {
-      return [ { message: `not an array`, path, value } ];
+      return [ { message: `must be an array`, path, value } ];
     }
 
     let errors: ValidationError[] = [];

@@ -1,9 +1,10 @@
 import { Validator } from './interfaces';
+import ArrayValidator from './validators/array-validator';
+import ConstantValidator, { AllowedValueTypes } from './validators/constant-validator';
 import NumberValidator from './validators/number-validator';
 import ObjectValidator from './validators/object-validator';
 import OrValidator from './validators/or-validator';
 import StringValidator from './validators/string-validator';
-import ArrayValidator from './validators/array-validator';
 
 export default abstract class jointz {
   static string(): StringValidator {
@@ -24,5 +25,9 @@ export default abstract class jointz {
 
   static array(): ArrayValidator {
     return new ArrayValidator({});
+  }
+
+  static constant(...allowedValues: AllowedValueTypes[]): ConstantValidator {
+    return new ConstantValidator({ allowedValues: allowedValues });
   }
 }

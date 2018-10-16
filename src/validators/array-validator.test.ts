@@ -5,11 +5,11 @@ import jointz from '../index';
 describe('jointz#array', () => {
   it('expects arrays', () => {
     expect(jointz.array().validate({}))
-      .to.deep.eq([ { message: 'not an array', path: '', value: {} } ]);
+      .to.deep.eq([ { message: 'must be an array', path: '', value: {} } ]);
     expect(jointz.array().validate('abc'))
-      .to.deep.eq([ { message: 'not an array', path: '', value: 'abc' } ]);
+      .to.deep.eq([ { message: 'must be an array', path: '', value: 'abc' } ]);
     expect(jointz.array().validate(123))
-      .to.deep.eq([ { message: 'not an array', path: '', value: 123 } ]);
+      .to.deep.eq([ { message: 'must be an array', path: '', value: 123 } ]);
   });
 
   it('checks minimum length', () => {

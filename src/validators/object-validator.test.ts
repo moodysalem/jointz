@@ -1,6 +1,6 @@
+import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import jointz from '../index';
-import { expect } from 'chai';
 
 describe('jointz#object', () => {
   it('expects objects', () => {
@@ -25,6 +25,53 @@ describe('jointz#object', () => {
       .to.deep.eq([ { message: 'must be a number', path: '.abc', value: 'hello' } ]);
   });
 
+  it('works with nested objects', () => {
+    const nested = jointz.object().keys({
+      abc: jointz.object().keys({ def: jointz.number() }).requiredKeys('def')
+    }).requiredKeys('abc');
+
+    expect(nested.validate({ abc: {} }))
+      .to.deep.eq([ { message: 'required key "def" was not defined', path: '.abc', value: {} } ]);
+    expect(nested.validate({ abc: { def: 'string' } }))
+      .to.deep.eq([ { message: 'must be a number', path: '.abc.def', value: 'string' } ]);
+  });
+
+  describe('#concat', () => {
+    it('only concatenates the keys', () => {
+      const obj = jointz.object().keys({
+        abc: jointz.string().alphanum().minLength(10).maxLength(100)
+      }).requiredKeys('abc');
+      const concatenated = obj.concat({
+        def: jointz.string()
+      }).requiredKeys('def');
+
+      expect(obj.validate({ abc: 'abcdefghijklmnop' }))
+        .to.deep.eq([]);
+      expect(concatenated.validate({ abc: 'abcdefghijklmnop' }))
+        .to.deep.eq([ {
+        message: 'required key "def" was not defined',
+        path: '',
+        value: { abc: 'abcdefghijklmnop' }
+      } ]);
+    });
+
+  });
+
+  describe('#allowUnknownKeys', () => {
+    it('results in errors if unknown keys present', () => {
+      expect(jointz.object().allowUnknownKeys(false).validate({ abc: 123 }))
+        .to.deep.eq([ { message: 'encountered unknown key "abc"', path: '', value: { abc: 123 } } ]);
+    });
+  });
+
+  describe('#requiredKeys', () => {
+    it('does not duplicate messages for duplicate required keys', () => {
+      expect(
+        jointz.object().requiredKeys('abc', 'abc').validate({})
+      ).to.deep.eq([ { message: 'required key "abc" was not defined', path: '', value: {} } ]);
+    });
+  });
+
   describe('#merge', () => {
     it('merges both required keys and keys', () => {
       const obj1 = jointz.object().keys({});
@@ -33,6 +80,14 @@ describe('jointz#object', () => {
 
       expect(merged.validate({}))
         .to.deep.eq([ { message: 'required key "abc" was not defined', path: '', value: {} } ]);
+    });
+
+    it('does not duplicate error messages for required keys', () => {
+      expect(
+        jointz.object().requiredKeys('abc')
+          .merge(jointz.object().requiredKeys('abc'))
+          .validate({})
+      ).to.deep.eq([ { message: 'required key "abc" was not defined', path: '', value: {} } ]);
     });
   });
 });

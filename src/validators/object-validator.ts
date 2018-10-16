@@ -53,7 +53,7 @@ export default class ObjectValidator implements Validator {
 
     for (let key in value) {
       if (value.hasOwnProperty(key)) {
-        if (keys && keys[ key ]) {
+        if (keys && typeof keys[ key ] !== 'undefined') {
           errors = errors.concat(keys[ key ].validate(value[ key ], `${path}.${key}`));
         } else if (!allowUnknownKeys) {
           errors.push({ message: `encountered unknown key "${key}"`, path, value });
