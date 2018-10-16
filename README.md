@@ -18,6 +18,7 @@ Zero dependency universal TypeScript validation library. Similar interface to Jo
 - Implement your own validator interface
 - Fluid [Joi](https://github.com/hapijs/joi)-like interface
 - Targets both browsers and node
+- i18n (coming soon)
 
 ## Installation
 
@@ -35,22 +36,24 @@ Alternately you can use it in the browser via unpkg
 ## Usage
 Import the default export from `jointz`
 
-```js
+```typescript
 import jointz from 'jointz';
 ``` 
 
 Then use it to construct validators
 
-```js
+```typescript
 const Thing = jointz.object().keys({
   id: jointz.string().uuid(),
   name: jointz.string().minLength(3).maxLength(100)
 }).requiredKeys(['id', 'name']);
 ```
 
-The validator can now be used to check for errors
+The validator can now be used to check for errors.
+`Validator#validate` returns an array of validation errors,
+which is empty if the `value` passes validation. 
 
-```js
+```typescript
 const myObject = { id: 'abc', name: 'hello world!' };
 const errors = Thing.validate(errors); // expect an error because id is not a uuid
 
@@ -58,5 +61,19 @@ if (errors.length) {
   // Fail
 } else {
   // Continue
+}
+```
+
+All errors are in the following format. 
+The value is the erroneous value, where applicable
+ (e.g. not so in the case of missing required keys)
+and the path describes where in the value the error was found
+ (e.g. in the case of nested objects) 
+
+```typescript
+interface ValidationError {
+  path: string;
+  message: string;
+  value?: any;
 }
 ```
