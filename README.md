@@ -4,34 +4,25 @@
 [![npm](https://img.shields.io/npm/v/jointz.svg)](https://www.npmjs.com/package/jointz)
 [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/jointz.svg)](https://bundlephobia.com/result?p=jointz)
 
-
-
-
 Zero dependency universal TypeScript validation library. Similar interface to Joi but without all the bloat, built for browsers and node with zero runtime dependencies.
 
 ## Features
 
 - Written in TypeScript
-- Zero dependencies
-- Tiny
-- Supports `string`, `number`, `array`, and `object` validation
+- Zero dependencies & tiny
+- Supports `string`, `number`, `array`, `tuple`, `constant`, `or` and `object` validation
 - Implement your own validator interface
-- Fluid [Joi](https://github.com/hapijs/joi)-like interface
+- Fluid [Joi](https://github.com/hapijs/joi) -ish interface
 - Targets both browsers and node
 - i18n (coming soon)
 
 ## Installation
 
-You can install it via NPM
+You can install it via npm or yarn
 
 `npm i --save jointz`
 
-Alternately you can use it in the browser via unpkg
-
-```html
-<script src="https://unpkg.com/jointz@0.0.7/dist/jointz.js"></script>
-```
-
+`yarn add jointz`
 
 ## Usage
 Import the default export from `jointz`

@@ -14,4 +14,12 @@ describe('jointz#or', () => {
     expect(jointz.or(jointz.string(), jointz.number()).validate({}, '.abc'))
       .to.deep.eq([ { message: 'did not match any of the expected types', path: '.abc', value: {} } ]);
   });
+
+  it('accepts an array', () => {
+    expect(jointz.or([ jointz.string(), jointz.number() ]).validate('abc'))
+      .to.deep.eq([]);
+
+    expect(jointz.or([ jointz.string(), jointz.number() ]).validate(1))
+      .to.deep.eq([]);
+  });
 });

@@ -90,4 +90,12 @@ describe('jointz#object', () => {
       ).to.deep.eq([ { message: 'required key "abc" was not defined', path: '', value: {} } ]);
     });
   });
+
+  it('can have keys specified', () => {
+    expect(jointz.object({ abc: jointz.constant('def') }).validate({ abc: 'def' }))
+      .to.be.an('array').with.length(0);
+
+    expect(jointz.object({ abc: jointz.constant('def') }).validate({ abc: 'red' }))
+      .to.deep.eq([ { message: 'must be one of "def"', path: '.abc', value: 'red' } ]);
+  });
 });

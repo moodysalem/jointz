@@ -4,10 +4,10 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
+    "alwaysStrict": true,
     "sourceMap": true,
-    "outDir": "lib/",
     "declaration": true,
-    "module": "commonjs"
+    "outDir": "lib"
   },
   "include": [
     "src/**/*.ts"
