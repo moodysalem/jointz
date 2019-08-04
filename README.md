@@ -4,17 +4,16 @@
 [![npm](https://img.shields.io/npm/v/jointz.svg)](https://www.npmjs.com/package/jointz)
 [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/jointz.svg)](https://bundlephobia.com/result?p=jointz)
 
-Zero dependency universal TypeScript validation library. Similar interface to Joi but without all the bloat, built for browsers and node with zero runtime dependencies.
+Zero dependency universal TypeScript validation library. Similar interface to [Joi](https://github.com/hapijs/joi) but without all the bloat, and built for browsers and node with zero dependencies.
 
 ## Features
 
 - Written in TypeScript
-- Zero dependencies & tiny
+- Zero dependencies & tiny & well tested
 - Supports `string`, `number`, `array`, `tuple`, `constant`, `or` and `object` validation
-- Implement your own validator interface
-- Fluid [Joi](https://github.com/hapijs/joi) -ish interface
+- Implement your own validator interface and use it with any of the other validators
+- Fluid immutable interface
 - Targets both browsers and node
-- i18n (coming soon)
 
 ## Installation
 
@@ -25,6 +24,7 @@ You can install it via npm or yarn
 `yarn add jointz`
 
 ## Usage
+
 Import the default export from `jointz`
 
 ```typescript
@@ -34,7 +34,7 @@ import jointz from 'jointz';
 Then use it to construct validators
 
 ```typescript
-const Thing = jointz.object().keys({
+const Thing = jointz.object({
   id: jointz.string().uuid(),
   name: jointz.string().minLength(3).maxLength(100)
 }).requiredKeys(['id', 'name']);
@@ -55,11 +55,9 @@ if (errors.length) {
 }
 ```
 
-All errors are in the following format. 
-The value is the erroneous value, where applicable
- (e.g. not so in the case of missing required keys)
-and the path describes where in the value the error was found
- (e.g. in the case of nested objects) 
+### Errors
+
+Errors match the following interface:
 
 ```typescript
 interface ValidationError {
@@ -68,3 +66,9 @@ interface ValidationError {
   value?: any;
 }
 ```
+
+- `path` is a period delimited string indicating where in the given value the error was found
+- `message` is a human readable message that describes the validation error
+- `value` is the erroneous value
+
+In some cases value may not be present, e.g. when an object validator detects missing required keys.
