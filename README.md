@@ -34,7 +34,7 @@ import jointz from 'jointz';
 Then use it to construct validators
 
 ```typescript
-const Thing = jointz.object({
+const ThingValidator = jointz.object({
   id: jointz.string().uuid(),
   name: jointz.string().minLength(3).maxLength(100)
 }).requiredKeys(['id', 'name']);
@@ -46,7 +46,8 @@ which is empty if the `value` passes validation.
 
 ```typescript
 const myObject = { id: 'abc', name: 'hello world!' };
-const errors = Thing.validate(myObject); // expect an error because id is not a uuid
+
+const errors = ThingValidator.validate(myObject); // expect an error because id is not a uuid
 
 if (errors.length) {
   // Fail
