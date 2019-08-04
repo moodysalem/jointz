@@ -17,11 +17,17 @@ Zero dependency universal TypeScript validation library. Similar interface to [J
 
 ## Installation
 
-You can install it via npm or yarn
+You can install it via npm
 
-`npm i --save jointz`
+```
+npm i --save jointz
+```
 
-`yarn add jointz`
+or yarn
+
+```
+yarn add jointz
+```
 
 ## Usage
 
