@@ -9,6 +9,9 @@ interface StringValidatorOptions {
   readonly maxLength?: number;
 }
 
+/**
+ * Validates that a given value is a string with some format and minimum or maximum length.
+ */
 export default class StringValidator extends Validator<string> {
   private readonly options: StringValidatorOptions;
 
@@ -17,24 +20,50 @@ export default class StringValidator extends Validator<string> {
     this.options = options;
   }
 
+  /**
+   * Return a new validator that checks the string is not shorter than the given length.
+   * @param min
+   */
   public minLength(min: number) {
+    if (min < 0) {
+      throw new Error(`given ${min} cannot be less than 0`);
+    }
+
     return new StringValidator({ ...this.options, minLength: min });
   }
 
+  /**
+   * Returns a new string validator that checks the string does not exceed the maximum length
+   * @param max length that the string may not exceed
+   */
   public maxLength(max: number) {
+    if (max < 0) {
+      throw new Error(`given ${max} cannot be less than 0`);
+    }
+
     return new StringValidator({ ...this.options, maxLength: max });
   }
 
+  /**
+   * Return a string validator that checks the string matches a given pattern.
+   * @param pattern to check
+   */
   public pattern(pattern: RegExp) {
     return new StringValidator({ ...this.options, pattern });
   }
 
+  /**
+   * Return a string validator that checks the string is alphanumeric.
+   */
   public alphanum(): StringValidator {
     return new StringValidator({ ...this.options, pattern: ALPHANUMERIC_REGEX });
   }
 
+  /**
+   * Return a string validator that checks the string is a uuid.
+   */
   public uuid() {
-    return new StringValidator({ ...this.options, pattern: UUID_REGEX });
+    return new StringValidator({ ...this.options, pattern: UUID_REGEX, minLength: 36, maxLength: 36 });
   }
 
   public validate(value: any, path: string = ''): ValidationError[] {
