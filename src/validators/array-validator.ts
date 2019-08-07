@@ -6,6 +6,9 @@ interface ArrayValidatorOptions<TItem> {
   readonly maxLength?: number;
 }
 
+/**
+ * Validator that checks that the value is an array of a particular kind of item
+ */
 export default class ArrayValidator<TItem> extends Validator<TItem[]> {
   private readonly options: ArrayValidatorOptions<TItem>;
 
@@ -14,15 +17,33 @@ export default class ArrayValidator<TItem> extends Validator<TItem[]> {
     this.options = options;
   }
 
+  /**
+   * A valid array must have at least min elements
+   * @param min min array length
+   */
   public minLength(min: number) {
+    if (min < 0) {
+      throw new Error(`min ${min} must be greater than or equal to 0`);
+    }
     return new ArrayValidator({ ...this.options, minLength: min });
   }
 
+  /**
+   * A valid array must have at most max elements
+   * @param max max array length
+   */
   public maxLength(max: number) {
+    if (max < 0) {
+      throw new Error(`max ${max} must be greater than or equal to 0`);
+    }
     return new ArrayValidator({ ...this.options, maxLength: max });
   }
 
-  public items(items: Validator<TItem>) {
+  /**
+   * Specify the type of the item allowed for the array validator
+   * @param items type of items allowed in the array
+   */
+  public items<TItem>(items: Validator<TItem>): ArrayValidator<TItem> {
     return new ArrayValidator({ ...this.options, items });
   }
 

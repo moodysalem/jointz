@@ -24,7 +24,7 @@ export default class StringValidator extends Validator<string> {
    * Return a new validator that checks the string is not shorter than the given length.
    * @param min
    */
-  public minLength(min: number) {
+  public minLength(min: number): StringValidator {
     if (min < 0) {
       throw new Error(`given ${min} cannot be less than 0`);
     }
@@ -36,7 +36,7 @@ export default class StringValidator extends Validator<string> {
    * Returns a new string validator that checks the string does not exceed the maximum length
    * @param max length that the string may not exceed
    */
-  public maxLength(max: number) {
+  public maxLength(max: number): StringValidator {
     if (max < 0) {
       throw new Error(`given ${max} cannot be less than 0`);
     }
@@ -48,7 +48,7 @@ export default class StringValidator extends Validator<string> {
    * Return a string validator that checks the string matches a given pattern.
    * @param pattern to check
    */
-  public pattern(pattern: RegExp) {
+  public pattern(pattern: RegExp): StringValidator {
     return new StringValidator({ ...this.options, pattern });
   }
 
@@ -62,8 +62,8 @@ export default class StringValidator extends Validator<string> {
   /**
    * Return a string validator that checks the string is a uuid.
    */
-  public uuid() {
-    return new StringValidator({ ...this.options, pattern: UUID_REGEX, minLength: 36, maxLength: 36 });
+  public uuid(): StringValidator {
+    return new StringValidator({ ...this.options, pattern: UUID_REGEX });
   }
 
   public validate(value: any, path: string = ''): ValidationError[] {

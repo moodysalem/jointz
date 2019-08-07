@@ -14,18 +14,33 @@ export default class NumberValidator extends Validator<number> {
     this.options = options;
   }
 
+  /**
+   * Limit the number to be greater than or equal to the min
+   * @param min min number
+   */
   public min(min: number) {
     return new NumberValidator({ ...this.options, min });
   }
 
+  /**
+   * Limit the number to be less than or equal to the max
+   * @param max max number
+   */
   public max(max: number) {
     return new NumberValidator({ ...this.options, max });
   }
 
+  /**
+   * Limit the number validator to only allow numbers that are a multiple of the given value
+   * @param multipleOf number that a valid value must be a multiple of
+   */
   public multipleOf(multipleOf: number) {
     return new NumberValidator({ ...this.options, multipleOf });
   }
 
+  /**
+   * Limit the number validator to only allow integers. Alias to #multipleOf(1).
+   */
   public integer() {
     return this.multipleOf(1);
   }

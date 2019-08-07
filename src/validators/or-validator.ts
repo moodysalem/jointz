@@ -1,9 +1,13 @@
 import { ValidationError, Validator } from '../interfaces';
 
 interface OrValidatorOptions {
-  validators: Validator[]
+  // The list of validators of which any one validator must pass for the value to be considered valid
+  readonly validators: Validator<any>[];
 }
 
+/**
+ * Return a validator that passes if any of the validations succeed.
+ */
 export default class OrValidator<TOptions> extends Validator<TOptions> {
   private readonly options: OrValidatorOptions;
 

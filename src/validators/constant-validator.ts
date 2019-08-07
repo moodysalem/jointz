@@ -16,6 +16,9 @@ interface ConstantValidatorOptions {
   readonly allowedValues: AllowedValueTypes[]
 }
 
+/**
+ * Validator that checks that a value is one of a given set of constants
+ */
 export default class ConstantValidator<TValues> extends Validator<TValues> {
   private readonly options: ConstantValidatorOptions;
 

@@ -1,5 +1,5 @@
 import { Validator } from './interfaces';
-import { spreadArgsToArray } from './util/spread-args-to-array';
+import { SpreadArgs, spreadArgsToArray } from './util/spread-args-to-array';
 import ArrayValidator from './validators/array-validator';
 import ConstantValidator, { AllowedValueTypes } from './validators/constant-validator';
 import NumberValidator from './validators/number-validator';
@@ -13,7 +13,7 @@ export default abstract class jointz {
     return new StringValidator({});
   }
 
-  static object(keys?: Keys): ObjectValidator {
+  static object(keys?: Keys): ObjectValidator<any> {
     return new ObjectValidator({ keys, allowUnknownKeys: true });
   }
 
@@ -21,19 +21,21 @@ export default abstract class jointz {
     return new NumberValidator({});
   }
 
-  static tuple(...validators: Validator[] | [ Validator[] ]): TupleValidator {
+  static tuple(...validators: SpreadArgs<Validator<any>>): TupleValidator<any> {
     return new TupleValidator({ validators: spreadArgsToArray(validators) });
   }
 
-  static or(...validators: Validator[] | [ Validator[] ]): OrValidator {
+  static or(...validators: SpreadArgs<Validator<any>>): OrValidator<any> {
     return new OrValidator({ validators: spreadArgsToArray(validators) });
   }
 
-  static array(itemValidator?: Validator): ArrayValidator {
+  static array<T>(itemValidator?: Validator<T>): ArrayValidator<T> {
     return new ArrayValidator({ items: itemValidator });
   }
 
-  static constant(...allowedValues: AllowedValueTypes[] | [ AllowedValueTypes[] ]): ConstantValidator {
+  static constant(...allowedValues: SpreadArgs<AllowedValueTypes>): ConstantValidator<any> {
     return new ConstantValidator({ allowedValues: spreadArgsToArray(allowedValues) });
   }
 }
+
+export { Validator };
