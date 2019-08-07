@@ -1,17 +1,18 @@
 import { ValidationError, Validator } from '../interfaces';
 
-interface TupleValidatorOptions {
-  readonly validators: Validator[];
+interface TupleValidatorOptions<TValidators extends Validator<any>[]> {
+  readonly validators: TValidators;
 }
 
-export default class TupleValidator implements Validator {
-  private readonly options: TupleValidatorOptions;
+export default class TupleValidator<TTuple extends Validator<any>[]> extends Validator<TTuple> {
+  private readonly options: TupleValidatorOptions<TTuple>;
 
-  public constructor(options: TupleValidatorOptions) {
+  public constructor(options: TupleValidatorOptions<TTuple>) {
+    super();
     this.options = options;
   }
 
-  validate(value: any, path: string = ''): ValidationError[] {
+  public validate(value: any, path: string = ''): ValidationError[] {
     const { validators } = this.options;
 
     if (!Array.isArray(value)) {

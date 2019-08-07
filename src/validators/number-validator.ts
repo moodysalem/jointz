@@ -6,10 +6,11 @@ interface NumberValidatorOptions {
   readonly max?: number;
 }
 
-export default class NumberValidator implements Validator {
+export default class NumberValidator extends Validator<number> {
   private readonly options: NumberValidatorOptions;
 
   public constructor(options: NumberValidatorOptions) {
+    super();
     this.options = options;
   }
 
@@ -29,7 +30,7 @@ export default class NumberValidator implements Validator {
     return this.multipleOf(1);
   }
 
-  validate(value: any, path: string = ''): ValidationError[] {
+  public validate(value: any, path: string = ''): ValidationError[] {
     const { multipleOf, min, max } = this.options;
 
     if (typeof value !== 'number') {

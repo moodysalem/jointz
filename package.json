@@ -60,7 +60,6 @@
     "nyc": "^13.3.0",
     "rimraf": "^2.6.3",
     "source-map-support": "^0.5.12",
-    "ts-loader": "^5.4.5",
     "ts-node": "^7.0.1",
     "typedoc": "^0.15.0",
     "typescript": "^3.5.3"

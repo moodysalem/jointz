@@ -1,6 +1,6 @@
-import jointz from './index';
-import { describe, it } from 'mocha';
 import { expect } from 'chai';
+import { describe, it } from 'mocha';
+import jointz from './index';
 
 describe('jointz', () => {
   it('exports a single class', () => {
@@ -8,7 +8,7 @@ describe('jointz', () => {
   });
 
   // expected keys on the object
-  [ 'array', 'object', 'string', 'number', 'or' ].forEach(
+  [ 'array', 'object', 'string', 'number', 'or', 'tuple', 'constant' ].forEach(
     func => {
       it(`has a static function: ${func}`, () => {
         expect((jointz as any)[ func ]).to.be.a('function');

@@ -11,14 +11,15 @@ interface ObjectValidatorOptions {
   readonly allowUnknownKeys?: boolean;
 }
 
-export default class ObjectValidator implements Validator {
+export default class ObjectValidator<TObject> extends Validator<TObject> {
   private readonly options: ObjectValidatorOptions;
 
   public constructor(options: ObjectValidatorOptions) {
+    super();
     this.options = options;
   }
 
-  public requiredKeys(...requiredKeys: string[]): ObjectValidator {
+  public requiredKeys(...requiredKeys: string[]): ObjectValidator<TObject> {
     return new ObjectValidator({ ...this.options, requiredKeys: uniqueString(requiredKeys) });
   }
 
@@ -42,7 +43,7 @@ export default class ObjectValidator implements Validator {
     return new ObjectValidator({ ...this.options, allowUnknownKeys });
   }
 
-  validate(value: any, path: string = ''): ValidationError[] {
+  public validate(value: any, path: string = ''): ValidationError[] {
     const { requiredKeys, keys, allowUnknownKeys } = this.options;
 
     if (typeof value !== 'object' || Array.isArray(value)) {

@@ -4,14 +4,15 @@ interface OrValidatorOptions {
   validators: Validator[]
 }
 
-export default class OrValidator implements Validator {
+export default class OrValidator<TOptions> extends Validator<TOptions> {
   private readonly options: OrValidatorOptions;
 
   public constructor(options: OrValidatorOptions) {
+    super();
     this.options = options;
   }
 
-  validate(value: any, path: string = ''): ValidationError[] {
+  public validate(value: any, path: string = ''): ValidationError[] {
     const { validators } = this.options;
 
     for (let i in validators) {

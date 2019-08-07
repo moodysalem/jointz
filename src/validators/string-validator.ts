@@ -9,10 +9,11 @@ interface StringValidatorOptions {
   readonly maxLength?: number;
 }
 
-export default class StringValidator implements Validator {
+export default class StringValidator extends Validator<string> {
   private readonly options: StringValidatorOptions;
 
   public constructor(options: StringValidatorOptions) {
+    super();
     this.options = options;
   }
 
@@ -36,7 +37,7 @@ export default class StringValidator implements Validator {
     return new StringValidator({ ...this.options, pattern: UUID_REGEX });
   }
 
-  validate(value: any, path: string = ''): ValidationError[] {
+  public validate(value: any, path: string = ''): ValidationError[] {
     const { pattern, minLength, maxLength } = this.options;
 
     if (typeof value !== 'string') {

@@ -1,15 +1,16 @@
 import { ValidationError, Validator } from '../interfaces';
 
-interface ArrayValidatorOptions {
-  readonly items?: Validator;
+interface ArrayValidatorOptions<TItem> {
+  readonly items?: Validator<TItem>;
   readonly minLength?: number;
   readonly maxLength?: number;
 }
 
-export default class ArrayValidator implements Validator {
-  private readonly options: ArrayValidatorOptions;
+export default class ArrayValidator<TItem> extends Validator<TItem[]> {
+  private readonly options: ArrayValidatorOptions<TItem>;
 
-  public constructor(options: ArrayValidatorOptions) {
+  public constructor(options: ArrayValidatorOptions<TItem>) {
+    super();
     this.options = options;
   }
 
@@ -21,11 +22,11 @@ export default class ArrayValidator implements Validator {
     return new ArrayValidator({ ...this.options, maxLength: max });
   }
 
-  public items(items: Validator) {
+  public items(items: Validator<TItem>) {
     return new ArrayValidator({ ...this.options, items });
   }
 
-  validate(value: any, path: string = ''): ValidationError[] {
+  public validate(value: any, path: string = ''): ValidationError[] {
     const { items, minLength, maxLength } = this.options;
 
     if (typeof value !== 'object' || !Array.isArray(value)) {
