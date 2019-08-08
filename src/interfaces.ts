@@ -11,9 +11,9 @@ export interface ValidationError {
 }
 
 /**
- * The validation error that is thrown from validateThrow.
+ * The validation error that is thrown from checkValid.
  */
-export class ValidationErrorThrow extends Error {
+export class FailedValidationError extends Error {
   public readonly errors: ValidationError[];
 
   constructor(errors: ValidationError[]) {
@@ -53,9 +53,14 @@ export abstract class Validator<TValid> {
     const errors = this.validate(value);
 
     if (errors.length > 0) {
-      throw new ValidationErrorThrow(errors);
+      throw new FailedValidationError(errors);
     }
 
     return true;
   }
 }
+
+/**
+ * Extracts the result type from a validator. Define your validator and then use this to get the type of result.
+ */
+export type ExtractResultType<TValidator> = TValidator extends Validator<infer T> ? T : unknown;

@@ -13,7 +13,7 @@ function isSupportedValueType(value: any): value is null | undefined | string | 
 }
 
 interface ConstantValidatorOptions {
-  readonly allowedValues: AllowedValueTypes[]
+  readonly allowedValues: AllowedValueTypes[];
 }
 
 /**

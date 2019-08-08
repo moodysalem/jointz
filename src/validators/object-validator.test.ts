@@ -98,4 +98,14 @@ describe('jointz#object', () => {
     expect(jointz.object({ abc: jointz.constant('def') }).validate({ abc: 'red' }))
       .to.deep.eq([ { message: 'must be one of "def"', path: '.abc', value: 'red' } ]);
   });
+
+  it('typeguards properly', () => {
+    const validator = jointz.object({ name: jointz.string() });
+
+    const value = { name: 'abc' };
+
+    if (validator.isValid(value)) {
+      expect(value.name).to.eq('abc');
+    }
+  });
 });

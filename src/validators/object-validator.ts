@@ -1,10 +1,14 @@
-import { ValidationError, Validator } from '../interfaces';
+import { ExtractResultType, ValidationError, Validator } from '../interfaces';
 import { SpreadArgs, spreadArgsToArray } from '../util/spread-args-to-array';
 import uniqueString from '../util/unique-string';
 
 export interface Keys {
   [ key: string ]: Validator<any>;
 }
+
+export type ExtractObjectType<TKeys extends Keys> = {
+  [K in keyof TKeys]: ExtractResultType<TKeys[K]>;
+};
 
 interface ObjectValidatorOptions {
   readonly keys?: Keys;
@@ -32,7 +36,7 @@ export default class ObjectValidator<TObject extends {}> extends Validator<TObje
    * Redefine the key values of the object
    * @param keys the key validation spec
    */
-  public keys<TObject>(keys: Keys): ObjectValidator<TObject> {
+  public keys<TKeys extends Keys>(keys: TKeys): ObjectValidator<ExtractObjectType<TKeys>> {
     return new ObjectValidator({ ...this.options, keys });
   }
 
