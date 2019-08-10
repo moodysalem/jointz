@@ -8,7 +8,7 @@ const SUPPORTED_VALUE_TYPEOF: readonly string[] = [ 'string', 'number', 'boolean
  * Return true if the given value is one of the supported value types
  * @param value to check
  */
-function isSupportedValueType(value: any): value is null | undefined | string | number | boolean {
+function isSupportedValueType(value: any): value is AllowedValueTypes {
   return value === null || SUPPORTED_VALUE_TYPEOF.indexOf(typeof value) !== -1;
 }
 
@@ -19,7 +19,7 @@ interface ConstantValidatorOptions {
 /**
  * Validator that checks that a value is one of a given set of constants
  */
-export default class ConstantValidator<TValues> extends Validator<TValues> {
+export default class ConstantValidator<TValues extends AllowedValueTypes> extends Validator<TValues> {
   private readonly options: ConstantValidatorOptions;
 
   public constructor(options: ConstantValidatorOptions) {

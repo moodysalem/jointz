@@ -55,4 +55,12 @@ describe('jointz#constant', () => {
       value: {}
     } ]);
   });
+
+  it('isValid typeguards values', () => {
+    const validator = jointz.constant('abc');
+    const value: unknown = 'abc';
+    if (validator.isValid(value)) {
+      expect(value.length).to.eq(3);
+    }
+  });
 });

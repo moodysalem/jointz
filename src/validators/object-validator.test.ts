@@ -99,7 +99,7 @@ describe('jointz#object', () => {
       .to.deep.eq([ { message: 'must be one of "def"', path: '.abc', value: 'red' } ]);
   });
 
-  it('typeguards properly', () => {
+  it('isValid typeguards properly', () => {
     const validator = jointz.object({ name: jointz.string() });
 
     const value = { name: 'abc' };
