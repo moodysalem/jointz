@@ -26,5 +26,13 @@ describe('Validator', () => {
       expect(value.substring(0, 1)).to.eq('a');
     }
   });
+
+  it('checkValid typeguards when it does not throw', () => {
+    const value: unknown = 'abc';
+    expect(validator.checkValid(value)).eq(true);
+    if (validator.checkValid(value)) {
+      expect(value.substring(0, 1)).to.eq('a');
+    }
+  });
 });
 

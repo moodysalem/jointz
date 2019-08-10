@@ -23,7 +23,7 @@ export default class ArrayValidator<TItem> extends Validator<TItem[]> {
    */
   public minLength(min: number) {
     if (min < 0) {
-      throw new Error(`min ${min} must be greater than or equal to 0`);
+      throw new Error(`min length ${min} must be greater than or equal to 0`);
     }
     return new ArrayValidator({ ...this.options, minLength: min });
   }
@@ -34,7 +34,7 @@ export default class ArrayValidator<TItem> extends Validator<TItem[]> {
    */
   public maxLength(max: number) {
     if (max < 0) {
-      throw new Error(`max ${max} must be greater than or equal to 0`);
+      throw new Error(`max length ${max} must be greater than or equal to 0`);
     }
     return new ArrayValidator({ ...this.options, maxLength: max });
   }

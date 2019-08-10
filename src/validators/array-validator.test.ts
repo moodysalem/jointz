@@ -37,6 +37,14 @@ describe('jointz#array', () => {
     }, { message: 'length 2 was shorter than minimum length: 3', path: '.1', value: 'de' } ]);
   });
 
+  it('throws with invalid minLength', () => {
+    expect(() => jointz.array(jointz.number()).minLength(-1)).to.throw('min length -1 must be greater than or equal to 0');
+  });
+
+  it('throws with invalid maxLength', () => {
+    expect(() => jointz.array(jointz.number()).maxLength(-1)).to.throw('max length -1 must be greater than or equal to 0');
+  });
+
   it('isValid typeguards properly', () => {
     const validator = jointz.array(jointz.object({ value: jointz.number() }));
     const value: unknown = [ { value: 1 }, { value: 2 }, { value: 3 } ];

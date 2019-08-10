@@ -26,7 +26,7 @@ export default class StringValidator extends Validator<string> {
    */
   public minLength(min: number): StringValidator {
     if (min < 0) {
-      throw new Error(`given ${min} cannot be less than 0`);
+      throw new Error(`min length ${min} must be greater than or equal to 0`);
     }
 
     return new StringValidator({ ...this.options, minLength: min });
@@ -38,7 +38,7 @@ export default class StringValidator extends Validator<string> {
    */
   public maxLength(max: number): StringValidator {
     if (max < 0) {
-      throw new Error(`given ${max} cannot be less than 0`);
+      throw new Error(`max length ${max} must be greater than or equal to 0`);
     }
 
     return new StringValidator({ ...this.options, maxLength: max });

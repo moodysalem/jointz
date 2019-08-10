@@ -58,6 +58,14 @@ describe('jointz#string', () => {
       .to.be.an('array').with.length(1);
   });
 
+  it('throws with invalid minLength', () => {
+    expect(() => jointz.string().minLength(-1)).to.throw('min length -1 must be greater than or equal to 0');
+  });
+
+  it('throws with invalid maxLength', () => {
+    expect(() => jointz.string().maxLength(-1)).to.throw('max length -1 must be greater than or equal to 0');
+  });
+
   it('isValid typeguards properly', () => {
     const validator = jointz.string();
     const value: unknown = 'abc';
