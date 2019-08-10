@@ -77,5 +77,3 @@ interface ValidationError {
 - `path` is a period delimited string indicating where in the given value the error was found
 - `message` is a human readable message that describes the validation error
 - `value` is the erroneous value
-
-In some cases value may not be present, e.g. when an object validator detects missing required keys.
