@@ -29,4 +29,5 @@ describe('jointz#tuple', () => {
       .to.deep.eq([]);
   });
 
+  it('isValid typeguards properly');
 });

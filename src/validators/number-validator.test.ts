@@ -39,4 +39,16 @@ describe('jointz#number', () => {
     expect(jointz.number().min(2).validate(1))
       .to.deep.eq([ { message: '1 must be greater than or equal to 2', path: '', value: 1 } ]);
   });
+
+  it('isValid typeguards properly', () => {
+    const validator = jointz.number();
+    const value: unknown = 3.1;
+
+    expect(validator.isValid(value)).eq(true);
+
+    if (validator.isValid(value)) {
+      // toPrecision only available on number type
+      expect(value.toPrecision(1)).eq('3');
+    }
+  });
 });

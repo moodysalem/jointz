@@ -22,4 +22,6 @@ describe('jointz#or', () => {
     expect(jointz.or([ jointz.string(), jointz.number() ]).validate(1))
       .to.deep.eq([]);
   });
+
+  it('isValid typeguards properly');
 });

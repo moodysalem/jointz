@@ -56,9 +56,12 @@ describe('jointz#constant', () => {
     } ]);
   });
 
-  it('isValid typeguards values', () => {
+  it('isValid typeguards properly', () => {
     const validator = jointz.constant('abc');
     const value: unknown = 'abc';
+
+    expect(validator.isValid(value)).eq(true);
+
     if (validator.isValid(value)) {
       expect(value.length).to.eq(3);
     }

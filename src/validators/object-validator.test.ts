@@ -104,6 +104,8 @@ describe('jointz#object', () => {
 
     const value = { name: 'abc' };
 
+    expect(validator.isValid(value)).eq(true);
+
     if (validator.isValid(value)) {
       expect(value.name).to.eq('abc');
     }

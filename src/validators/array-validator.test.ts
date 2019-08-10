@@ -36,4 +36,15 @@ describe('jointz#array', () => {
       value: 'a19-'
     }, { message: 'length 2 was shorter than minimum length: 3', path: '.1', value: 'de' } ]);
   });
+
+  it('isValid typeguards properly', () => {
+    const validator = jointz.array(jointz.object({ value: jointz.number() }));
+    const value: unknown = [ { value: 1 }, { value: 2 }, { value: 3 } ];
+
+    expect(validator.isValid(value)).eq(true);
+
+    if (validator.isValid(value)) {
+      expect(value[ 0 ].value + value[ 1 ].value + value[ 2 ].value).to.eq(6);
+    }
+  });
 });
