@@ -66,18 +66,24 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Validates that a given value is a string with some format and minimum or maximum length.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">StringValidator</span>
+						<a href="validator.html" class="tsd-signature-type">Validator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">StringValidator</span>
+							</li>
+						</ul>
 					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel">
-				<h3>Implements</h3>
-				<ul class="tsd-hierarchy">
-					<li><a href="../interfaces/validator.html" class="tsd-signature-type">Validator</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -100,11 +106,13 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="stringvalidator.html#alphanum" class="tsd-kind-icon">alphanum</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="stringvalidator.html#checkvalid" class="tsd-kind-icon">check<wbr>Valid</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="stringvalidator.html#isvalid" class="tsd-kind-icon">is<wbr>Valid</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="stringvalidator.html#maxlength" class="tsd-kind-icon">max<wbr>Length</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="stringvalidator.html#minlength" class="tsd-kind-icon">min<wbr>Length</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="stringvalidator.html#pattern" class="tsd-kind-icon">pattern</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="stringvalidator.html#uuid" class="tsd-kind-icon">uuid</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="stringvalidator.html#validate" class="tsd-kind-icon">validate</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="stringvalidator.html#validate" class="tsd-kind-icon">validate</a></li>
 							</ul>
 						</section>
 					</div>
@@ -122,7 +130,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/0a457da/src/validators/string-validator.ts#L13">validators/string-validator.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/7d75e0d/src/validators/string-validator.ts#L16">validators/string-validator.ts:16</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -144,7 +152,7 @@
 					<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <a href="../interfaces/stringvalidatoroptions.html" class="tsd-signature-type">StringValidatorOptions</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/0a457da/src/validators/string-validator.ts#L13">validators/string-validator.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/7d75e0d/src/validators/string-validator.ts#L16">validators/string-validator.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -161,10 +169,79 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/0a457da/src/validators/string-validator.ts#L31">validators/string-validator.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/7d75e0d/src/validators/string-validator.ts#L58">validators/string-validator.ts:58</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Return a string validator that checks the string is alphanumeric.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="stringvalidator.html" class="tsd-signature-type">StringValidator</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="checkvalid" class="tsd-anchor"></a>
+					<h3>check<wbr>Valid</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">check<wbr>Valid<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="validator.html">Validator</a>.<a href="validator.html#checkvalid">checkValid</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/7d75e0d/src/interfaces.ts#L52">interfaces.ts:52</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Validate the given value and throw if it&#39;s not valid</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>that is TValid</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="isvalid" class="tsd-anchor"></a>
+					<h3>is<wbr>Valid</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Valid<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="validator.html">Validator</a>.<a href="validator.html#isvalid">isValid</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/7d75e0d/src/interfaces.ts#L44">interfaces.ts:44</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Return true if the value is valid</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>value to check</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -178,13 +255,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/0a457da/src/validators/string-validator.ts#L23">validators/string-validator.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/7d75e0d/src/validators/string-validator.ts#L39">validators/string-validator.ts:39</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns a new string validator that checks the string does not exceed the maximum length</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>max: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>length that the string may not exceed</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="stringvalidator.html" class="tsd-signature-type">StringValidator</a></h4>
@@ -201,13 +286,20 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/0a457da/src/validators/string-validator.ts#L19">validators/string-validator.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/7d75e0d/src/validators/string-validator.ts#L27">validators/string-validator.ts:27</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Return a new validator that checks the string is not shorter than the given length.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>min: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="stringvalidator.html" class="tsd-signature-type">StringValidator</a></h4>
@@ -224,13 +316,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/0a457da/src/validators/string-validator.ts#L27">validators/string-validator.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/7d75e0d/src/validators/string-validator.ts#L51">validators/string-validator.ts:51</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Return a string validator that checks the string matches a given pattern.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>pattern: <span class="tsd-signature-type">RegExp</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>to check</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="stringvalidator.html" class="tsd-signature-type">StringValidator</a></h4>
@@ -247,24 +347,30 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/0a457da/src/validators/string-validator.ts#L35">validators/string-validator.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/7d75e0d/src/validators/string-validator.ts#L65">validators/string-validator.ts:65</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Return a string validator that checks the string is a uuid.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <a href="stringvalidator.html" class="tsd-signature-type">StringValidator</a></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 					<a name="validate" class="tsd-anchor"></a>
 					<h3>validate</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 						<li class="tsd-signature tsd-kind-icon">validate<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, path<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/validationerror.html" class="tsd-signature-type">ValidationError</a><span class="tsd-signature-symbol">[]</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Overrides <a href="validator.html">Validator</a>.<a href="validator.html#validate">validate</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/0a457da/src/validators/string-validator.ts#L39">validators/string-validator.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/7d75e0d/src/validators/string-validator.ts#L69">validators/string-validator.ts:69</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -292,19 +398,22 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-is-external">
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="arrayvalidator.html" class="tsd-kind-icon">Array<wbr>Validator</a>
 					</li>
-					<li class=" tsd-kind-class tsd-is-external">
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="constantvalidator.html" class="tsd-kind-icon">Constant<wbr>Validator</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="failedvalidationerror.html" class="tsd-kind-icon">Failed<wbr>Validation<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="numbervalidator.html" class="tsd-kind-icon">Number<wbr>Validator</a>
 					</li>
-					<li class=" tsd-kind-class tsd-is-external">
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="objectvalidator.html" class="tsd-kind-icon">Object<wbr>Validator</a>
 					</li>
-					<li class=" tsd-kind-class tsd-is-external">
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="orvalidator.html" class="tsd-kind-icon">Or<wbr>Validator</a>
 					</li>
 				</ul>
@@ -321,6 +430,12 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
 								<a href="stringvalidator.html#alphanum" class="tsd-kind-icon">alphanum</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="stringvalidator.html#checkvalid" class="tsd-kind-icon">check<wbr>Valid</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="stringvalidator.html#isvalid" class="tsd-kind-icon">is<wbr>Valid</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
 								<a href="stringvalidator.html#maxlength" class="tsd-kind-icon">max<wbr>Length</a>
 							</li>
@@ -333,20 +448,23 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
 								<a href="stringvalidator.html#uuid" class="tsd-kind-icon">uuid</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 								<a href="stringvalidator.html#validate" class="tsd-kind-icon">validate</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class tsd-is-external">
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="tuplevalidator.html" class="tsd-kind-icon">Tuple<wbr>Validator</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="validator.html" class="tsd-kind-icon">Validator</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="jointz.html" class="tsd-kind-icon">jointz</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-is-external tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-has-type-parameter tsd-is-external tsd-is-not-exported">
 						<a href="../interfaces/arrayvalidatoroptions.html" class="tsd-kind-icon">Array<wbr>Validator<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-external tsd-is-not-exported">
@@ -367,20 +485,29 @@
 					<li class=" tsd-kind-interface tsd-is-external tsd-is-not-exported">
 						<a href="../interfaces/stringvalidatoroptions.html" class="tsd-kind-icon">String<wbr>Validator<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-is-external tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-has-type-parameter tsd-is-external tsd-is-not-exported">
 						<a href="../interfaces/tuplevalidatoroptions.html" class="tsd-kind-icon">Tuple<wbr>Validator<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="../interfaces/validationerror.html" class="tsd-kind-icon">Validation<wbr>Error</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-is-external">
-						<a href="../interfaces/validator.html" class="tsd-kind-icon">Validator</a>
-					</li>
 					<li class=" tsd-kind-type-alias tsd-is-external">
 						<a href="../index.html#allowedvaluetypes" class="tsd-kind-icon">Allowed<wbr>Value<wbr>Types</a>
 					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
+						<a href="../index.html#extractobjecttype" class="tsd-kind-icon">Extract<wbr>Object<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
+						<a href="../index.html#extractresulttype" class="tsd-kind-icon">Extract<wbr>Result<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
+						<a href="../index.html#spreadargs" class="tsd-kind-icon">Spread<wbr>Args</a>
+					</li>
 					<li class=" tsd-kind-variable tsd-is-external tsd-is-not-exported">
 						<a href="../index.html#alphanumeric_regex" class="tsd-kind-icon">ALPHANUMERIC_<wbr>REGEX</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external tsd-is-not-exported">
+						<a href="../index.html#supported_value_typeof" class="tsd-kind-icon">SUPPORTED_<wbr>VALUE_<wbr>TYPEOF</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-external tsd-is-not-exported">
 						<a href="../index.html#uuid_regex" class="tsd-kind-icon">UUID_<wbr>REGEX</a>
