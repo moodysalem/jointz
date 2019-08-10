@@ -19,7 +19,7 @@ export class FailedValidationError extends Error {
   constructor(errors: ValidationError[]) {
     super(
       errors.map(
-        ({ path, message }) => `${path}: ${message}`
+        ({ path, message }) => [ path, message ].filter(v => v.length > 0).join(': ')
       ).join('; ')
     );
     this.errors = errors;

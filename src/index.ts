@@ -1,4 +1,4 @@
-import { ExtractResultType, FailedValidationError, Validator } from './interfaces';
+import { ExtractResultType, FailedValidationError, ValidationError, Validator } from './interfaces';
 import { SpreadArgs, spreadArgsToArray } from './util/spread-args-to-array';
 import ArrayValidator from './validators/array-validator';
 import ConstantValidator, { AllowedValueTypes } from './validators/constant-validator';
@@ -67,4 +67,4 @@ export default abstract class jointz {
   }
 }
 
-export { Validator, ExtractResultType, FailedValidationError };
+export { Validator, ValidationError, ExtractResultType, FailedValidationError };
