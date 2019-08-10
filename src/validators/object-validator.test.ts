@@ -102,12 +102,24 @@ describe('jointz#object', () => {
   it('isValid typeguards properly', () => {
     const validator = jointz.object({ name: jointz.string() });
 
-    const value = { name: 'abc' };
+    const value: unknown = { name: 'abc' };
 
     expect(validator.isValid(value)).eq(true);
 
     if (validator.isValid(value)) {
       expect(value.name).to.eq('abc');
+    }
+  });
+
+  it('isValid typeguards properly with nested objects', () => {
+    const validator = jointz.object({ abc: jointz.object({ def: jointz.array(jointz.number()) }) });
+
+    const value: unknown = { abc: { def: [ 3 ] } };
+
+    expect(validator.isValid(value)).eq(true);
+
+    if (validator.isValid(value)) {
+      expect(value.abc.def[ 0 ].toFixed(0)).to.eq('3');
     }
   });
 });
