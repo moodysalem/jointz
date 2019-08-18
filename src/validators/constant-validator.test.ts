@@ -48,7 +48,7 @@ describe('jointz#constant', () => {
       .to.deep.eq([]);
     expect(jointz.constant('abc', 'def', 0, false).validate(0))
       .to.deep.eq([]);
-    expect(jointz.constant('abc', 'def', 123, false).validate({}, ['def']))
+    expect(jointz.constant('abc', 'def', 123, false).validate({}, [ 'def' ]))
       .to.deep.eq([ {
       message: 'must be one of "abc", "def", 123, false',
       path: [ 'def' ],
@@ -63,7 +63,7 @@ describe('jointz#constant', () => {
     expect(validator.isValid(value)).eq(true);
 
     if (validator.isValid(value)) {
-      expect(value.length).to.eq(3);
+      expect(value.substring(0, 1)).to.eq('a');
     }
   });
 });

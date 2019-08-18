@@ -19,7 +19,7 @@ interface ConstantValidatorOptions {
 /**
  * Validator that checks that a value is one of a given set of constants
  */
-export default class ConstantValidator<TValues extends AllowedValueTypes> extends Validator<TValues> {
+export default class ConstantValidator<TOptions> extends Validator<TOptions> {
   private readonly options: ConstantValidatorOptions;
 
   public constructor(options: ConstantValidatorOptions) {

@@ -1,5 +1,5 @@
 import { ExtractResultType, ExtractResultTypes, FailedValidationError, ValidationError, Validator } from './interfaces';
-import { SpreadArgs, spreadArgsToArray } from './util/spread-args-to-array';
+import { spreadArgsToArray } from './util/spread-args-to-array';
 import ArrayValidator from './validators/array-validator';
 import ConstantValidator, { AllowedValueTypes } from './validators/constant-validator';
 import NumberValidator from './validators/number-validator';
@@ -46,7 +46,7 @@ export default abstract class jointz {
    * Combine a list of validators to produce a new validator that passes if any of the given validators pass
    * @param validators validators to combine into an OR expression validator
    */
-  static or<T extends Validator<any>[]>(...validators: T | [ T ]): OrValidator<any> {
+  static or<T extends Validator<any>[]>(...validators: T | [ T ]): OrValidator<ExtractResultTypes<T>[number]> {
     return new OrValidator({ validators: spreadArgsToArray(validators) });
   }
 
@@ -62,7 +62,7 @@ export default abstract class jointz {
    * Return a constant validator that checks that the value is one of a set of given values.
    * @param allowedValues the values that are allowed. can be number, string, boolean, null, undefined
    */
-  static constant<T extends AllowedValueTypes>(...allowedValues: SpreadArgs<T>): ConstantValidator<T> {
+  static constant<T extends Array<any>>(...allowedValues: T | [ T ]): ConstantValidator<T[number]> {
     return new ConstantValidator({ allowedValues: spreadArgsToArray(allowedValues) });
   }
 }
