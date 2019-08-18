@@ -1,7 +1,7 @@
 import { ExtractResultType, ExtractResultTypes, FailedValidationError, ValidationError, Validator } from './interfaces';
 import { spreadArgsToArray } from './util/spread-args-to-array';
 import ArrayValidator from './validators/array-validator';
-import ConstantValidator, { AllowedValueTypes } from './validators/constant-validator';
+import ConstantValidator from './validators/constant-validator';
 import NumberValidator from './validators/number-validator';
 import ObjectValidator, { ExtractObjectType, Keys } from './validators/object-validator';
 import OrValidator from './validators/or-validator';

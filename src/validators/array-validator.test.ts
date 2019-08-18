@@ -1,6 +1,7 @@
 import { expect } from 'chai';
+import { assert, IsExact } from 'conditional-type-checks';
 import { describe, it } from 'mocha';
-import jointz from '../index';
+import jointz, { ExtractResultType } from '../index';
 
 describe('jointz#array', () => {
   it('expects arrays', () => {
@@ -34,7 +35,7 @@ describe('jointz#array', () => {
       message: 'must be alphanumeric',
       path: [ 0 ],
       value: 'a19-'
-    }, { message: 'length 2 was shorter than minimum length: 3', path: [1], value: 'de' } ]);
+    }, { message: 'length 2 was shorter than minimum length: 3', path: [ 1 ], value: 'de' } ]);
   });
 
   it('throws with invalid minLength', () => {
@@ -54,5 +55,11 @@ describe('jointz#array', () => {
     if (validator.isValid(value)) {
       expect(value[ 0 ].value + value[ 1 ].value + value[ 2 ].value).to.eq(6);
     }
+  });
+
+  it('has the right type', () => {
+    const validator = jointz.array(jointz.number());
+
+    assert<IsExact<ExtractResultType<typeof validator>, number[]>>(true);
   });
 });

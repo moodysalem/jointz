@@ -1,6 +1,7 @@
 import { expect } from 'chai';
+import { assert, IsExact } from 'conditional-type-checks';
 import { describe, it } from 'mocha';
-import jointz from '../index';
+import jointz, { ExtractResultType } from '../index';
 
 describe('jointz#tuple', () => {
   it('validates item is array', () => {
@@ -40,5 +41,11 @@ describe('jointz#tuple', () => {
       expect(value[ 0 ].substring(0, 1)).eq('a');
       expect(value[ 1 ].toFixed(1)).eq('123.0');
     }
+  });
+
+  it('has the right type', () => {
+    const validator = jointz.tuple(jointz.number(), jointz.string());
+
+    assert<IsExact<ExtractResultType<typeof validator>, [ number, string ]>>(true);
   });
 });

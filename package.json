@@ -55,6 +55,7 @@
     "@types/mocha": "^5.2.7",
     "chai": "^4.2.0",
     "codecov": "^3.5.0",
+    "conditional-type-checks": "^1.0.1",
     "gh-pages": "^2.0.1",
     "mocha": "^5.2.0",
     "nyc": "^13.3.0",

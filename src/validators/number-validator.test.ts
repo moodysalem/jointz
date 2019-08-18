@@ -1,6 +1,7 @@
 import { expect } from 'chai';
+import { assert, IsExact } from 'conditional-type-checks';
 import { describe, it } from 'mocha';
-import jointz from '../index';
+import jointz, { ExtractResultType } from '../index';
 
 describe('jointz#number', () => {
   it('only allows numbers', () => {
@@ -50,5 +51,11 @@ describe('jointz#number', () => {
       // toPrecision only available on number type
       expect(value.toPrecision(1)).eq('3');
     }
+  });
+
+  it('has the right type', () => {
+    const validator = jointz.number();
+
+    assert<IsExact<ExtractResultType<typeof validator>, number>>(true);
   });
 });

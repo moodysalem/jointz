@@ -1,6 +1,7 @@
 import { expect } from 'chai';
+import { assert, IsExact } from 'conditional-type-checks';
 import { describe, it } from 'mocha';
-import jointz from '../index';
+import jointz, { ExtractResultType } from '../index';
 
 describe('jointz#constant', () => {
   it('allows only allowed values', () => {
@@ -65,5 +66,12 @@ describe('jointz#constant', () => {
     if (validator.isValid(value)) {
       expect(value.substring(0, 1)).to.eq('a');
     }
+  });
+
+  it('has the right type', () => {
+    const validator = jointz.constant('abc');
+
+    // TODO: this should be narrowed to exactly 'abc'
+    assert<IsExact<ExtractResultType<typeof validator>, any>>(true);
   });
 });

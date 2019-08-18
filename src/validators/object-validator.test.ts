@@ -1,6 +1,7 @@
 import { expect } from 'chai';
+import { assert, IsExact } from 'conditional-type-checks';
 import { describe, it } from 'mocha';
-import jointz from '../index';
+import jointz, { ExtractResultType } from '../index';
 
 describe('jointz#object', () => {
   it('expects objects', () => {
@@ -111,6 +112,16 @@ describe('jointz#object', () => {
     }
   });
 
+  it('type extracted from object that allows unknown keys allows any other key', () => {
+    const validator = jointz.object({ abc: jointz.constant('def') }).allowUnknownKeys(true);
+
+    type validatorType = ExtractResultType<typeof validator>;
+
+    const x: validatorType = { abc: 'def', ghi: 'fgh' };
+
+    expect(x.ghi).to.eq('fgh');
+  });
+
   it('isValid typeguards properly with nested objects', () => {
     const validator = jointz.object({ abc: jointz.object({ def: jointz.array(jointz.number()) }) });
 
@@ -121,5 +132,11 @@ describe('jointz#object', () => {
     if (validator.isValid(value)) {
       expect(value.abc.def[ 0 ].toFixed(0)).to.eq('3');
     }
+  });
+
+  it('has the right type', () => {
+    const validator = jointz.object({ abc: jointz.object({ def: jointz.array(jointz.number()) }) });
+
+    assert<IsExact<ExtractResultType<typeof validator>, { abc: { def: number[] } }>>(true);
   });
 });

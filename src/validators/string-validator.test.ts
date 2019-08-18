@@ -1,6 +1,7 @@
 import { expect } from 'chai';
+import { assert, IsExact } from 'conditional-type-checks';
 import { describe, it } from 'mocha';
-import jointz from '../index';
+import jointz, { ExtractResultType } from '../index';
 
 describe('jointz#string', () => {
   it('validates string type correctly', () => {
@@ -76,5 +77,11 @@ describe('jointz#string', () => {
       // substring only available on string type
       expect(value.substring(0, 1)).eq('a');
     }
+  });
+
+  it('has the right type', () => {
+    const validator = jointz.string();
+
+    assert<IsExact<ExtractResultType<typeof validator>, string>>(true);
   });
 });

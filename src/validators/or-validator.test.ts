@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { assert, IsExact } from 'conditional-type-checks';
 import { describe, it } from 'mocha';
 import jointz, { ExtractResultType } from '../index';
 
@@ -47,5 +48,11 @@ describe('jointz#or', () => {
         expect(a.num).to.eq(3);
       }
     }
+  });
+
+  it('has the right type', () => {
+    const validator = jointz.or(jointz.number(), jointz.string(), jointz.tuple(jointz.string(), jointz.number()));
+
+    assert<IsExact<ExtractResultType<typeof validator>, number | string | [ string, number ]>>(true);
   });
 });

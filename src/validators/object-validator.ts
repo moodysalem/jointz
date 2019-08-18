@@ -16,6 +16,8 @@ interface ObjectValidatorOptions {
   readonly allowUnknownKeys?: boolean;
 }
 
+type AllowUnknownKeyObject<T extends boolean> = T extends true ? { [ key: string ]: any; } : {};
+
 export default class ObjectValidator<TObject extends {}> extends Validator<TObject> {
   private readonly options: ObjectValidatorOptions;
 
@@ -66,7 +68,7 @@ export default class ObjectValidator<TObject extends {}> extends Validator<TObje
    * false.
    * @param allowUnknownKeys whether to allow keys that are not specified in the object validator to be present
    */
-  public allowUnknownKeys(allowUnknownKeys: boolean): ObjectValidator<TObject> {
+  public allowUnknownKeys<TAllow extends boolean>(allowUnknownKeys: TAllow): ObjectValidator<TObject & AllowUnknownKeyObject<TAllow>> {
     return new ObjectValidator({ ...this.options, allowUnknownKeys });
   }
 
