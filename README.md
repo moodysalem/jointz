@@ -96,12 +96,12 @@ Errors match the following interface:
 
 ```typescript
 interface ValidationError {
-  path: Array<string>;
+  path: Array<string | number>;
   message: string;
   value?: any;
 }
 ```
 
-- `path` is a period delimited string indicating where in the given value the error was found
+- `path` is an array of keys indicating where the validation failed
 - `message` is a human readable message that describes the validation error
 - `value` is the erroneous value
