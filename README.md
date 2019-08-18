@@ -9,9 +9,10 @@ Zero dependency universal TypeScript validation library. Similar interface to [J
 ## Features
 
 - Written in TypeScript
-- Zero dependencies & tiny & well tested
+- Zero dependencies, tiny, well tested
 - Supports `string`, `number`, `array`, `tuple`, `constant`, `or` and `object` validation
-- Implement your own validator interface and use it with any of the other validators
+- **New:** Generate TypeScript types from validator definitions!
+- Implement your own validator and use it with any of the other validators
 - Fluid immutable interface
 - Targets both browsers and node
 
@@ -59,6 +60,33 @@ if (errors.length) {
   // Fail
 } else {
   // Continue
+}
+```
+
+You can also generate TypeScript types from your validators, using ExtractResultType or get the resulting type
+from validation via `checkValid`. 
+
+```typescript
+type Thing = ExtractResultType<ThingValidator>;
+
+const myObject: unknown = { id: 'abc', name: 'hello world!' };
+
+try {
+  const thing: Thing = ThingValidator.checkValid(myObject);
+} catch (validationError) {
+  console.log(validationError.errors);
+}
+```
+
+Jointz also exposes [type guard](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-type-assertions)
+functions on every validator.
+ 
+```typescript
+const myObject: unknown = { id: 'abc', name: 'hello world!' };
+
+if (ThingValidator.isValid(myObject)) {
+    // This works because myObject is a valid Thing
+    const id: string = myObject.id;
 }
 ```
 

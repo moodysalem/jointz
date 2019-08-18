@@ -27,12 +27,10 @@ describe('Validator', () => {
     }
   });
 
-  it('checkValid typeguards when it does not throw', () => {
+  it('checkValid returns the value when valid', () => {
     const value: unknown = 'abc';
-    expect(validator.checkValid(value)).eq(true);
-    if (validator.checkValid(value)) {
-      expect(value.substring(0, 1)).to.eq('a');
-    }
+    const result: string = validator.checkValid(value);
+    expect(result).to.eq('abc');
   });
 });
 

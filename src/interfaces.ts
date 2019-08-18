@@ -14,6 +14,7 @@ export interface ValidationError {
  * The validation error that is thrown from checkValid.
  */
 export class FailedValidationError extends Error {
+  public readonly isFailedValidationError: true = true;
   public readonly errors: ValidationError[];
 
   constructor(errors: ValidationError[]) {
@@ -49,14 +50,14 @@ export abstract class Validator<TValid> {
    * Validate the given value and throw if it's not valid
    * @param value that is TValid
    */
-  public checkValid(value: any): value is TValid {
+  public checkValid(value: any): TValid {
     const errors = this.validate(value);
 
     if (errors.length > 0) {
       throw new FailedValidationError(errors);
     }
 
-    return true;
+    return value;
   }
 }
 
