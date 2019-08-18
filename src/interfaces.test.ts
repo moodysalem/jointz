@@ -3,7 +3,7 @@ import { describe, it } from 'mocha';
 import { ValidationError, Validator } from './index';
 
 class CustomValidator extends Validator<string> {
-  validate(value: any, path: string = ''): ValidationError[] {
+  validate(value: any, path: Array<string> = []): ValidationError[] {
     return typeof value === 'string' ? [] : [ { message: 'not a string', path, value } ];
   }
 }

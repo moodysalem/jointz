@@ -13,14 +13,14 @@ describe('jointz#tuple', () => {
   it('error if missing items', () => {
     expect(jointz.tuple([ jointz.constant('a') ]).validate([]))
       .to.deep.eq([
-      { path: '.0', message: 'must be one of "a"', value: undefined }
+      { path: [ 0 ], message: 'must be one of "a"', value: undefined }
     ]);
   });
 
   it('error if too long', () => {
     expect(jointz.tuple([ jointz.constant('a') ]).validate([ 'a', 'b' ]))
       .to.deep.eq([
-      { path: '', message: 'array length 2 was greater than expected length 1', value: [ 'a', 'b' ] }
+      { path: [], message: 'array length 2 was greater than expected length 1', value: [ 'a', 'b' ] }
     ]);
   });
 

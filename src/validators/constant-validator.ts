@@ -1,4 +1,4 @@
-import { ValidationError, Validator } from '../interfaces';
+import { ValidationError, ValidationErrorPath, Validator } from '../interfaces';
 
 export type AllowedValueTypes = string | number | boolean | null | undefined;
 
@@ -38,7 +38,7 @@ export default class ConstantValidator<TValues extends AllowedValueTypes> extend
     this.options = options;
   }
 
-  public validate(value: any, path: string = ''): ValidationError[] {
+  public validate(value: any, path: ValidationErrorPath = []): ValidationError[] {
     const { allowedValues } = this.options;
 
     if (allowedValues.indexOf(value) === -1) {

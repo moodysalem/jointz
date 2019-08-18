@@ -1,4 +1,4 @@
-import { ValidationError, Validator } from '../interfaces';
+import { ValidationError, ValidationErrorPath, Validator } from '../interfaces';
 
 interface NumberValidatorOptions {
   readonly multipleOf?: number;
@@ -45,7 +45,7 @@ export default class NumberValidator extends Validator<number> {
     return this.multipleOf(1);
   }
 
-  public validate(value: any, path: string = ''): ValidationError[] {
+  public validate(value: any, path: ValidationErrorPath = []): ValidationError[] {
     const { multipleOf, min, max } = this.options;
 
     if (typeof value !== 'number') {

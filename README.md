@@ -96,7 +96,7 @@ Errors match the following interface:
 
 ```typescript
 interface ValidationError {
-  path: string;
+  path: Array<string>;
   message: string;
   value?: any;
 }

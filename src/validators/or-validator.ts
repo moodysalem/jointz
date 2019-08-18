@@ -1,4 +1,4 @@
-import { ValidationError, Validator } from '../interfaces';
+import { ValidationError, ValidationErrorPath, Validator } from '../interfaces';
 
 interface OrValidatorOptions {
   // The list of validators of which any one validator must pass for the value to be considered valid
@@ -16,7 +16,7 @@ export default class OrValidator<TOptions> extends Validator<TOptions> {
     this.options = options;
   }
 
-  public validate(value: any, path: string = ''): ValidationError[] {
+  public validate(value: any, path: ValidationErrorPath = []): ValidationError[] {
     const { validators } = this.options;
 
     for (let i in validators) {

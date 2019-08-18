@@ -1,4 +1,4 @@
-import { ValidationError, Validator } from '../interfaces';
+import { ValidationError, ValidationErrorPath, Validator } from '../interfaces';
 
 type TupleValidators<T extends Array<any>> = { [K in keyof T]: Validator<T[K]> }
 
@@ -18,7 +18,7 @@ export default class TupleValidator<TTuple extends Array<any>> extends Validator
     this.options = options;
   }
 
-  public validate(value: any, path: string = ''): ValidationError[] {
+  public validate(value: any, path: ValidationErrorPath = []): ValidationError[] {
     const { validators } = this.options;
 
     if (!Array.isArray(value)) {
@@ -28,7 +28,7 @@ export default class TupleValidator<TTuple extends Array<any>> extends Validator
     let errors: ValidationError[] = [];
 
     for (let i = 0; i < validators.length; i++) {
-      errors = errors.concat(validators[ i ].validate(value[ i ], `${path}.${i}`));
+      errors = errors.concat(validators[ i ].validate(value[ i ], [ ...path, i ]));
     }
 
     if (value.length > validators.length) {

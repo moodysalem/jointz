@@ -7,7 +7,7 @@ describe('jointz#constant', () => {
     expect(jointz.constant('def').validate('def'))
       .to.deep.eq([]);
     expect(jointz.constant('def').validate('deff'))
-      .to.deep.eq([ { message: 'must be one of "def"', path: '', value: 'deff' } ]);
+      .to.deep.eq([ { message: 'must be one of "def"', path: [], value: 'deff' } ]);
   });
 
   it('throws with invalid allowed values', () => {
@@ -48,10 +48,10 @@ describe('jointz#constant', () => {
       .to.deep.eq([]);
     expect(jointz.constant('abc', 'def', 0, false).validate(0))
       .to.deep.eq([]);
-    expect(jointz.constant('abc', 'def', 123, false).validate({}, 'def'))
+    expect(jointz.constant('abc', 'def', 123, false).validate({}, ['def']))
       .to.deep.eq([ {
       message: 'must be one of "abc", "def", 123, false',
-      path: 'def',
+      path: [ 'def' ],
       value: {}
     } ]);
   });

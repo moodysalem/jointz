@@ -1,4 +1,4 @@
-import { ValidationError, Validator } from '../interfaces';
+import { ValidationError, ValidationErrorPath, Validator } from '../interfaces';
 
 interface ArrayValidatorOptions<TItem> {
   readonly items?: Validator<TItem>;
@@ -47,7 +47,7 @@ export default class ArrayValidator<TItem> extends Validator<TItem[]> {
     return new ArrayValidator({ ...this.options, items });
   }
 
-  public validate(value: any, path: string = ''): ValidationError[] {
+  public validate(value: any, path: ValidationErrorPath = []): ValidationError[] {
     const { items, minLength, maxLength } = this.options;
 
     if (typeof value !== 'object' || !Array.isArray(value)) {
@@ -70,7 +70,7 @@ export default class ArrayValidator<TItem> extends Validator<TItem[]> {
 
     if (errors.length === 0 && items) {
       for (let i = 0; i < value.length; i++) {
-        errors = errors.concat(items.validate(value[ i ], `${path}.${i}`));
+        errors = errors.concat(items.validate(value[ i ], [ ...path, i ]));
       }
     }
 

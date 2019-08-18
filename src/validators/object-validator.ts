@@ -1,4 +1,4 @@
-import { ExtractResultType, ValidationError, Validator } from '../interfaces';
+import { ExtractResultType, ValidationError, ValidationErrorPath, Validator } from '../interfaces';
 import { SpreadArgs, spreadArgsToArray } from '../util/spread-args-to-array';
 import uniqueString from '../util/unique-string';
 
@@ -70,7 +70,7 @@ export default class ObjectValidator<TObject extends {}> extends Validator<TObje
     return new ObjectValidator({ ...this.options, allowUnknownKeys });
   }
 
-  public validate(value: any, path: string = ''): ValidationError[] {
+  public validate(value: any, path: ValidationErrorPath = []): ValidationError[] {
     const { requiredKeys, keys, allowUnknownKeys } = this.options;
 
     if (typeof value !== 'object' || Array.isArray(value)) {
@@ -82,7 +82,7 @@ export default class ObjectValidator<TObject extends {}> extends Validator<TObje
     for (let key in value) {
       if (value.hasOwnProperty(key)) {
         if (keys && typeof keys[ key ] !== 'undefined') {
-          errors = errors.concat(keys[ key ].validate(value[ key ], `${path}.${key}`));
+          errors = errors.concat(keys[ key ].validate(value[ key ], [ ...path, key ] as ValidationErrorPath));
         } else if (!allowUnknownKeys) {
           errors.push({ message: `encountered unknown key "${key}"`, path, value });
         }

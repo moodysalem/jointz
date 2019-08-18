@@ -1,9 +1,11 @@
+export type ValidationErrorPath = Readonly<Array<string | number>>;
+
 /**
  * Information about a failed validation.
  */
 export interface ValidationError {
   // Where in th given value the error
-  readonly path: string;
+  readonly path: ValidationErrorPath;
   // The message about the validation.
   readonly message: string;
   // The value that failed validation.
@@ -36,7 +38,7 @@ export abstract class Validator<TValid> {
    * @param value value to validate
    * @param path current path of the validation
    */
-  public abstract validate(value: any, path?: string): ValidationError[];
+  public abstract validate(value: any, path?: ValidationErrorPath): ValidationError[];
 
   /**
    * Return true if the value is valid

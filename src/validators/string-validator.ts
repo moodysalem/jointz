@@ -1,4 +1,4 @@
-import { ValidationError, Validator } from '../interfaces';
+import { ValidationError, ValidationErrorPath, Validator } from '../interfaces';
 
 const ALPHANUMERIC_REGEX = /^[a-zA-Z0-9]*$/;
 const UUID_REGEX = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
@@ -66,7 +66,7 @@ export default class StringValidator extends Validator<string> {
     return new StringValidator({ ...this.options, pattern: UUID_REGEX });
   }
 
-  public validate(value: any, path: string = ''): ValidationError[] {
+  public validate(value: any, path: ValidationErrorPath = []): ValidationError[] {
     const { pattern, minLength, maxLength } = this.options;
 
     if (typeof value !== 'string') {
