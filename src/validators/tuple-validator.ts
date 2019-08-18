@@ -1,10 +1,16 @@
 import { ValidationError, Validator } from '../interfaces';
 
-interface TupleValidatorOptions<TValidators extends Validator<any>[]> {
-  readonly validators: TValidators;
+type TupleValidators<T extends Array<any>> = { [K in keyof T]: Validator<T[K]> }
+
+interface TupleValidatorOptions<TTuple extends Array<any>> {
+  readonly validators: TupleValidators<TTuple>;
 }
 
-export default class TupleValidator<TTuple extends Validator<any>[]> extends Validator<TTuple> {
+/**
+ * Returns a validator that checks the value is a tuple, i.e. an array with a fixed number of elements that match the
+ * given validators.
+ */
+export default class TupleValidator<TTuple extends Array<any>> extends Validator<TTuple> {
   private readonly options: TupleValidatorOptions<TTuple>;
 
   public constructor(options: TupleValidatorOptions<TTuple>) {

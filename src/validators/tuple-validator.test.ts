@@ -29,5 +29,16 @@ describe('jointz#tuple', () => {
       .to.deep.eq([]);
   });
 
-  it('isValid typeguards properly');
+  it('isValid typeguards properly', () => {
+    const validator = jointz.tuple(jointz.string(), jointz.number());
+    const value: unknown = [ 'abc', 123 ];
+
+    expect(validator.isValid(value)).eq(true);
+
+    if (validator.isValid(value)) {
+      // substring only available on string type
+      expect(value[ 0 ].substring(0, 1)).eq('a');
+      expect(value[ 1 ].toFixed(1)).eq('123.0');
+    }
+  });
 });

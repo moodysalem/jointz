@@ -1,4 +1,4 @@
-import { ExtractResultType, FailedValidationError, ValidationError, Validator } from './interfaces';
+import { ExtractResultType, ExtractResultTypes, FailedValidationError, ValidationError, Validator } from './interfaces';
 import { SpreadArgs, spreadArgsToArray } from './util/spread-args-to-array';
 import ArrayValidator from './validators/array-validator';
 import ConstantValidator, { AllowedValueTypes } from './validators/constant-validator';
@@ -38,15 +38,15 @@ export default abstract class jointz {
    * Create a validator that checks that the given value is a tuple of values that match the given validators.
    * @param validators list of validators that the items in the tuple should match in order
    */
-  static tuple(...validators: SpreadArgs<Validator<any>>): TupleValidator<any> {
-    return new TupleValidator({ validators: spreadArgsToArray(validators) });
+  static tuple<T extends Validator<any>[]>(...validators: T | [ T ]): TupleValidator<ExtractResultTypes<T>> {
+    return new TupleValidator({ validators: spreadArgsToArray(validators) }) as any;
   }
 
   /**
    * Combine a list of validators to produce a new validator that passes if any of the given validators pass
    * @param validators validators to combine into an OR expression validator
    */
-  static or(...validators: SpreadArgs<Validator<any>>): OrValidator<any> {
+  static or<T extends Validator<any>[]>(...validators: T | [ T ]): OrValidator<any> {
     return new OrValidator({ validators: spreadArgsToArray(validators) });
   }
 
