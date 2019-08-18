@@ -63,11 +63,11 @@ if (errors.length) {
 }
 ```
 
-You can also generate TypeScript types from your validators, using ExtractResultType or get the resulting type
+You can also generate TypeScript types from your validators, using ExtractResultType, or get the resulting type
 from validation via `checkValid`. 
 
 ```typescript
-type Thing = ExtractResultType<ThingValidator>;
+type Thing = ExtractResultType<typeof ThingValidator>;
 
 const myObject: unknown = { id: 'abc', name: 'hello world!' };
 
@@ -78,8 +78,8 @@ try {
 }
 ```
 
-Jointz also exposes [type guard](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-type-assertions)
-functions on every validator.
+Jointz also exposes the [type guard](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-type-assertions)
+function `isValid` on every validator.
  
 ```typescript
 const myObject: unknown = { id: 'abc', name: 'hello world!' };
