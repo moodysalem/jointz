@@ -28,14 +28,14 @@ describe('jointz#or', () => {
     const aValidator = jointz.object({
       discriminator: jointz.constant('a'),
       num: jointz.number()
-    });
+    }).requiredKeys('discriminator', 'num');
 
     type AType = ExtractResultType<typeof aValidator>;
 
     const bValidator = jointz.object({
       discriminator: jointz.constant('b'),
       str: jointz.string()
-    });
+    }).requiredKeys('discriminator', 'str');
 
     const aOrB = jointz.or(aValidator, bValidator);
 
@@ -46,9 +46,9 @@ describe('jointz#or', () => {
     assert<IsExact<ExtractResultType<typeof aOrB>, { discriminator: 'a'; num: number; } | { discriminator: 'b'; str: string; }>>(true);
 
     if (aOrB.isValid(x)) {
-      if ('num' in x) {
+      if (x.discriminator === 'a') {
         expect(x.num).to.eq(3);
-      } else if ('str' in x) {
+      } else if (x.discriminator === 'b') {
         expect(x.str.substring(0, 1)).to.eq(1);
       }
     }

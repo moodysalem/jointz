@@ -1,9 +1,10 @@
 import { ExtractResultType, ExtractResultTypes, FailedValidationError, ValidationError, Validator } from './interfaces';
 import { spreadArgsToArray } from './util/spread-args-to-array';
+import AnyValidator, { ANY_VALIDATOR } from './validators/any-validator';
 import ArrayValidator from './validators/array-validator';
 import ConstantValidator, { AllowedValueTypes } from './validators/constant-validator';
 import NumberValidator from './validators/number-validator';
-import ObjectValidator, { ExtractObjectType, Keys } from './validators/object-validator';
+import ObjectValidator, { Keys } from './validators/object-validator';
 import OrValidator from './validators/or-validator';
 import StringValidator from './validators/string-validator';
 import TupleValidator from './validators/tuple-validator';
@@ -23,8 +24,8 @@ export default abstract class jointz {
    * Create a validator that checks that the value is an object, optionally with validators applied to some keys
    * @param keys validation to apply to the values
    */
-  static object<TKeys extends Keys>(keys?: TKeys): ObjectValidator<ExtractObjectType<TKeys>> {
-    return new ObjectValidator({ keys, allowUnknownKeys: true });
+  static object<TKeys extends Keys>(keys: TKeys): ObjectValidator<TKeys, never, true> {
+    return new ObjectValidator({ keys, requiredKeys: [], allowUnknownKeys: true });
   }
 
   /**
@@ -64,6 +65,13 @@ export default abstract class jointz {
    */
   static constant<T extends Array<AllowedValueTypes>>(...allowedValues: T): ConstantValidator<T[number]> {
     return new ConstantValidator({ allowedValues: allowedValues });
+  }
+
+  /**
+   * Return a validator that always succeeds but does not limit the type.
+   */
+  static any(): AnyValidator {
+    return ANY_VALIDATOR;
   }
 }
 

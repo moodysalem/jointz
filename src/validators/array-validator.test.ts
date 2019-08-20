@@ -47,7 +47,7 @@ describe('jointz#array', () => {
   });
 
   it('isValid typeguards properly', () => {
-    const validator = jointz.array(jointz.object({ value: jointz.number() }));
+    const validator = jointz.array(jointz.object({ value: jointz.number() }).requiredKeys('value'));
     const value: unknown = [ { value: 1 }, { value: 2 }, { value: 3 } ];
 
     expect(validator.isValid(value)).eq(true);

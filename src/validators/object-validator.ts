@@ -1,6 +1,5 @@
 import { ExtractResultType, ValidationError, ValidationErrorPath, Validator } from '../interfaces';
-import { SpreadArgs, spreadArgsToArray } from '../util/spread-args-to-array';
-import uniqueString from '../util/unique-string';
+import { spreadArgsToArray } from '../util/spread-args-to-array';
 
 export interface Keys {
   [ key: string ]: Validator<any>;
@@ -10,18 +9,24 @@ export type ExtractObjectType<TKeys extends Keys> = {
   [K in keyof TKeys]: ExtractResultType<TKeys[K]>;
 };
 
-interface ObjectValidatorOptions {
-  readonly keys?: Keys;
-  readonly requiredKeys?: string[];
-  readonly allowUnknownKeys?: boolean;
+interface ObjectValidatorOptions<TKeys extends Keys, TRequiredKeys extends keyof TKeys, AllowUnknownKeys extends boolean> {
+  readonly keys: TKeys;
+  readonly requiredKeys: TRequiredKeys[];
+  readonly allowUnknownKeys: AllowUnknownKeys;
 }
 
-type AllowUnknownKeyObject<T extends boolean> = T extends true ? { [ key: string ]: any; } : {};
+type AllowUnknownKeyObject<TObject extends {}, AllowUnknownKeys extends boolean> = AllowUnknownKeys extends true ? TObject & { [ key: string ]: any; } : TObject;
 
-export default class ObjectValidator<TObject extends {}> extends Validator<TObject> {
-  private readonly options: ObjectValidatorOptions;
+type WithRequiredKeys<TObject extends {}, TRequiredKeys extends keyof TObject> = {
+  [K in keyof TObject]?: TObject[K];
+} & {
+  [K in keyof Pick<TObject, TRequiredKeys>]: TObject[K];
+}
 
-  public constructor(options: ObjectValidatorOptions) {
+export default class ObjectValidator<TKeys extends Keys, TRequiredKeys extends keyof TKeys, TAllowUnknown extends boolean> extends Validator<AllowUnknownKeyObject<WithRequiredKeys<ExtractObjectType<TKeys>, TRequiredKeys>, TAllowUnknown>> {
+  private readonly options: ObjectValidatorOptions<TKeys, TRequiredKeys, TAllowUnknown>;
+
+  public constructor(options: ObjectValidatorOptions<TKeys, TRequiredKeys, TAllowUnknown>) {
     super();
     this.options = options;
   }
@@ -30,37 +35,8 @@ export default class ObjectValidator<TObject extends {}> extends Validator<TObje
    * Specify which keys are required for the object to be valid. Replaces any of the existing required keys.
    * @param requiredKeys keys that must be present for the object to be valid
    */
-  public requiredKeys(...requiredKeys: SpreadArgs<string>): ObjectValidator<TObject> {
-    return new ObjectValidator({ ...this.options, requiredKeys: uniqueString(spreadArgsToArray(requiredKeys)) });
-  }
-
-  /**
-   * Redefine the key values of the object
-   * @param keys the key validation spec
-   */
-  public keys<TKeys extends Keys>(keys: TKeys): ObjectValidator<ExtractObjectType<TKeys>> {
-    return new ObjectValidator({ ...this.options, keys });
-  }
-
-  /**
-   * Concatenate the given keys with the current keys to create a new validator
-   * @param keys to add to the current validator
-   */
-  public concat(keys: Keys): ObjectValidator<TObject> {
-    return new ObjectValidator({ ...this.options, keys: { ...this.options.keys, ...keys } });
-  }
-
-  /**
-   * Merge two object validators by merging the required keys lists and all the key types. The given object validator
-   * replaces this one.
-   * @param objectValidator validator to merge with
-   */
-  public merge<TOther>(objectValidator: ObjectValidator<TOther>): ObjectValidator<TObject & TOther> {
-    return new ObjectValidator({
-      ...this.options,
-      keys: { ...this.options.keys, ...objectValidator.options.keys },
-      requiredKeys: uniqueString((this.options.requiredKeys || []).concat(objectValidator.options.requiredKeys || []))
-    });
+  public requiredKeys<T extends (keyof TKeys)[]>(...requiredKeys: T | [ T ]): ObjectValidator<TKeys, T[number], TAllowUnknown> {
+    return new ObjectValidator({ ...this.options, requiredKeys: spreadArgsToArray(requiredKeys) });
   }
 
   /**
@@ -68,7 +44,7 @@ export default class ObjectValidator<TObject extends {}> extends Validator<TObje
    * false.
    * @param allowUnknownKeys whether to allow keys that are not specified in the object validator to be present
    */
-  public allowUnknownKeys<TAllow extends boolean>(allowUnknownKeys: TAllow): ObjectValidator<TObject & AllowUnknownKeyObject<TAllow>> {
+  public allowUnknownKeys<TAllow extends boolean>(allowUnknownKeys: TAllow): ObjectValidator<TKeys, TRequiredKeys, TAllow> {
     return new ObjectValidator({ ...this.options, allowUnknownKeys });
   }
 
