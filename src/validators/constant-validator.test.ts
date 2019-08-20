@@ -27,13 +27,6 @@ describe('jointz#constant', () => {
       .to.be.an('array').with.length(1);
   });
 
-  it('allows array arguments', () => {
-    expect(jointz.constant([ null, false ]).validate(null))
-      .to.deep.eq([]);
-    expect(jointz.constant([ null, false ]).validate(false))
-      .to.deep.eq([]);
-  });
-
   it('throws with empty list', () => {
     expect(() => jointz.constant()).to.throw();
   });
@@ -69,9 +62,8 @@ describe('jointz#constant', () => {
   });
 
   it('has the right type', () => {
-    const validator = jointz.constant('abc');
+    const validator = jointz.constant('abc', 123, null);
 
-    // TODO: this should be narrowed to exactly 'abc'
-    assert<IsExact<ExtractResultType<typeof validator>, any>>(true);
+    assert<IsExact<ExtractResultType<typeof validator>, 'abc' | 123 | null>>(true);
   });
 });

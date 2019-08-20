@@ -41,11 +41,15 @@ describe('jointz#or', () => {
 
     const x: unknown = { discriminator: 'a', num: 3 };
 
+    assert<IsExact<ExtractResultType<typeof aValidator>, { discriminator: 'a'; num: number; }>>(true);
+    assert<IsExact<ExtractResultType<typeof bValidator>, { discriminator: 'b'; str: string; }>>(true);
+    assert<IsExact<ExtractResultType<typeof aOrB>, { discriminator: 'a'; num: number; } | { discriminator: 'b'; str: string; }>>(true);
+
     if (aOrB.isValid(x)) {
-      if (x.discriminator === 'a') {
-        const a: AType = x as AType;
-        // TODO: why do we have to assign x to A type?
-        expect(a.num).to.eq(3);
+      if ('num' in x) {
+        expect(x.num).to.eq(3);
+      } else if ('str' in x) {
+        expect(x.str.substring(0, 1)).to.eq(1);
       }
     }
   });

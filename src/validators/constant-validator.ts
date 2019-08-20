@@ -13,7 +13,7 @@ function isSupportedValueType(value: any): value is AllowedValueTypes {
 }
 
 interface ConstantValidatorOptions {
-  readonly allowedValues: AllowedValueTypes[];
+  readonly allowedValues: Array<AllowedValueTypes>;
 }
 
 /**
