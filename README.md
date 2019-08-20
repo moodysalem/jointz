@@ -9,9 +9,9 @@ Zero dependency universal TypeScript validation library. Similar interface to [J
 ## Features
 
 - Written in TypeScript
-- Zero dependencies, tiny, well tested
-- Supports `string`, `number`, `array`, `tuple`, `constant`, `or` and `object` validation
-- **New:** Generate TypeScript types from validator definitions!
+- Zero dependencies, tiny, and well tested
+- Supports `any`, `string`, `number`, `array`, `tuple`, `constant`, `or` and `object` validation
+- **New:** Generate TypeScript types from validator definitions
 - Implement your own validator and use it with any of the other validators
 - Fluid immutable interface
 - Targets both browsers and node
@@ -63,7 +63,7 @@ if (errors.length) {
 }
 ```
 
-You can also generate TypeScript types from your validators, using ExtractResultType, or get the resulting type
+You can also generate TypeScript types from your validators, using `ExtractResultType`, or get the resulting type
 from validation via `checkValid`. 
 
 ```typescript
@@ -78,7 +78,7 @@ try {
 }
 ```
 
-Jointz also exposes the [type guard](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-type-assertions)
+jointz validators also expose the [type guard](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-type-assertions)
 function `isValid` on every validator.
  
 ```typescript
@@ -102,6 +102,6 @@ interface ValidationError {
 }
 ```
 
-- `path` is an array of keys indicating where the validation failed
+- `path` is an array of keys indicating where the validation failed. In the case of arrays it is a number
 - `message` is a human readable message that describes the validation error
 - `value` is the erroneous value
