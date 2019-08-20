@@ -59,13 +59,27 @@
 					<a href="objectvalidatoroptions.html">ObjectValidatorOptions</a>
 				</li>
 			</ul>
-			<h1>Interface ObjectValidatorOptions</h1>
+			<h1>Interface ObjectValidatorOptions&lt;TKeys, TRequiredKeys, AllowUnknownKeys&gt;</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>TKeys<span class="tsd-signature-symbol">: </span><a href="keys.html" class="tsd-signature-type">Keys</a></h4>
+					</li>
+					<li>
+						<h4>TRequiredKeys<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">keyof TKeys</span></h4>
+					</li>
+					<li>
+						<h4>AllowUnknownKeys<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -93,31 +107,31 @@
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external tsd-is-not-exported">
 					<a name="allowunknownkeys" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> allow<wbr>Unknown<wbr>Keys</h3>
-					<div class="tsd-signature tsd-kind-icon">allow<wbr>Unknown<wbr>Keys<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
+					<h3>allow<wbr>Unknown<wbr>Keys</h3>
+					<div class="tsd-signature tsd-kind-icon">allow<wbr>Unknown<wbr>Keys<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AllowUnknownKeys</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/790bdff/src/validators/object-validator.ts#L16">validators/object-validator.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f90647e/src/validators/object-validator.ts#L15">validators/object-validator.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external tsd-is-not-exported">
 					<a name="keys" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> keys</h3>
-					<div class="tsd-signature tsd-kind-icon">keys<span class="tsd-signature-symbol">:</span> <a href="keys.html" class="tsd-signature-type">Keys</a></div>
+					<h3>keys</h3>
+					<div class="tsd-signature tsd-kind-icon">keys<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TKeys</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/790bdff/src/validators/object-validator.ts#L14">validators/object-validator.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f90647e/src/validators/object-validator.ts#L13">validators/object-validator.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external tsd-is-not-exported">
 					<a name="requiredkeys" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> required<wbr>Keys</h3>
-					<div class="tsd-signature tsd-kind-icon">required<wbr>Keys<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
+					<h3>required<wbr>Keys</h3>
+					<div class="tsd-signature tsd-kind-icon">required<wbr>Keys<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TRequiredKeys</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/790bdff/src/validators/object-validator.ts#L15">validators/object-validator.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f90647e/src/validators/object-validator.ts#L14">validators/object-validator.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -133,6 +147,9 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="../classes/anyvalidator.html" class="tsd-kind-icon">Any<wbr>Validator</a>
+					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
 						<a href="../classes/arrayvalidator.html" class="tsd-kind-icon">Array<wbr>Validator</a>
 					</li>
@@ -177,7 +194,7 @@
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-is-external tsd-is-not-exported">
+					<li class="current tsd-kind-interface tsd-has-type-parameter tsd-is-external tsd-is-not-exported">
 						<a href="objectvalidatoroptions.html" class="tsd-kind-icon">Object<wbr>Validator<wbr>Options</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external tsd-is-not-exported">
@@ -229,8 +246,14 @@
 					<li class=" tsd-kind-type-alias tsd-is-external">
 						<a href="../index.html#validationerrorpath" class="tsd-kind-icon">Validation<wbr>Error<wbr>Path</a>
 					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external tsd-is-not-exported">
+						<a href="../index.html#withrequiredkeys" class="tsd-kind-icon">With<wbr>Required<wbr>Keys</a>
+					</li>
 					<li class=" tsd-kind-variable tsd-is-external tsd-is-not-exported">
 						<a href="../index.html#alphanumeric_regex" class="tsd-kind-icon">ALPHANUMERIC_<wbr>REGEX</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="../index.html#any_validator" class="tsd-kind-icon">ANY_<wbr>VALIDATOR</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-external tsd-is-not-exported">
 						<a href="../index.html#supported_value_typeof" class="tsd-kind-icon">SUPPORTED_<wbr>VALUE_<wbr>TYPEOF</a>
@@ -243,9 +266,6 @@
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter tsd-is-external">
 						<a href="../index.html#spreadargstoarray" class="tsd-kind-icon">spread<wbr>Args<wbr>ToArray</a>
-					</li>
-					<li class=" tsd-kind-function tsd-is-external">
-						<a href="../index.html#uniquestring" class="tsd-kind-icon">unique<wbr>String</a>
 					</li>
 				</ul>
 			</nav>
