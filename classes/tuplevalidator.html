@@ -66,11 +66,19 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Returns a validator that checks the value is a tuple, i.e. an array with a fixed number of elements that match the
+						given validators.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-type-parameters">
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
-						<h4>TTuple<span class="tsd-signature-symbol">: </span><a href="validator.html" class="tsd-signature-type">Validator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h4>
+						<h4>TTuple<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -126,7 +134,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/8f5d069/src/validators/tuple-validator.ts#L8">validators/tuple-validator.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/790bdff/src/validators/tuple-validator.ts#L14">validators/tuple-validator.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -148,7 +156,7 @@
 					<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <a href="../interfaces/tuplevalidatoroptions.html" class="tsd-signature-type">TupleValidatorOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TTuple</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/8f5d069/src/validators/tuple-validator.ts#L8">validators/tuple-validator.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/790bdff/src/validators/tuple-validator.ts#L14">validators/tuple-validator.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -159,14 +167,14 @@
 					<a name="checkvalid" class="tsd-anchor"></a>
 					<h3>check<wbr>Valid</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">check<wbr>Valid<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">check<wbr>Valid<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TTuple</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="validator.html">Validator</a>.<a href="validator.html#checkvalid">checkValid</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/8f5d069/src/interfaces.ts#L52">interfaces.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/790bdff/src/interfaces.ts#L55">interfaces.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -183,7 +191,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">TTuple</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -198,7 +206,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="validator.html">Validator</a>.<a href="validator.html#isvalid">isValid</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/8f5d069/src/interfaces.ts#L44">interfaces.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/790bdff/src/interfaces.ts#L47">interfaces.ts:47</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -223,14 +231,14 @@
 					<a name="validate" class="tsd-anchor"></a>
 					<h3>validate</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">validate<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, path<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/validationerror.html" class="tsd-signature-type">ValidationError</a><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon">validate<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, path<span class="tsd-signature-symbol">?: </span><a href="../index.html#validationerrorpath" class="tsd-signature-type">ValidationErrorPath</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/validationerror.html" class="tsd-signature-type">ValidationError</a><span class="tsd-signature-symbol">[]</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides <a href="validator.html">Validator</a>.<a href="validator.html#validate">validate</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/8f5d069/src/validators/tuple-validator.ts#L15">validators/tuple-validator.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/790bdff/src/validators/tuple-validator.ts#L21">validators/tuple-validator.ts:21</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -239,7 +247,7 @@
 									<h5>value: <span class="tsd-signature-type">any</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> path: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;&quot;</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> path: <a href="../index.html#validationerrorpath" class="tsd-signature-type">ValidationErrorPath</a><span class="tsd-signature-symbol"> =&nbsp;[]</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/validationerror.html" class="tsd-signature-type">ValidationError</a><span class="tsd-signature-symbol">[]</span></h4>
@@ -336,6 +344,9 @@
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="../interfaces/validationerror.html" class="tsd-kind-icon">Validation<wbr>Error</a>
 					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external tsd-is-not-exported">
+						<a href="../index.html#allowunknownkeyobject" class="tsd-kind-icon">Allow<wbr>Unknown<wbr>Key<wbr>Object</a>
+					</li>
 					<li class=" tsd-kind-type-alias tsd-is-external">
 						<a href="../index.html#allowedvaluetypes" class="tsd-kind-icon">Allowed<wbr>Value<wbr>Types</a>
 					</li>
@@ -346,7 +357,16 @@
 						<a href="../index.html#extractresulttype" class="tsd-kind-icon">Extract<wbr>Result<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
+						<a href="../index.html#extractresulttypes" class="tsd-kind-icon">Extract<wbr>Result<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
 						<a href="../index.html#spreadargs" class="tsd-kind-icon">Spread<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external tsd-is-not-exported">
+						<a href="../index.html#tuplevalidators" class="tsd-kind-icon">Tuple<wbr>Validators</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="../index.html#validationerrorpath" class="tsd-kind-icon">Validation<wbr>Error<wbr>Path</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-external tsd-is-not-exported">
 						<a href="../index.html#alphanumeric_regex" class="tsd-kind-icon">ALPHANUMERIC_<wbr>REGEX</a>
