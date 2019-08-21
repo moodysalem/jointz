@@ -23,6 +23,9 @@ type WithRequiredKeys<TObject extends {}, TRequiredKeys extends keyof TObject> =
   [K in keyof Pick<TObject, TRequiredKeys>]: TObject[K];
 }
 
+/**
+ * Validator that checks a value is an object where each key has a value that matches a given validator.
+ */
 export default class ObjectValidator<TKeys extends Keys, TRequiredKeys extends keyof TKeys, TAllowUnknown extends boolean> extends Validator<AllowUnknownKeyObject<WithRequiredKeys<ExtractObjectType<TKeys>, TRequiredKeys>, TAllowUnknown>> {
   private readonly options: ObjectValidatorOptions<TKeys, TRequiredKeys, TAllowUnknown>;
 
@@ -32,7 +35,9 @@ export default class ObjectValidator<TKeys extends Keys, TRequiredKeys extends k
   }
 
   /**
-   * Specify which keys are required for the object to be valid. Replaces any of the existing required keys.
+   * Specify which keys are required for the object to be valid. Replaces any of the existing required keys. By default
+   * no keys are required.
+   *
    * @param requiredKeys keys that must be present for the object to be valid
    */
   public requiredKeys<T extends (keyof TKeys)[]>(...requiredKeys: T | [ T ]): ObjectValidator<TKeys, T[number], TAllowUnknown> {
@@ -40,8 +45,9 @@ export default class ObjectValidator<TKeys extends Keys, TRequiredKeys extends k
   }
 
   /**
-   * Indicate that the object validator will allow keys to be present in the object that are not specified. Defaults to
-   * false.
+   * Change the behavior of the object validator to allow or disallow keys to be present in the object that are not
+   * specified. By default unknown keys are allowed.
+   *
    * @param allowUnknownKeys whether to allow keys that are not specified in the object validator to be present
    */
   public allowUnknownKeys<TAllow extends boolean>(allowUnknownKeys: TAllow): ObjectValidator<TKeys, TRequiredKeys, TAllow> {

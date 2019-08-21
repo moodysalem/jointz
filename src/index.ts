@@ -22,7 +22,11 @@ export default abstract class jointz {
 
   /**
    * Create a validator that checks that the value is an object, optionally with validators applied to some keys
-   * @param keys validation to apply to the values
+   *
+   * By default the validator allows unknown keys in the object. Call `allowUnknownKeys(false)` on the returned object
+   * validator to disable this behavior.
+   *
+   * @param keys validation to apply to each key in the object
    */
   static object<TKeys extends Keys>(keys: TKeys): ObjectValidator<TKeys, never, true> {
     return new ObjectValidator({ keys, requiredKeys: [], allowUnknownKeys: true });
@@ -55,7 +59,7 @@ export default abstract class jointz {
    * Return a validator that checks the value is an array, optionally validating each item in the array
    * @param itemValidator validator for the individual array items
    */
-  static array<TItem>(itemValidator?: Validator<TItem>): ArrayValidator<TItem> {
+  static array<TItem>(itemValidator: Validator<TItem> = ANY_VALIDATOR): ArrayValidator<TItem> {
     return new ArrayValidator({ items: itemValidator });
   }
 
