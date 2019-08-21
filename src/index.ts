@@ -21,7 +21,7 @@ export default abstract class jointz {
   }
 
   /**
-   * Create a validator that checks that the value is an object, optionally with validators applied to some keys
+   * Create a validator that checks that the value is an object with a given shape.
    *
    * By default the validator allows unknown keys in the object. Call `allowUnknownKeys(false)` on the returned object
    * validator to disable this behavior.
