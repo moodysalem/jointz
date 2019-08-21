@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { assert, IsExact } from 'conditional-type-checks';
 import jointz, { ExtractResultType } from './index';
 
 const ThingValidator = jointz.object({
@@ -31,6 +32,11 @@ describe('examples', () => {
       failedValidation = true;
     }
     expect(failedValidation).to.eq(true);
+  });
+
+  it('indexer is id or name if allow unknown keys is false', () => {
+    const falseAllow = ThingValidator.allowUnknownKeys(false);
+    assert<IsExact<keyof ExtractResultType<typeof falseAllow>, 'id' | 'name'>>(true);
   });
 
   it('isValid typeguards', () => {
