@@ -66,6 +66,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Validator that checks a value is an object where each key has a value that matches a given validator.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-type-parameters">
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
@@ -134,7 +141,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f90647e/src/validators/object-validator.ts#L27">validators/object-validator.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/fb8b6c2/src/validators/object-validator.ts#L30">validators/object-validator.ts:30</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -156,7 +163,7 @@
 					<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <a href="../interfaces/objectvalidatoroptions.html" class="tsd-signature-type">ObjectValidatorOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TKeys</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TRequiredKeys</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TAllowUnknown</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f90647e/src/validators/object-validator.ts#L27">validators/object-validator.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/fb8b6c2/src/validators/object-validator.ts#L30">validators/object-validator.ts:30</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -173,13 +180,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f90647e/src/validators/object-validator.ts#L47">validators/object-validator.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/fb8b6c2/src/validators/object-validator.ts#L53">validators/object-validator.ts:53</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Indicate that the object validator will allow keys to be present in the object that are not specified. Defaults to
-									false.</p>
+									<p>Change the behavior of the object validator to allow or disallow keys to be present in the object that are not
+									specified. By default unknown keys are allowed.</p>
 								</div>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -212,7 +219,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="validator.html">Validator</a>.<a href="validator.html#checkvalid">checkValid</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f90647e/src/interfaces.ts#L55">interfaces.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/fb8b6c2/src/interfaces.ts#L55">interfaces.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -244,7 +251,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="validator.html">Validator</a>.<a href="validator.html#isvalid">isValid</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f90647e/src/interfaces.ts#L47">interfaces.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/fb8b6c2/src/interfaces.ts#L47">interfaces.ts:47</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -275,12 +282,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f90647e/src/validators/object-validator.ts#L38">validators/object-validator.ts:38</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/fb8b6c2/src/validators/object-validator.ts#L43">validators/object-validator.ts:43</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Specify which keys are required for the object to be valid. Replaces any of the existing required keys.</p>
+									<p>Specify which keys are required for the object to be valid. Replaces any of the existing required keys. By default
+									no keys are required.</p>
 								</div>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -313,7 +321,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="validator.html">Validator</a>.<a href="validator.html#validate">validate</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f90647e/src/validators/object-validator.ts#L51">validators/object-validator.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/fb8b6c2/src/validators/object-validator.ts#L57">validators/object-validator.ts:57</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
