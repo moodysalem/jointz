@@ -26,7 +26,8 @@ type WithRequiredKeys<TObject extends {}, TRequiredKeys extends keyof TObject> =
 /**
  * Validator that checks a value is an object where each key has a value that matches a given validator.
  */
-export default class ObjectValidator<TKeys extends Keys, TRequiredKeys extends keyof TKeys, TAllowUnknown extends boolean> extends Validator<AllowUnknownKeyObject<WithRequiredKeys<ExtractObjectType<TKeys>, TRequiredKeys>, TAllowUnknown>> {
+export default class ObjectValidator<TKeys extends Keys, TRequiredKeys extends keyof TKeys, TAllowUnknown extends boolean>
+  extends Validator<AllowUnknownKeyObject<WithRequiredKeys<ExtractObjectType<TKeys>, TRequiredKeys>, TAllowUnknown>> {
   private readonly options: ObjectValidatorOptions<TKeys, TRequiredKeys, TAllowUnknown>;
 
   public constructor(options: ObjectValidatorOptions<TKeys, TRequiredKeys, TAllowUnknown>) {

@@ -23,13 +23,14 @@ export default abstract class jointz {
   /**
    * Create a validator that checks that the value is an object with a given shape.
    *
-   * By default the validator allows unknown keys in the object. Call `allowUnknownKeys(false)` on the returned object
-   * validator to disable this behavior.
+   * By default the object is not allowed to have keys other than what are specified.
+   * Call `allowUnknownKeys(true)` on the returned object validator to allow the object to have keys that are not
+   * specified which are not validated.
    *
    * @param keys validation to apply to each key in the object
    */
-  static object<TKeys extends Keys>(keys: TKeys): ObjectValidator<TKeys, never, true> {
-    return new ObjectValidator({ keys, requiredKeys: [], allowUnknownKeys: true });
+  static object<TKeys extends Keys>(keys: TKeys): ObjectValidator<TKeys, never, false> {
+    return new ObjectValidator({ keys, requiredKeys: [], allowUnknownKeys: false });
   }
 
   /**

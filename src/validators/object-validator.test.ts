@@ -125,24 +125,29 @@ describe('jointz#object', () => {
         .requiredKeys('abc')
         .allowUnknownKeys(true);
 
-      const x = {
-        abc: 2,
-        otherKey: 'abc'
-      };
-
-      expect(x.otherKey).to.eq('abc');
-
-      assert<IsExact<ExtractResultType<typeof validator>, typeof x>>(false);
+      assert<IsExact<keyof ExtractResultType<typeof validator>, string | number>>(true);
+      assert<IsExact<ExtractResultType<typeof validator>['abc'], number>>(true);
     });
-  });
 
-  it('has the right type', () => {
-    const validator = jointz.object({
-      abc: jointz.object({
-        def: jointz.array(jointz.number())
-      }).requiredKeys('def')
-    }).requiredKeys('abc');
+    it('does not allow unknown keys by default', () => {
+      const validator = jointz.object({
+        abc: jointz.number(),
+        test: jointz.string()
+      })
+        .requiredKeys('abc');
 
-    assert<IsExact<ExtractResultType<typeof validator>, { abc: { def: number[] } }>>(true);
+      assert<IsExact<keyof ExtractResultType<typeof validator>, string | number>>(false);
+      assert<IsExact<keyof ExtractResultType<typeof validator>, 'abc' | 'test'>>(true);
+    });
+
+    it('has the right shape', () => {
+      const validator = jointz.object({
+        abc: jointz.object({
+          def: jointz.array(jointz.number())
+        }).requiredKeys('def')
+      }).requiredKeys('abc');
+
+      assert<IsExact<ExtractResultType<typeof validator>, { abc: { def: number[] } }>>(true);
+    });
   });
 });
