@@ -19,6 +19,21 @@ describe('Validator', () => {
     expect(() => validator.checkValid(1)).to.throw('not a string');
   });
 
+  it('check valid error type', () => {
+    let threw = false;
+    try {
+      validator.checkValid(1);
+    } catch (error) {
+      threw = true;
+      expect(error.isFailedValidationError).to.eq(true);
+      expect(error.message).to.eq('not a string');
+      expect(error.errors).to.deep.eq([
+        { message: 'not a string', path: [], value: 1 }
+      ]);
+    }
+    expect(threw).to.eq(true);
+  });
+
   it('isValid typeguards', () => {
     const value: unknown = 'abc';
     expect(validator.isValid(value)).eq(true);
