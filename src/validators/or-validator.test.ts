@@ -39,8 +39,6 @@ describe('jointz#or', () => {
 
     const aOrB = jointz.or(aValidator, bValidator);
 
-    const x: unknown = { discriminator: 'a', num: 3 };
-
     assert<IsExact<ExtractResultType<typeof aValidator>, { discriminator: 'a'; num: number; }>>(true);
     assert<IsExact<ExtractResultType<typeof bValidator>, { discriminator: 'b'; str: string; }>>(true);
     assert<IsExact<ExtractResultType<typeof aOrB>, { discriminator: 'a'; num: number; } | { discriminator: 'b'; str: string; }>>(true);
