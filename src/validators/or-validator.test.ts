@@ -45,13 +45,27 @@ describe('jointz#or', () => {
     assert<IsExact<ExtractResultType<typeof bValidator>, { discriminator: 'b'; str: string; }>>(true);
     assert<IsExact<ExtractResultType<typeof aOrB>, { discriminator: 'a'; num: number; } | { discriminator: 'b'; str: string; }>>(true);
 
-    if (aOrB.isValid(x)) {
-      if (x.discriminator === 'a') {
-        expect(x.num).to.eq(3);
-      } else if (x.discriminator === 'b') {
-        expect(x.str.substring(0, 1)).to.eq(1);
-      }
-    }
+    expect(<unknown>[
+        { discriminator: 'a', num: 3 },
+        { discriminator: 'b', str: 'test' },
+        3,
+        'test',
+        'a',
+        'b',
+      ]
+        .filter((x) => aOrB.isValid(x))
+        .map((x) => aOrB.checkValid(x))
+        .map(x => {
+          if (x.discriminator === 'a') {
+            return x.num;
+          } else if (x.discriminator === 'b') {
+            return x.str;
+          } else {
+            throw new Error('unexpected code path');
+          }
+        })
+    )
+      .to.deep.eq([ 3, 'test' ]);
   });
 
   it('has the right type', () => {
