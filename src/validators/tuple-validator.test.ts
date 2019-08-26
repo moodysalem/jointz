@@ -30,6 +30,19 @@ describe('jointz#tuple', () => {
       .to.deep.eq([]);
   });
 
+  it('uses the path for type check', () => {
+    expect(jointz.tuple(jointz.number(), jointz.string()).validate({}, [ 'abc' ])).to.deep.eq([
+      { path: [ 'abc' ], value: {}, message: 'must be an array' }
+    ]);
+  });
+
+  it('uses the path for each item', () => {
+    expect(jointz.tuple(jointz.number(), jointz.string()).validate(['1', 2], [ 'abc' ])).to.deep.eq([
+      { path: [ 'abc', 0 ], value: '1', message: 'must be a number' },
+      { path: [ 'abc', 1 ], value: 2, message: 'must be a string' }
+    ]);
+  });
+
   it('isValid typeguards properly', () => {
     const validator = jointz.tuple(jointz.string(), jointz.number());
     const value: unknown = [ 'abc', 123 ];
