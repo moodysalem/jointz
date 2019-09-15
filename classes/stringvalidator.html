@@ -107,6 +107,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="stringvalidator.html#alphanum" class="tsd-kind-icon">alphanum</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="stringvalidator.html#checkvalid" class="tsd-kind-icon">check<wbr>Valid</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="stringvalidator.html#email" class="tsd-kind-icon">email</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="stringvalidator.html#isvalid" class="tsd-kind-icon">is<wbr>Valid</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="stringvalidator.html#maxlength" class="tsd-kind-icon">max<wbr>Length</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="stringvalidator.html#minlength" class="tsd-kind-icon">min<wbr>Length</a></li>
@@ -130,7 +131,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f5386a6/src/validators/string-validator.ts#L16">validators/string-validator.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/validators/string-validator.ts#L27">validators/string-validator.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -152,7 +153,7 @@
 					<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <a href="../interfaces/stringvalidatoroptions.html" class="tsd-signature-type">StringValidatorOptions</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f5386a6/src/validators/string-validator.ts#L16">validators/string-validator.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/validators/string-validator.ts#L27">validators/string-validator.ts:27</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -169,7 +170,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f5386a6/src/validators/string-validator.ts#L58">validators/string-validator.ts:58</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/validators/string-validator.ts#L69">validators/string-validator.ts:69</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -192,7 +193,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="validator.html">Validator</a>.<a href="validator.html#checkvalid">checkValid</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f5386a6/src/interfaces.ts#L55">interfaces.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/interfaces.ts#L55">interfaces.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -213,6 +214,29 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="email" class="tsd-anchor"></a>
+					<h3>email</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">email<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="stringvalidator.html" class="tsd-signature-type">StringValidator</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/validators/string-validator.ts#L84">validators/string-validator.ts:84</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Return a string validator that checks the string is a valid e-mail.
+									The regular expression is based on <a href="https://stackoverflow.com/a/46181/1126380">https://stackoverflow.com/a/46181/1126380</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="stringvalidator.html" class="tsd-signature-type">StringValidator</a></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 					<a name="isvalid" class="tsd-anchor"></a>
 					<h3>is<wbr>Valid</h3>
@@ -224,7 +248,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="validator.html">Validator</a>.<a href="validator.html#isvalid">isValid</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f5386a6/src/interfaces.ts#L47">interfaces.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/interfaces.ts#L47">interfaces.ts:47</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -255,7 +279,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f5386a6/src/validators/string-validator.ts#L39">validators/string-validator.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/validators/string-validator.ts#L50">validators/string-validator.ts:50</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -286,7 +310,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f5386a6/src/validators/string-validator.ts#L27">validators/string-validator.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/validators/string-validator.ts#L38">validators/string-validator.ts:38</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -316,7 +340,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f5386a6/src/validators/string-validator.ts#L51">validators/string-validator.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/validators/string-validator.ts#L62">validators/string-validator.ts:62</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -347,7 +371,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f5386a6/src/validators/string-validator.ts#L65">validators/string-validator.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/validators/string-validator.ts#L76">validators/string-validator.ts:76</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -370,7 +394,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="validator.html">Validator</a>.<a href="validator.html#validate">validate</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/f5386a6/src/validators/string-validator.ts#L69">validators/string-validator.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/validators/string-validator.ts#L88">validators/string-validator.ts:88</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -435,6 +459,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 								<a href="stringvalidator.html#checkvalid" class="tsd-kind-icon">check<wbr>Valid</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="stringvalidator.html#email" class="tsd-kind-icon">email</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 								<a href="stringvalidator.html#isvalid" class="tsd-kind-icon">is<wbr>Valid</a>
@@ -528,6 +555,9 @@
 						<a href="../index.html#any_validator" class="tsd-kind-icon">ANY_<wbr>VALIDATOR</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-external tsd-is-not-exported">
+						<a href="../index.html#email_regex" class="tsd-kind-icon">EMAIL_<wbr>REGEX</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external tsd-is-not-exported">
 						<a href="../index.html#supported_value_typeof" class="tsd-kind-icon">SUPPORTED_<wbr>VALUE_<wbr>TYPEOF</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-external tsd-is-not-exported">
@@ -538,6 +568,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter tsd-is-external">
 						<a href="../index.html#spreadargstoarray" class="tsd-kind-icon">spread<wbr>Args<wbr>ToArray</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-external tsd-is-not-exported">
+						<a href="../index.html#special_regex_messages" class="tsd-kind-icon">SPECIAL_<wbr>REGEX_<wbr>MESSAGES</a>
 					</li>
 				</ul>
 			</nav>
