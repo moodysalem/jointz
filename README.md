@@ -102,6 +102,9 @@ interface ValidationError {
 }
 ```
 
-- `path` is an array of keys indicating where the validation failed. In the case of arrays it is a number
+- `path` is an array of keys indicating where the validation failed.
+- - For arrays the key is a number
+- - For objects the key is a string
+- - e.g. `{abc: [{def: 'valid'}, {def: 'invalid'}]}` if the value `invalid` fails validation, the path is `['abc',1,'def']`
 - `message` is a human readable message that describes the validation error
 - `value` is the erroneous value
