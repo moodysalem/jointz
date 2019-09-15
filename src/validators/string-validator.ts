@@ -1,7 +1,8 @@
 import { ValidationError, ValidationErrorPath, Validator } from '../interfaces';
 
-const ALPHANUMERIC_REGEX = /^[a-zA-Z0-9]*$/;
-const UUID_REGEX = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
+const ALPHANUMERIC_REGEX = /^[a-z0-9]*$/i;
+const UUID_REGEX = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
+
 /**
  * Based on https://stackoverflow.com/a/46181/1126380
  */
@@ -12,6 +13,12 @@ interface StringValidatorOptions {
   readonly minLength?: number;
   readonly maxLength?: number;
 }
+
+const SPECIAL_REGEX_MESSAGES: { [ regexSource: string ]: string; } = {
+  [ ALPHANUMERIC_REGEX.source ]: 'must be alphanumeric',
+  [ UUID_REGEX.source ]: 'must be a uuid',
+  [ EMAIL_REGEX.source ]: 'must be a valid email',
+};
 
 /**
  * Validates that a given value is a string with some format and minimum or maximum length.
@@ -60,14 +67,14 @@ export default class StringValidator extends Validator<string> {
    * Return a string validator that checks the string is alphanumeric.
    */
   public alphanum(): StringValidator {
-    return new StringValidator({ ...this.options, pattern: ALPHANUMERIC_REGEX });
+    return this.pattern(ALPHANUMERIC_REGEX);
   }
 
   /**
    * Return a string validator that checks the string is a uuid.
    */
   public uuid(): StringValidator {
-    return new StringValidator({ ...this.options, pattern: UUID_REGEX });
+    return this.pattern(UUID_REGEX);
   }
 
   public email(): StringValidator {
@@ -84,14 +91,8 @@ export default class StringValidator extends Validator<string> {
     const errors: ValidationError[] = [];
 
     if (pattern && !pattern.test(value)) {
-      const message = 
-          pattern === ALPHANUMERIC_REGEX
-        ? 'must be alphanumeric'
-        : pattern === UUID_REGEX
-        ? 'must be a uuid' 
-        : pattern === EMAIL_REGEX
-        ? 'must be a valid email'
-        : 'did not match pattern'
+      const message = SPECIAL_REGEX_MESSAGES[ pattern.source ] || 'did not match pattern';
+
       errors.push({
         message,
         path,
