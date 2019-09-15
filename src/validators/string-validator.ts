@@ -2,6 +2,10 @@ import { ValidationError, ValidationErrorPath, Validator } from '../interfaces';
 
 const ALPHANUMERIC_REGEX = /^[a-zA-Z0-9]*$/;
 const UUID_REGEX = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
+/**
+ * Based on https://stackoverflow.com/a/46181/1126380
+ */
+const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
 
 interface StringValidatorOptions {
   readonly pattern?: RegExp;
@@ -66,6 +70,10 @@ export default class StringValidator extends Validator<string> {
     return new StringValidator({ ...this.options, pattern: UUID_REGEX });
   }
 
+  public email(): StringValidator {
+    return this.pattern(EMAIL_REGEX);
+  }
+
   public validate(value: any, path: ValidationErrorPath = []): ValidationError[] {
     const { pattern, minLength, maxLength } = this.options;
 
@@ -76,14 +84,16 @@ export default class StringValidator extends Validator<string> {
     const errors: ValidationError[] = [];
 
     if (pattern && !pattern.test(value)) {
+      const message = 
+          pattern === ALPHANUMERIC_REGEX
+        ? 'must be alphanumeric'
+        : pattern === UUID_REGEX
+        ? 'must be a uuid' 
+        : pattern === EMAIL_REGEX
+        ? 'must be a valid email'
+        : 'did not match pattern'
       errors.push({
-        message: pattern === ALPHANUMERIC_REGEX ?
-          'must be alphanumeric' :
-          (
-            pattern === UUID_REGEX ?
-              'must be a uuid' :
-              'did not match pattern'
-          ),
+        message,
         path,
         value
       });

@@ -19,11 +19,13 @@ describe('jointz#string', () => {
 
   it('validates patterns correctly', () => {
     expect(jointz.string().pattern(/^[abc]{3,4}$/).validate('abc', []))
-      .to.be.an('array').with.length(0);
+      .to.deep.eq([]);
     expect(jointz.string().pattern(/^[abc]{3,4}$/).validate('abcd', []))
-      .to.be.an('array').with.length(1);
+      .to.deep.eq([ { message: 'did not match pattern', path: [], value: 'abcd' } ]);
     expect(jointz.string().pattern(/^[abc]{3,4}$/).validate('abca', []))
-      .to.be.an('array').with.length(0);
+      .to.deep.eq([]);
+    expect(jointz.string().pattern(/^[abc]{3,4}$/).validate('abcdab', []))
+      .to.deep.eq([ { message: 'did not match pattern', path: [], value: 'abcdab' } ]);
   });
 
   it('validates uuids correctly', () => {
@@ -55,8 +57,17 @@ describe('jointz#string', () => {
       .to.be.an('array').with.length(1);
     expect(jointz.string().pattern(/^[abc]{3,4}$/).maxLength(3).validate('abcd', []))
       .to.be.an('array').with.length(2);
-    expect(jointz.string().pattern(/^[abc]{3,4}$/).minLength(4).validate('abc', []))
-      .to.be.an('array').with.length(1);
+  });
+
+  it('validates email propertly', () => {
+    expect(jointz.string().email().validate('this is not an email', []))
+      .to.deep.eq([ { message: 'must be a valid email', path: [], value: 'this is not an email' } ]);
+    expect(jointz.string().email().validate('email1@email.com', []))
+      .to.deep.eq([]);
+    expect(jointz.string().email().validate('super@email.test', []))
+      .to.deep.eq([]);
+    expect(jointz.string().email().validate('complex+email.a@dom.dom.dom', []))
+      .to.deep.eq([]);
   });
 
   it('throws with invalid minLength', () => {
