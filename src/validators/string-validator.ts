@@ -77,6 +77,10 @@ export default class StringValidator extends Validator<string> {
     return this.pattern(UUID_REGEX);
   }
 
+  /**
+   * Return a string validator that checks the string is a valid e-mail.
+   * The regular expression is based on https://stackoverflow.com/a/46181/1126380.
+   */
   public email(): StringValidator {
     return this.pattern(EMAIL_REGEX);
   }
