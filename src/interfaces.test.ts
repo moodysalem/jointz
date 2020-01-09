@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import { ValidationError, Validator } from './index';
+import { ValidationError, Validator, FailedValidationError } from './index';
 
 class CustomValidator extends Validator<string> {
   validate(value: any, path: Array<string> = []): ValidationError[] {
-    return typeof value === 'string' ? [] : [ { message: 'not a string', path, value } ];
+    return typeof value === 'string' ? [] : [{ message: 'not a string', path, value }];
   }
 }
 
@@ -46,6 +46,11 @@ describe('Validator', () => {
     const value: unknown = 'abc';
     const result: string = validator.checkValid(value);
     expect(result).to.eq('abc');
+  });
+
+  it('FailedValidationError calls super constructor', () => {
+    expect((new FailedValidationError([{ message: 'abc', path: ['abc', 1, 'def'] }])).message)
+      .to.eq('abc.1.def: abc');
   });
 });
 
