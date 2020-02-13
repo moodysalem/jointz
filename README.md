@@ -11,7 +11,7 @@ Zero dependency universal TypeScript validation library. Similar interface to [J
 - Written in TypeScript
 - Zero dependencies, tiny, and well tested
 - Supports `any`, `string`, `number`, `array`, `tuple`, `constant`, `or` and `object` validation
-- **New:** Generate TypeScript types from validator definitions
+- Infer TypeScript types from validator instances!
 - Implement your own validator and use it with any of the other validators
 - Fluid immutable interface
 - Targets both browsers and node
