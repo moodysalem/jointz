@@ -9,6 +9,8 @@ import OrValidator from './validators/or-validator';
 import StringValidator from './validators/string-validator';
 import TupleValidator from './validators/tuple-validator';
 
+const BOOLEAN_VALIDATOR = new ConstantValidator<boolean>({ allowedValues: [ true, false ]});
+
 /**
  * The default export of the jointz library that exposes static methods for constructing validators.
  */
@@ -70,6 +72,14 @@ export default abstract class jointz {
    */
   static constant<T extends Array<AllowedValueTypes>>(...allowedValues: T): ConstantValidator<T[number]> {
     return new ConstantValidator({ allowedValues: allowedValues });
+  }
+
+  /**
+   * Return a validator that checks that the value is either true or false.
+   * This is an alias for constructing a constant validator.
+   */
+  static boolean(): Validator<boolean> {
+    return BOOLEAN_VALIDATOR;
   }
 
   /**
