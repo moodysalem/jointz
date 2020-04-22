@@ -66,13 +66,6 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>The default export of the jointz library that exposes static methods for constructing validators.</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -90,6 +83,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="jointz.html#any" class="tsd-kind-icon">any</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="jointz.html#array" class="tsd-kind-icon">array</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="jointz.html#boolean" class="tsd-kind-icon">boolean</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="jointz.html#constant" class="tsd-kind-icon">constant</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="jointz.html#number" class="tsd-kind-icon">number</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="jointz.html#object" class="tsd-kind-icon">object</a></li>
@@ -113,14 +107,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/index.ts#L78">index.ts:78</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/dd87db0/src/index.ts#L88">index.ts:88</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Return a validator that always succeeds but does not limit the type.</p>
-								</div>
-							</div>
 							<h4 class="tsd-returns-title">Returns <a href="anyvalidator.html" class="tsd-signature-type">AnyValidator</a></h4>
 						</li>
 					</ul>
@@ -135,14 +124,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/index.ts#L63">index.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/dd87db0/src/index.ts#L65">index.ts:65</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Return a validator that checks the value is an array, optionally validating each item in the array</p>
-								</div>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -153,12 +137,26 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> itemValidator: <a href="validator.html" class="tsd-signature-type">Validator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TItem</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;ANY_VALIDATOR</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>validator for the individual array items</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="arrayvalidator.html" class="tsd-signature-type">ArrayValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TItem</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="boolean" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> boolean</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">boolean<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="validator.html" class="tsd-signature-type">Validator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/dd87db0/src/index.ts#L81">index.ts:81</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="validator.html" class="tsd-signature-type">Validator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -166,20 +164,15 @@
 					<a name="constant" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> constant</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">constant&lt;T&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>allowedValues<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="constantvalidator.html" class="tsd-signature-type">ConstantValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T[number]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">constant&lt;T&gt;<span class="tsd-signature-symbol">(</span>allowedValues<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="constantvalidator.html" class="tsd-signature-type">ConstantValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T[number]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/index.ts#L71">index.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/dd87db0/src/index.ts#L73">index.ts:73</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Return a constant validator that checks that the value is one of a set of given values.</p>
-								</div>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -189,10 +182,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>allowedValues: <span class="tsd-signature-type">T</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>the values that are considered valid. can be numbers, strings, booleans, <code>null</code>, or <code>undefined</code></p>
-									</div>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> allowedValues: <span class="tsd-signature-type">T</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="constantvalidator.html" class="tsd-signature-type">ConstantValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T[number]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -209,14 +199,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/index.ts#L39">index.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/dd87db0/src/index.ts#L41">index.ts:41</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Create a validator that checks that the value is a number. Call additional methods to add constraints to the number.</p>
-								</div>
-							</div>
 							<h4 class="tsd-returns-title">Returns <a href="numbervalidator.html" class="tsd-signature-type">NumberValidator</a></h4>
 						</li>
 					</ul>
@@ -231,17 +216,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/index.ts#L32">index.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/dd87db0/src/index.ts#L34">index.ts:34</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Create a validator that checks that the value is an object with a given shape.</p>
-								</div>
-								<p>By default the object is not allowed to have keys other than what are specified.
-									Call <code>allowUnknownKeys(true)</code> on the returned object validator to allow the object to have keys that are not
-								specified which are not validated.</p>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -252,9 +229,6 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>keys: <span class="tsd-signature-type">TKeys</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>validation to apply to each key in the object</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="objectvalidator.html" class="tsd-signature-type">ObjectValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TKeys</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -265,20 +239,15 @@
 					<a name="or" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> or</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">or&lt;T&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>validators<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="orvalidator.html" class="tsd-signature-type">OrValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ExtractResultTypes&lt;T&gt;[number]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">or&lt;T&gt;<span class="tsd-signature-symbol">(</span>validators<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="orvalidator.html" class="tsd-signature-type">OrValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ExtractResultTypes&lt;T&gt;[number]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/index.ts#L55">index.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/dd87db0/src/index.ts#L57">index.ts:57</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Combine a list of validators to produce a new validator that passes if any of the given validators pass</p>
-								</div>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -288,10 +257,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>validators: <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">]</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>validators to combine into an OR expression validator</p>
-									</div>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> validators: <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">]</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="orvalidator.html" class="tsd-signature-type">OrValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ExtractResultTypes&lt;T&gt;[number]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -308,14 +274,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/index.ts#L19">index.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/dd87db0/src/index.ts#L21">index.ts:21</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Create a validator that checks the value is a string.</p>
-								</div>
-							</div>
 							<h4 class="tsd-returns-title">Returns <a href="stringvalidator.html" class="tsd-signature-type">StringValidator</a></h4>
 						</li>
 					</ul>
@@ -324,20 +285,15 @@
 					<a name="tuple" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> tuple</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">tuple&lt;T&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>validators<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="tuplevalidator.html" class="tsd-signature-type">TupleValidator</a><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#extractresulttypes" class="tsd-signature-type">ExtractResultTypes</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">tuple&lt;T&gt;<span class="tsd-signature-symbol">(</span>validators<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="tuplevalidator.html" class="tsd-signature-type">TupleValidator</a><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#extractresulttypes" class="tsd-signature-type">ExtractResultTypes</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/32934fa/src/index.ts#L47">index.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/moodysalem/jointz/blob/dd87db0/src/index.ts#L49">index.ts:49</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Create a validator that checks that the given value is a tuple of values that match the given validators.</p>
-								</div>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -347,10 +303,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>validators: <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">]</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>list of validators that the items in the tuple should match in order</p>
-									</div>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> validators: <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">]</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="tuplevalidator.html" class="tsd-signature-type">TupleValidator</a><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#extractresulttypes" class="tsd-signature-type">ExtractResultTypes</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -409,6 +362,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
 								<a href="jointz.html#array" class="tsd-kind-icon">array</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="jointz.html#boolean" class="tsd-kind-icon">boolean</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
 								<a href="jointz.html#constant" class="tsd-kind-icon">constant</a>
@@ -491,6 +447,9 @@
 					</li>
 					<li class=" tsd-kind-variable tsd-is-external">
 						<a href="../index.html#any_validator" class="tsd-kind-icon">ANY_<wbr>VALIDATOR</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="../index.html#boolean_validator" class="tsd-kind-icon">BOOLEAN_<wbr>VALIDATOR</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-external tsd-is-not-exported">
 						<a href="../index.html#email_regex" class="tsd-kind-icon">EMAIL_<wbr>REGEX</a>
