@@ -106,7 +106,7 @@ export default class ObjectValidator<
 
     for (let key in value) {
       if (value.hasOwnProperty(key)) {
-        if (keys && typeof keys[key] !== "undefined") {
+        if (keys && keys[key] !== undefined) {
           errors = errors.concat(
             keys[key].validate(value[key], [
               ...path,
@@ -125,7 +125,7 @@ export default class ObjectValidator<
 
     if (requiredKeys) {
       for (let requiredKey of requiredKeys) {
-        if (typeof value[requiredKey] === "undefined") {
+        if (value[requiredKey] === undefined) {
           errors.push({
             message: `required key "${requiredKey}" was not defined`,
             path,
@@ -152,7 +152,7 @@ export default class ObjectValidator<
 
     for (let key in value) {
       if (value.hasOwnProperty(key)) {
-        if (keys && typeof keys[key] !== "undefined") {
+        if (keys && keys[key] !== undefined) {
           if (!keys[key].isValid(value[key])) {
             return false;
           }
@@ -164,7 +164,7 @@ export default class ObjectValidator<
 
     if (requiredKeys) {
       for (let requiredKey of requiredKeys) {
-        if (typeof value[requiredKey] === "undefined") {
+        if (value[requiredKey] === undefined) {
           return false;
         }
       }

@@ -131,9 +131,9 @@ export default class StringValidator extends Validator<string> {
     const { maxLength, minLength, pattern } = this.options;
     return (
       typeof value === "string" &&
-      (typeof maxLength !== "number" || value.length <= maxLength) &&
-      (typeof minLength !== "number" || value.length >= minLength) &&
-      (typeof pattern === "undefined" || pattern.test(value))
+      (maxLength === undefined || value.length <= maxLength) &&
+      (minLength === undefined || value.length >= minLength) &&
+      (pattern === undefined || pattern.test(value))
     );
   }
 }

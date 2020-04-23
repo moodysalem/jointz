@@ -91,9 +91,9 @@ export default class NumberValidator extends Validator<number> {
     const { max, min, multipleOf } = this.options;
     return (
       typeof value === "number" &&
-      (typeof max === "undefined" || value <= max) &&
-      (typeof min === "undefined" || value >= min) &&
-      (typeof multipleOf === "undefined" || value % multipleOf === 0)
+      (max === undefined || value <= max) &&
+      (min === undefined || value >= min) &&
+      (multipleOf === undefined || value % multipleOf === 0)
     );
   }
 }

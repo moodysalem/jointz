@@ -59,7 +59,7 @@ export default class ArrayValidator<TItem> extends Validator<TItem[]> {
 
     let errors: ValidationError[] = [];
 
-    if (typeof minLength !== "undefined" && value.length < minLength) {
+    if (minLength !== undefined && value.length < minLength) {
       errors.push({
         message: `array length ${value.length} was less than minimum length: ${minLength}`,
         path,
@@ -67,7 +67,7 @@ export default class ArrayValidator<TItem> extends Validator<TItem[]> {
       });
     }
 
-    if (typeof maxLength !== "undefined" && value.length > maxLength) {
+    if (maxLength !== undefined && value.length > maxLength) {
       errors.push({
         message: `array length ${value.length} was greater than maximum length: ${maxLength}`,
         path,
@@ -89,8 +89,8 @@ export default class ArrayValidator<TItem> extends Validator<TItem[]> {
     if (
       typeof value === "object" &&
       Array.isArray(value) &&
-      (!minLength || value.length >= minLength) &&
-      (!maxLength || value.length <= maxLength)
+      (minLength === undefined || value.length >= minLength) &&
+      (maxLength === undefined || value.length <= maxLength)
     ) {
       if (items) {
         for (let x of value) {
