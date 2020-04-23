@@ -32,7 +32,7 @@ export default function checkValidates(
     const messageMatcher = errorMatcher.with.property("message");
 
     //  message must contain information about every message and path
-    expectedError.every(
+    expectedError.forEach(
       (err) =>
         messageMatcher.contains(err.message) &&
         messageMatcher.contains(err.path.join("."))
