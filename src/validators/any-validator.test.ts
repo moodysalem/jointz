@@ -1,16 +1,16 @@
-import { expect } from 'chai';
-import { assert, IsAny } from 'conditional-type-checks';
-import { describe, it } from 'mocha';
-import jointz, { ExtractResultType } from '../index';
+import { expect } from "chai";
+import { assert, IsAny } from "conditional-type-checks";
+import { describe, it } from "mocha";
+import jointz, { ExtractResultType } from "../index";
 
-describe('jointz#any', () => {
-  it('always returns true', () => {
+describe("jointz#any", () => {
+  it("always returns true", () => {
     const anies: any[] = [
-      'abc',
+      "abc",
       1,
       -1,
-      '',
-      '43@!%()!%^*!#$^)_',
+      "",
+      "43@!%()!%^*!#$^)_",
       null,
       undefined,
     ];
@@ -19,7 +19,7 @@ describe('jointz#any', () => {
     }
   });
 
-  it('is the any type', () => {
+  it("is the any type", () => {
     const validator = jointz.any();
 
     assert<IsAny<ExtractResultType<typeof validator>>>(true);

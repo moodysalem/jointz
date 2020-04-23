@@ -1,4 +1,4 @@
-import { ValidationError, ValidationErrorPath, Validator } from '../interfaces';
+import { ValidationError, ValidationErrorPath, Validator } from "../interfaces";
 
 const ALPHANUMERIC_REGEX = /^[a-z0-9]*$/i;
 const UUID_REGEX = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
@@ -14,10 +14,10 @@ interface StringValidatorOptions {
   readonly maxLength?: number;
 }
 
-const SPECIAL_REGEX_MESSAGES: { [ regexSource: string ]: string; } = {
-  [ ALPHANUMERIC_REGEX.source ]: 'must be alphanumeric',
-  [ UUID_REGEX.source ]: 'must be a uuid',
-  [ EMAIL_REGEX.source ]: 'must be a valid email',
+const SPECIAL_REGEX_MESSAGES: { [regexSource: string]: string } = {
+  [ALPHANUMERIC_REGEX.source]: "must be alphanumeric",
+  [UUID_REGEX.source]: "must be a uuid",
+  [EMAIL_REGEX.source]: "must be a valid email",
 };
 
 /**
@@ -85,33 +85,55 @@ export default class StringValidator extends Validator<string> {
     return this.pattern(EMAIL_REGEX);
   }
 
-  public validate(value: any, path: ValidationErrorPath = []): ValidationError[] {
+  public validate(
+    value: any,
+    path: ValidationErrorPath = []
+  ): ValidationError[] {
     const { pattern, minLength, maxLength } = this.options;
 
-    if (typeof value !== 'string') {
-      return [ { message: `must be a string`, path, value } ];
+    if (typeof value !== "string") {
+      return [{ message: `must be a string`, path, value }];
     }
 
     const errors: ValidationError[] = [];
 
     if (pattern && !pattern.test(value)) {
-      const message = SPECIAL_REGEX_MESSAGES[ pattern.source ] || 'did not match pattern';
+      const message =
+        SPECIAL_REGEX_MESSAGES[pattern.source] || "did not match pattern";
 
       errors.push({
         message,
         path,
-        value
+        value,
       });
     }
 
-    if (typeof minLength !== 'undefined' && value.length < minLength) {
-      errors.push({ message: `length ${value.length} was shorter than minimum length: ${minLength}`, path, value });
+    if (typeof minLength !== "undefined" && value.length < minLength) {
+      errors.push({
+        message: `length ${value.length} was shorter than minimum length: ${minLength}`,
+        path,
+        value,
+      });
     }
 
-    if (typeof maxLength !== 'undefined' && value.length > maxLength) {
-      errors.push({ message: `length ${value.length} was longer than maximum length: ${maxLength}`, path, value });
+    if (typeof maxLength !== "undefined" && value.length > maxLength) {
+      errors.push({
+        message: `length ${value.length} was longer than maximum length: ${maxLength}`,
+        path,
+        value,
+      });
     }
 
     return errors;
+  }
+
+  isValid(value: any): value is string {
+    const { maxLength, minLength, pattern } = this.options;
+    return (
+      typeof value === "string" &&
+      (typeof maxLength !== "number" || value.length <= maxLength) &&
+      (typeof minLength !== "number" || value.length >= minLength) &&
+      (typeof pattern === "undefined" || pattern.test(value))
+    );
   }
 }

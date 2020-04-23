@@ -15,6 +15,7 @@
     "publish-docs": "npm run docs && gh-pages -d docs",
     "prebuild": "npm run clean",
     "build": "tsc",
+    "prettier": "prettier --write src/",
     "upload-coverage": "codecov",
     "prepare": "npm run build"
   },
@@ -59,6 +60,7 @@
     "gh-pages": "^2.0.1",
     "mocha": "^5.2.0",
     "nyc": "^13.3.0",
+    "prettier": "^2.0.5",
     "rimraf": "^2.6.3",
     "source-map-support": "^0.5.12",
     "ts-node": "^7.0.1",

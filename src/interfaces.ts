@@ -21,9 +21,11 @@ export class FailedValidationError extends Error {
 
   constructor(errors: ValidationError[]) {
     super(
-      errors.map(
-        ({ path, message }) => [ path.join('.'), message ].filter(v => v.length > 0).join(': ')
-      ).join('; ')
+      errors
+        .map(({ path, message }) =>
+          [path.join("."), message].filter((v) => v.length > 0).join(": ")
+        )
+        .join("; ")
     );
     this.errors = errors;
   }
@@ -38,10 +40,14 @@ export abstract class Validator<TValid> {
    * @param value value to validate
    * @param path current path of the validation
    */
-  public abstract validate(value: any, path?: ValidationErrorPath): ValidationError[];
+  public abstract validate(
+    value: any,
+    path?: ValidationErrorPath
+  ): ValidationError[];
 
   /**
-   * Return true if the value is valid
+   * Return true if the value is valid. #isValid is unique in that validation errors are not surfaced, so the validator
+   * may optimize for performance.
    * @param value value to check
    */
   public isValid(value: any): value is TValid {
@@ -66,9 +72,15 @@ export abstract class Validator<TValid> {
 /**
  * Extracts the result type from a validator. Define your validator and then use this to get the type of result.
  */
-export type ExtractResultType<TValidator> = TValidator extends Validator<infer T> ? T : unknown;
+export type ExtractResultType<TValidator> = TValidator extends Validator<
+  infer T
+>
+  ? T
+  : unknown;
 
 /**
  * Extract the result types from an array of validators.
  */
-export type ExtractResultTypes<TValidators extends Validator<any>[]> = { [P in keyof TValidators]: ExtractResultType<TValidators[P]> };
+export type ExtractResultTypes<TValidators extends Validator<any>[]> = {
+  [P in keyof TValidators]: ExtractResultType<TValidators[P]>;
+};

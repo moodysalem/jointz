@@ -1,4 +1,4 @@
-import { ValidationError, ValidationErrorPath, Validator } from '../interfaces';
+import { ValidationError, ValidationErrorPath, Validator } from "../interfaces";
 
 interface OrValidatorOptions {
   // The list of validators of which any one validator must pass for the value to be considered valid
@@ -16,17 +16,32 @@ export default class OrValidator<TOptions> extends Validator<TOptions> {
     this.options = options;
   }
 
-  public validate(value: any, path: ValidationErrorPath = []): ValidationError[] {
+  public validate(
+    value: any,
+    path: ValidationErrorPath = []
+  ): ValidationError[] {
     const { validators } = this.options;
 
     for (let i in validators) {
-      const errs = validators[ i ].validate(value, path);
+      const errs = validators[i].validate(value, path);
 
       if (errs.length === 0) {
         return [];
       }
     }
 
-    return [ { path, message: 'did not match any of the expected types', value } ];
+    return [
+      { path, message: "did not match any of the expected types", value },
+    ];
+  }
+
+  isValid(value: any): value is TOptions {
+    const { validators } = this.options;
+    for (let v of validators) {
+      if (v.isValid(value)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

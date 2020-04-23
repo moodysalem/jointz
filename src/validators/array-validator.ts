@@ -1,4 +1,4 @@
-import { ValidationError, ValidationErrorPath, Validator } from '../interfaces';
+import { ValidationError, ValidationErrorPath, Validator } from "../interfaces";
 
 interface ArrayValidatorOptions<TItem> {
   readonly items?: Validator<TItem>;
@@ -47,33 +47,62 @@ export default class ArrayValidator<TItem> extends Validator<TItem[]> {
     return new ArrayValidator({ ...this.options, items });
   }
 
-  public validate(value: any, path: ValidationErrorPath = []): ValidationError[] {
+  public validate(
+    value: any,
+    path: ValidationErrorPath = []
+  ): ValidationError[] {
     const { items, minLength, maxLength } = this.options;
 
-    if (typeof value !== 'object' || !Array.isArray(value)) {
-      return [ { message: `must be an array`, path, value } ];
+    if (typeof value !== "object" || !Array.isArray(value)) {
+      return [{ message: `must be an array`, path, value }];
     }
 
     let errors: ValidationError[] = [];
 
-    if (typeof minLength !== 'undefined' && value.length < minLength) {
-      errors.push({ message: `array length ${value.length} was less than minimum length: ${minLength}`, path, value });
+    if (typeof minLength !== "undefined" && value.length < minLength) {
+      errors.push({
+        message: `array length ${value.length} was less than minimum length: ${minLength}`,
+        path,
+        value,
+      });
     }
 
-    if (typeof maxLength !== 'undefined' && value.length > maxLength) {
+    if (typeof maxLength !== "undefined" && value.length > maxLength) {
       errors.push({
         message: `array length ${value.length} was greater than maximum length: ${maxLength}`,
         path,
-        value
+        value,
       });
     }
 
     if (errors.length === 0 && items) {
       for (let i = 0; i < value.length; i++) {
-        errors = errors.concat(items.validate(value[ i ], [ ...path, i ]));
+        errors = errors.concat(items.validate(value[i], [...path, i]));
       }
     }
 
     return errors;
+  }
+
+  isValid(value: any): value is TItem[] {
+    const { minLength, maxLength, items } = this.options;
+    if (
+      typeof value === "object" &&
+      Array.isArray(value) &&
+      (!minLength || value.length >= minLength) &&
+      (!maxLength || value.length <= maxLength)
+    ) {
+      if (items) {
+        for (let x of value) {
+          if (!items.checkValid(x)) {
+            return false;
+          }
+        }
+        return true;
+      } else {
+        return true;
+      }
+    }
+    return false;
   }
 }

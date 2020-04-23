@@ -1,8 +1,13 @@
-import { ValidationError, ValidationErrorPath, Validator } from '../interfaces';
+import { ValidationError, ValidationErrorPath, Validator } from "../interfaces";
 
 export type AllowedValueTypes = string | number | boolean | null | undefined;
 
-const SUPPORTED_VALUE_TYPEOF: readonly string[] = [ 'string', 'number', 'boolean', 'undefined' ];
+const SUPPORTED_VALUE_TYPEOF: readonly string[] = [
+  "string",
+  "number",
+  "boolean",
+  "undefined",
+];
 
 /**
  * Return true if the given value is one of the supported value types
@@ -12,43 +17,58 @@ function isSupportedValueType(value: any): value is AllowedValueTypes {
   return value === null || SUPPORTED_VALUE_TYPEOF.indexOf(typeof value) !== -1;
 }
 
-interface ConstantValidatorOptions {
-  readonly allowedValues: Array<AllowedValueTypes>;
+interface ConstantValidatorOptions<TValues extends Array<AllowedValueTypes>> {
+  readonly allowedValues: TValues;
 }
 
 /**
  * Validator that checks that a value is one of a given set of constants
  */
-export default class ConstantValidator<TOptions> extends Validator<TOptions> {
-  private readonly options: ConstantValidatorOptions;
+export default class ConstantValidator<
+  TValues extends Array<AllowedValueTypes>
+> extends Validator<TValues[number]> {
+  private readonly options: ConstantValidatorOptions<TValues>;
 
-  public constructor(options: ConstantValidatorOptions) {
+  public constructor(options: ConstantValidatorOptions<TValues>) {
     super();
 
     if (options.allowedValues.length === 0) {
-      throw new Error('constant validators should have at least one value');
+      throw new Error("constant validators should have at least one value");
     }
 
-    for (let i in options.allowedValues) {
-      if (!isSupportedValueType(options.allowedValues[ i ])) {
-        throw new Error('unsupported value type in constant validator, must be string, boolean, number, null or undefined');
+    for (let value of options.allowedValues) {
+      if (!isSupportedValueType(value)) {
+        throw new Error(
+          "unsupported value type in constant validator, must be string, boolean, number, null or undefined"
+        );
       }
     }
 
     this.options = options;
   }
 
-  public validate(value: any, path: ValidationErrorPath = []): ValidationError[] {
+  public validate(
+    value: any,
+    path: ValidationErrorPath = []
+  ): ValidationError[] {
     const { allowedValues } = this.options;
 
     if (allowedValues.indexOf(value) === -1) {
-      return [ {
-        path,
-        message: `must be one of ${this.options.allowedValues.map(v => typeof v === 'string' ? `"${v}"` : `${v}`).join(', ')}`,
-        value
-      } ];
+      return [
+        {
+          path,
+          message: `must be one of ${this.options.allowedValues
+            .map((v) => (typeof v === "string" ? `"${v}"` : `${v}`))
+            .join(", ")}`,
+          value,
+        },
+      ];
     }
 
     return [];
+  }
+
+  isValid(value: any): value is TValues[number] {
+    return this.options.allowedValues.indexOf(value) !== -1;
   }
 }

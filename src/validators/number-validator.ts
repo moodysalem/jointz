@@ -1,4 +1,4 @@
-import { ValidationError, ValidationErrorPath, Validator } from '../interfaces';
+import { ValidationError, ValidationErrorPath, Validator } from "../interfaces";
 
 interface NumberValidatorOptions {
   readonly multipleOf?: number;
@@ -45,31 +45,55 @@ export default class NumberValidator extends Validator<number> {
     return this.multipleOf(1);
   }
 
-  public validate(value: any, path: ValidationErrorPath = []): ValidationError[] {
+  public validate(
+    value: any,
+    path: ValidationErrorPath = []
+  ): ValidationError[] {
     const { multipleOf, min, max } = this.options;
 
-    if (typeof value !== 'number') {
-      return [ { message: `must be a number`, path, value } ];
+    if (typeof value !== "number") {
+      return [{ message: `must be a number`, path, value }];
     }
 
     const errors: ValidationError[] = [];
 
     if (multipleOf && value % multipleOf !== 0) {
       errors.push({
-        message: multipleOf === 1 ? 'number was not an integer' : `number was not a multiple of ${multipleOf}`,
+        message:
+          multipleOf === 1
+            ? "number was not an integer"
+            : `number was not a multiple of ${multipleOf}`,
         path,
-        value
+        value,
       });
     }
 
-    if (typeof min !== 'undefined' && value < min) {
-      errors.push({ message: `${value} must be greater than or equal to ${min}`, path, value });
+    if (typeof min !== "undefined" && value < min) {
+      errors.push({
+        message: `${value} must be greater than or equal to ${min}`,
+        path,
+        value,
+      });
     }
 
-    if (typeof max !== 'undefined' && value > max) {
-      errors.push({ message: `${value} must be less than or equal to ${max}`, path, value });
+    if (typeof max !== "undefined" && value > max) {
+      errors.push({
+        message: `${value} must be less than or equal to ${max}`,
+        path,
+        value,
+      });
     }
 
     return errors;
+  }
+
+  isValid(value: any): value is number {
+    const { max, min, multipleOf } = this.options;
+    return (
+      typeof value === "number" &&
+      (typeof max === "undefined" || value <= max) &&
+      (typeof min === "undefined" || value >= min) &&
+      (typeof multipleOf === "undefined" || value % multipleOf === 0)
+    );
   }
 }

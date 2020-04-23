@@ -1,18 +1,20 @@
-import { expect } from 'chai';
-import { assert, IsExact } from 'conditional-type-checks';
-import jointz, { ExtractResultType } from './index';
+import { expect } from "chai";
+import { assert, IsExact } from "conditional-type-checks";
+import jointz, { ExtractResultType } from "./index";
 
-const ThingValidator = jointz.object({
-  id: jointz.string().uuid(),
-  name: jointz.string().minLength(3).maxLength(100)
-}).requiredKeys([ 'id', 'name' ]);
+const ThingValidator = jointz
+  .object({
+    id: jointz.string().uuid(),
+    name: jointz.string().minLength(3).maxLength(100),
+  })
+  .requiredKeys(["id", "name"]);
 
 type Thing = ExtractResultType<typeof ThingValidator>;
 
-const myObject: unknown = { id: 'abc', name: 'hello world!' };
+const myObject: unknown = { id: "abc", name: "hello world!" };
 
-describe('examples', () => {
-  it('#validate', () => {
+describe("examples", () => {
+  it("#validate", () => {
     const errors = ThingValidator.validate(myObject); // expect an error because id is not a uuid
 
     if (errors.length) {
@@ -23,7 +25,7 @@ describe('examples', () => {
     }
   });
 
-  it('checkValid', () => {
+  it("checkValid", () => {
     let failedValidation: boolean = false;
     try {
       const thing: Thing = ThingValidator.checkValid(myObject);
@@ -34,12 +36,14 @@ describe('examples', () => {
     expect(failedValidation).to.eq(true);
   });
 
-  it('indexer is id or name if allow unknown keys is false', () => {
+  it("indexer is id or name if allow unknown keys is false", () => {
     const falseAllow = ThingValidator.allowUnknownKeys(false);
-    assert<IsExact<keyof ExtractResultType<typeof falseAllow>, 'id' | 'name'>>(true);
+    assert<IsExact<keyof ExtractResultType<typeof falseAllow>, "id" | "name">>(
+      true
+    );
   });
 
-  it('isValid typeguards', () => {
+  it("isValid typeguards", () => {
     if (ThingValidator.isValid(myObject)) {
       // This works because myObject is a valid Thing
       const id: string = myObject.id;
