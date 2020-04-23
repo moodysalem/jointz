@@ -85,6 +85,16 @@ describe("jointz#array", () => {
     );
   });
 
+  it("checks just type", () => {
+    checkValidates(jointz.array(), []);
+    checkValidates(jointz.array(), ["abc", 123]);
+  });
+
+  it("just checks length", () => {
+    checkValidates(jointz.array().minLength(2), [1, 2]);
+    checkValidates(jointz.array().maxLength(5), ["abc", 123]);
+  });
+
   it("throws with invalid minLength", () => {
     expect(() => jointz.array(jointz.number()).minLength(-1)).to.throw(
       "min length -1 must be greater than or equal to 0"

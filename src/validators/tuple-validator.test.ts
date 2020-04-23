@@ -2,56 +2,55 @@ import { expect } from "chai";
 import { assert, IsExact } from "conditional-type-checks";
 import { describe, it } from "mocha";
 import jointz, { ExtractResultType } from "../index";
+import checkValidates from "../util/check-validates";
 
 describe("jointz#tuple", () => {
   it("validates item is array", () => {
-    expect(jointz.tuple([jointz.constant(0)]).validate(0))
-      .to.be.an("array")
-      .with.length(1);
-    expect(jointz.tuple([jointz.constant(0)]).validate([0]))
-      .to.be.an("array")
-      .with.length(0);
+    checkValidates(jointz.tuple([jointz.constant(0)]), 0, [
+      { message: "must be an array", path: [], value: 0 },
+    ]);
+    checkValidates(jointz.tuple([jointz.constant(0)]), [0], []);
   });
 
   it("error if missing items", () => {
-    expect(jointz.tuple([jointz.constant("a")]).validate([])).to.deep.eq([
-      { path: [0], message: 'must be one of "a"', value: undefined },
-    ]);
+    checkValidates(
+      jointz.tuple([jointz.constant("a")]),
+      [],
+      [{ path: [0], message: 'must be one of "a"', value: undefined }]
+    );
   });
 
   it("error if too long", () => {
-    expect(
-      jointz.tuple([jointz.constant("a")]).validate(["a", "b"])
-    ).to.deep.eq([
-      {
-        path: [],
-        message: "array length 2 was greater than expected length 1",
-        value: ["a", "b"],
-      },
-    ]);
+    checkValidates(
+      jointz.tuple([jointz.constant("a")]),
+      ["a", "b"],
+      [
+        {
+          path: [],
+          message: "array length 2 was greater than expected length 1",
+          value: ["a", "b"],
+        },
+      ]
+    );
   });
 
   it("works with varargs", () => {
-    expect(
-      jointz
-        .tuple(jointz.constant("abc", "def"), jointz.number())
-        .validate(["def", 3])
-    ).to.deep.eq([]);
-  });
-
-  it("uses the path for type check", () => {
-    expect(
-      jointz.tuple(jointz.number(), jointz.string()).validate({}, ["abc"])
-    ).to.deep.eq([{ path: ["abc"], value: {}, message: "must be an array" }]);
+    checkValidates(
+      jointz.tuple(jointz.constant("abc", "def"), jointz.number()),
+      ["def", 3],
+      []
+    );
   });
 
   it("uses the path for each item", () => {
-    expect(
-      jointz.tuple(jointz.number(), jointz.string()).validate(["1", 2], ["abc"])
-    ).to.deep.eq([
-      { path: ["abc", 0], value: "1", message: "must be a number" },
-      { path: ["abc", 1], value: 2, message: "must be a string" },
-    ]);
+    checkValidates(
+      jointz.tuple(jointz.number(), jointz.string()),
+      ["1", 2],
+      [
+        { path: [0], value: "1", message: "must be a number" },
+        { path: [1], value: 2, message: "must be a string" },
+      ]
+    );
   });
 
   it("isValid typeguards properly", () => {

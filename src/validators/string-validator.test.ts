@@ -79,7 +79,13 @@ describe("jointz#string", () => {
         .pattern(/^[abc]{3,4}$/)
         .maxLength(3),
       "abca",
-      [{ path: [], message: "length 4 was longer than maximum length: 3", value: "abca" }]
+      [
+        {
+          path: [],
+          message: "length 4 was longer than maximum length: 3",
+          value: "abca",
+        },
+      ]
     );
     checkValidates(
       jointz
@@ -89,7 +95,11 @@ describe("jointz#string", () => {
       "abcd",
       [
         { path: [], message: "did not match pattern", value: "abcd" },
-        { path: [], message: "length 4 was longer than maximum length: 3", value: "abcd" },
+        {
+          path: [],
+          message: "length 4 was longer than maximum length: 3",
+          value: "abcd",
+        },
       ]
     );
   });

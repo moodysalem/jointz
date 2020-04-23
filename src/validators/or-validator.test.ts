@@ -2,44 +2,38 @@ import { expect } from "chai";
 import { assert, IsExact } from "conditional-type-checks";
 import { describe, it } from "mocha";
 import jointz, { ExtractResultType } from "../index";
+import checkValidates from "../util/check-validates";
 
 describe("jointz#or", () => {
   it("validates one or the other", () => {
-    expect(jointz.or(jointz.string(), jointz.number()).validate({})).to.deep.eq(
-      [
-        {
-          message: "did not match any of the expected types",
-          path: [],
-          value: {},
-        },
-      ]
-    );
-    expect(
-      jointz.or(jointz.string(), jointz.number()).validate("abc")
-    ).to.deep.eq([]);
-    expect(
-      jointz.or(jointz.string(), jointz.number()).validate(123)
-    ).to.deep.eq([]);
-
-    expect(
-      jointz.or(jointz.string(), jointz.number()).validate({}, ["abc"])
-    ).to.deep.eq([
+    checkValidates(jointz.or(jointz.string(), jointz.number()), {}, [
       {
         message: "did not match any of the expected types",
-        path: ["abc"],
+        path: [],
         value: {},
       },
     ]);
+    checkValidates(jointz.or(jointz.string(), jointz.number()), "abc", []);
+    checkValidates(jointz.or(jointz.string(), jointz.number()), 123, []);
+
+    checkValidates(
+      jointz.or(jointz.string(), jointz.number()),
+      {},
+      [
+        {
+          message: "did not match any of the expected types",
+          path: ["abc"],
+          value: {},
+        },
+      ],
+      ["abc"]
+    );
   });
 
   it("accepts an array", () => {
-    expect(
-      jointz.or([jointz.string(), jointz.number()]).validate("abc")
-    ).to.deep.eq([]);
+    checkValidates(jointz.or([jointz.string(), jointz.number()]), "abc", []);
 
-    expect(
-      jointz.or([jointz.string(), jointz.number()]).validate(1)
-    ).to.deep.eq([]);
+    checkValidates(jointz.or([jointz.string(), jointz.number()]), 1, []);
   });
 
   it("isValid typeguards properly", () => {
