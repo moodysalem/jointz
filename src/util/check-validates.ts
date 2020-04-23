@@ -12,11 +12,8 @@ export default function checkValidates(
   expectedError?: ValidationError[],
   path?: ValidationErrorPath
 ) {
-  const expectedValid: boolean =
-    typeof expectedError === "undefined" || expectedError.length === 0;
-
   expect(validator.validate(value, path)).to.deep.eq(
-    expectedValid ? [] : expectedError,
+    expectedError || [],
     "#validate"
   );
 
@@ -24,18 +21,28 @@ export default function checkValidates(
     return;
   }
 
-  expect(validator.isValid(value)).to.eq(expectedValid);
+  expect(validator.isValid(value)).to.eq(
+    typeof expectedError === "undefined" || expectedError.length === 0
+  );
 
-  const checkValid = () => validator.checkValid(value);
-  if (expectedValid) {
-    expect(checkValid).to.not.throw();
+  if (typeof expectedError === "undefined" || expectedError.length === 0) {
+    expect(() => validator.checkValid(value)).to.not.throw();
   } else {
-    const errorMatcher = expect(checkValid).to.throw();
-    errorMatcher.with.property("isFailedValidationError").eq(true);
-    errorMatcher.with.property("errors").deep.eq(expectedError);
-  }
+    const errorMatcher = expect(() => validator.checkValid(value)).to.throw();
+    const messageMatcher = errorMatcher.with.property("message");
 
-  if (expectedError && expectedError.length > 0) {
+    //  message must contain information about every message and path
+    expectedError.every(
+      (err) =>
+        messageMatcher.contains(err.message) &&
+        messageMatcher.contains(err.path.join("."))
+    );
+
+    // must have the property that indicates it is a failed validation error
+    errorMatcher.with.property("isFailedValidationError").eq(true);
+    // must have the errors property that is equal to the validation errors
+    errorMatcher.with.property("errors").deep.eq(expectedError);
+
     checkValidates(
       validator,
       value,
