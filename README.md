@@ -12,7 +12,7 @@ Zero dependency universal TypeScript validation library. Similar interface to [J
 
 - Written in TypeScript
 - Zero dependencies, tiny, and well tested
-- [Pretty fast](https://github.com/moltar/typescript-runtime-type-benchmarks#node-12x-json-csv-svg-1)
+- [Pretty fast](https://github.com/moltar/typescript-runtime-type-benchmarks#data-type-checks-sans-ts-json-validator)
 - Infer TypeScript types from validators
 - Supports `any`, `string`, `number`, `array`, `tuple`, `constant`, `boolean`, `or` and `object` validation
 - Implement your own validator and use it with any of the other validators
