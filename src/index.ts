@@ -81,9 +81,7 @@ export default abstract class jointz {
    * Return a validator that checks the value is an array, optionally validating each item in the array
    * @param itemValidator validator for the individual array items
    */
-  static array<TItem>(
-    itemValidator: Validator<TItem> = ANY_VALIDATOR
-  ): ArrayValidator<TItem> {
+  static array<TItem>(itemValidator?: Validator<TItem>): ArrayValidator<TItem> {
     return new ArrayValidator({ items: itemValidator });
   }
 
