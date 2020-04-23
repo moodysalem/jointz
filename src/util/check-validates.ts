@@ -32,11 +32,10 @@ export default function checkValidates(
     const messageMatcher = errorMatcher.with.property("message");
 
     //  message must contain information about every message and path
-    expectedError.forEach(
-      (err) =>
-        messageMatcher.contains(err.message) &&
-        messageMatcher.contains(err.path.join("."))
-    );
+    expectedError.forEach((err) => {
+      messageMatcher.contains(err.message);
+      messageMatcher.contains(err.path.join("."));
+    });
 
     // must have the property that indicates it is a failed validation error
     errorMatcher.with.property("isFailedValidationError").eq(true);
