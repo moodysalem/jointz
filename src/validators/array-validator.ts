@@ -94,7 +94,7 @@ export default class ArrayValidator<TItem> extends Validator<TItem[]> {
     ) {
       if (items) {
         for (let x of value) {
-          if (!items.checkValid(x)) {
+          if (!items.isValid(x)) {
             return false;
           }
         }

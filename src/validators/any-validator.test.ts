@@ -2,6 +2,7 @@ import { expect } from "chai";
 import { assert, IsAny } from "conditional-type-checks";
 import { describe, it } from "mocha";
 import jointz, { ExtractResultType } from "../index";
+import checkValidates from "../util/check-validates";
 
 describe("jointz#any", () => {
   it("always returns true", () => {
@@ -15,7 +16,7 @@ describe("jointz#any", () => {
       undefined,
     ];
     for (let test of anies) {
-      expect(jointz.any().validate(test)).to.deep.eq([]);
+      checkValidates(jointz.any(), test);
     }
   });
 

@@ -2,11 +2,12 @@ import { expect } from "chai";
 import { assert, IsExact } from "conditional-type-checks";
 import { describe, it } from "mocha";
 import jointz, { ExtractResultType } from "../index";
+import checkValidates from "../util/check-validates";
 
 describe("jointz#constant", () => {
   it("allows only allowed values", () => {
-    expect(jointz.constant("def").validate("def")).to.deep.eq([]);
-    expect(jointz.constant("def").validate("deff")).to.deep.eq([
+    checkValidates(jointz.constant("def"), "def", []);
+    checkValidates(jointz.constant("def"), "deff", [
       { message: 'must be one of "def"', path: [], value: "deff" },
     ]);
   });
@@ -17,14 +18,14 @@ describe("jointz#constant", () => {
   });
 
   it("allows null and undefined", () => {
-    expect(jointz.constant(null).validate(null)).to.deep.eq([]);
-    expect(jointz.constant(undefined).validate(undefined)).to.deep.eq([]);
-    expect(jointz.constant(null).validate(undefined))
-      .to.be.an("array")
-      .with.length(1);
-    expect(jointz.constant(undefined).validate(null))
-      .to.be.an("array")
-      .with.length(1);
+    checkValidates(jointz.constant(null), null, []);
+    checkValidates(jointz.constant(undefined), undefined, []);
+    checkValidates(jointz.constant(null), undefined, [
+      { message: "must be one of null", path: [], value: undefined },
+    ]);
+    checkValidates(jointz.constant(undefined), null, [
+      { message: "must be one of undefined", path: [], value: null },
+    ]);
   });
 
   it("throws with empty list", () => {
@@ -32,23 +33,15 @@ describe("jointz#constant", () => {
   });
 
   it("only works with allowed values", () => {
-    expect(jointz.constant("abc", "def").validate("def")).to.deep.eq([]);
-    expect(
-      jointz.constant("abc", "def", 123, false).validate("abc")
-    ).to.deep.eq([]);
-    expect(jointz.constant("abc", "def", 123, false).validate(123)).to.deep.eq(
-      []
-    );
-    expect(
-      jointz.constant("abc", "def", 123, false).validate(false)
-    ).to.deep.eq([]);
-    expect(jointz.constant("abc", "def", 0, false).validate(0)).to.deep.eq([]);
-    expect(
-      jointz.constant("abc", "def", 123, false).validate({}, ["def"])
-    ).to.deep.eq([
+    checkValidates(jointz.constant("abc", "def"), "def", []);
+    checkValidates(jointz.constant("abc", "def", 123, false), "abc", []);
+    checkValidates(jointz.constant("abc", "def", 123, false), 123, []);
+    checkValidates(jointz.constant("abc", "def", 123, false), false, []);
+    checkValidates(jointz.constant("abc", "def", 0, false), 0, []);
+    checkValidates(jointz.constant("abc", "def", 123, false), {}, [
       {
         message: 'must be one of "abc", "def", 123, false',
-        path: ["def"],
+        path: [],
         value: {},
       },
     ]);

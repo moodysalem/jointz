@@ -2,24 +2,25 @@ import { expect } from "chai";
 import { assert, IsExact } from "conditional-type-checks";
 import { describe, it } from "mocha";
 import jointz, { ExtractResultType } from "../index";
+import checkValidates from "../util/check-validates";
 
 describe("jointz#object", () => {
   it("expects objects", () => {
-    expect(jointz.object({}).validate([])).to.deep.eq([
-      { message: "must be an object", path: [], value: [] },
-    ]);
-    expect(jointz.object({}).validate("abc")).to.deep.eq([
+    checkValidates(
+      jointz.object({}),
+      [],
+      [{ message: "must be an object", path: [], value: [] }]
+    );
+    checkValidates(jointz.object({}), "abc", [
       { message: "must be an object", path: [], value: "abc" },
     ]);
-    expect(jointz.object({}).validate(123)).to.deep.eq([
+    checkValidates(jointz.object({}), 123, [
       { message: "must be an object", path: [], value: 123 },
     ]);
   });
 
   it("allowUnknownKeys can be set to false to prevent unknown keys", () => {
-    expect(
-      jointz.object({}).allowUnknownKeys(false).validate({ abc: 123 })
-    ).to.deep.eq([
+    checkValidates(jointz.object({}).allowUnknownKeys(false), { abc: 123 }, [
       {
         message: 'encountered unknown key "abc"',
         path: [],
@@ -29,20 +30,17 @@ describe("jointz#object", () => {
   });
 
   it("checks keys", () => {
-    expect(
-      jointz.object({ abc: jointz.number() }).requiredKeys("abc").validate({})
-    ).to.deep.eq([
-      { message: 'required key "abc" was not defined', path: [], value: {} },
-    ]);
+    checkValidates(
+      jointz.object({ abc: jointz.number() }).requiredKeys("abc"),
+      {},
+      [{ message: 'required key "abc" was not defined', path: [], value: {} }]
+    );
 
-    expect(
-      jointz
-        .object({ abc: jointz.number() })
-        .requiredKeys("abc")
-        .validate({ abc: "hello" })
-    ).to.deep.eq([
-      { message: "must be a number", path: ["abc"], value: "hello" },
-    ]);
+    checkValidates(
+      jointz.object({ abc: jointz.number() }).requiredKeys("abc"),
+      { abc: "hello" },
+      [{ message: "must be a number", path: ["abc"], value: "hello" }]
+    );
   });
 
   it("works with nested objects", () => {
@@ -52,23 +50,21 @@ describe("jointz#object", () => {
       })
       .requiredKeys("abc");
 
-    expect(nested.validate({ abc: {} })).to.deep.eq([
+    checkValidates(nested, { abc: {} }, [
       {
         message: 'required key "def" was not defined',
         path: ["abc"],
         value: {},
       },
     ]);
-    expect(nested.validate({ abc: { def: "string" } })).to.deep.eq([
+    checkValidates(nested, { abc: { def: "string" } }, [
       { message: "must be a number", path: ["abc", "def"], value: "string" },
     ]);
   });
 
   describe("#allowUnknownKeys", () => {
     it("results in errors if unknown keys present", () => {
-      expect(
-        jointz.object({}).allowUnknownKeys(false).validate({ abc: 123 })
-      ).to.deep.eq([
+      checkValidates(jointz.object({}).allowUnknownKeys(false), { abc: 123 }, [
         {
           message: 'encountered unknown key "abc"',
           path: [],
@@ -80,26 +76,24 @@ describe("jointz#object", () => {
 
   describe("#requiredKeys", () => {
     it("does not duplicate messages for duplicate required keys", () => {
-      expect(
-        jointz.object({ abc: jointz.any() }).requiredKeys("abc").validate({})
-      ).to.deep.eq([
-        { message: 'required key "abc" was not defined', path: [], value: {} },
-      ]);
+      checkValidates(
+        jointz.object({ abc: jointz.any() }).requiredKeys("abc"),
+        {},
+        [{ message: 'required key "abc" was not defined', path: [], value: {} }]
+      );
     });
   });
 
   it("can have keys specified", () => {
-    expect(
-      jointz.object({ abc: jointz.constant("def") }).validate({ abc: "def" })
-    )
-      .to.be.an("array")
-      .with.length(0);
+    checkValidates(jointz.object({ abc: jointz.constant("def") }), {
+      abc: "def",
+    });
 
-    expect(
-      jointz.object({ abc: jointz.constant("def") }).validate({ abc: "red" })
-    ).to.deep.eq([
-      { message: 'must be one of "def"', path: ["abc"], value: "red" },
-    ]);
+    checkValidates(
+      jointz.object({ abc: jointz.constant("def") }),
+      { abc: "red" },
+      [{ message: 'must be one of "def"', path: ["abc"], value: "red" }]
+    );
   });
 
   it("isValid typeguards properly", () => {

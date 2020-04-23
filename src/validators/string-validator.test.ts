@@ -2,135 +2,109 @@ import { expect } from "chai";
 import { assert, IsExact } from "conditional-type-checks";
 import { describe, it } from "mocha";
 import jointz, { ExtractResultType } from "../index";
+import checkValidates from "../util/check-validates";
 
 describe("jointz#string", () => {
   it("validates string type correctly", () => {
-    expect(jointz.string().validate("")).to.be.an("array").with.length(0);
-    expect(jointz.string().validate(void 0)).to.deep.eq([
+    checkValidates(jointz.string(), "", []);
+    checkValidates(jointz.string(), void 0, [
       { message: "must be a string", path: [], value: void 0 },
     ]);
-    expect(jointz.string().validate(null)).to.deep.eq([
+    checkValidates(jointz.string(), null, [
       { message: "must be a string", path: [], value: null },
     ]);
-    expect(jointz.string().validate({})).to.deep.eq([
+    checkValidates(jointz.string(), {}, [
       { message: "must be a string", path: [], value: {} },
     ]);
-    expect(jointz.string().validate([])).to.deep.eq([
-      { message: "must be a string", path: [], value: [] },
-    ]);
+    checkValidates(
+      jointz.string(),
+      [],
+      [{ message: "must be a string", path: [], value: [] }]
+    );
   });
 
   it("validates patterns correctly", () => {
-    expect(
-      jointz
-        .string()
-        .pattern(/^[abc]{3,4}$/)
-        .validate("abc", [])
-    ).to.deep.eq([]);
-    expect(
-      jointz
-        .string()
-        .pattern(/^[abc]{3,4}$/)
-        .validate("abcd", [])
-    ).to.deep.eq([
+    checkValidates(jointz.string().pattern(/^[abc]{3,4}$/), "abc", []);
+    checkValidates(jointz.string().pattern(/^[abc]{3,4}$/), "abcd", [
       { message: "did not match pattern", path: [], value: "abcd" },
     ]);
-    expect(
-      jointz
-        .string()
-        .pattern(/^[abc]{3,4}$/)
-        .validate("abca", [])
-    ).to.deep.eq([]);
-    expect(
-      jointz
-        .string()
-        .pattern(/^[abc]{3,4}$/)
-        .validate("abcdab", [])
-    ).to.deep.eq([
+    checkValidates(jointz.string().pattern(/^[abc]{3,4}$/), "abca", []);
+    checkValidates(jointz.string().pattern(/^[abc]{3,4}$/), "abcdab", [
       { message: "did not match pattern", path: [], value: "abcdab" },
     ]);
   });
 
   it("validates uuids correctly", () => {
-    expect(jointz.string().uuid().validate("")).to.deep.eq([
+    checkValidates(jointz.string().uuid(), "", [
       { message: "must be a uuid", path: [], value: "" },
     ]);
-    expect(
-      jointz.string().uuid().validate("C56A4180-65AA-42EC-A945-5FD21DEC0538")
-    ).to.deep.eq([]);
-    expect(
-      jointz.string().uuid().validate("c56a4180-65aa-42Ec-A945-5FD21DEC0538")
-    ).to.deep.eq([]);
+    checkValidates(
+      jointz.string().uuid(),
+      "C56A4180-65AA-42EC-A945-5FD21DEC0538",
+      []
+    );
+    checkValidates(
+      jointz.string().uuid(),
+      "c56a4180-65aa-42Ec-A945-5FD21DEC0538",
+      []
+    );
   });
 
   it("validates alphanumeric", () => {
-    expect(jointz.string().alphanum().validate("")).to.deep.eq([]);
-    expect(jointz.string().alphanum().validate("abcedF19309")).to.deep.eq([]);
-    expect(
-      jointz
-        .string()
-        .alphanum()
-        .validate(
-          "abc910394018fmdsklamf19045190580fmdklasfmdslamjgrqpmzcxklvmzlmty"
-        )
-    ).to.deep.eq([]);
-    expect(
-      jointz
-        .string()
-        .alphanum()
-        .validate(
-          "abc910394018fmdsklamf19045190580fmdklasfmdslamjgrqpmzcxklvmzlmty-"
-        )
-    ).to.deep.eq([
-      {
-        message: "must be alphanumeric",
-        path: [],
-        value:
-          "abc910394018fmdsklamf19045190580fmdklasfmdslamjgrqpmzcxklvmzlmty-",
-      },
-    ]);
+    checkValidates(jointz.string().alphanum(), "", []);
+    checkValidates(jointz.string().alphanum(), "abcedF19309", []);
+    checkValidates(
+      jointz.string().alphanum(),
+      "abc910394018fmdsklamf19045190580fmdklasfmdslamjgrqpmzcxklvmzlmty",
+      []
+    );
+    checkValidates(
+      jointz.string().alphanum(),
+      "abc910394018fmdsklamf19045190580fmdklasfmdslamjgrqpmzcxklvmzlmty-",
+      [
+        {
+          message: "must be alphanumeric",
+          path: [],
+          value:
+            "abc910394018fmdsklamf19045190580fmdklasfmdslamjgrqpmzcxklvmzlmty-",
+        },
+      ]
+    );
   });
 
   it("validates minLength and maxLength length properly", () => {
-    expect(
+    checkValidates(
       jointz
         .string()
         .pattern(/^[abc]{3,4}$/)
-        .maxLength(3)
-        .validate("abca", [])
-    )
-      .to.be.an("array")
-      .with.length(1);
-    expect(
+        .maxLength(3),
+      "abca",
+      [{ path: [], message: "length 4 was longer than maximum length: 3", value: "abca" }]
+    );
+    checkValidates(
       jointz
         .string()
         .pattern(/^[abc]{3,4}$/)
-        .maxLength(3)
-        .validate("abcd", [])
-    )
-      .to.be.an("array")
-      .with.length(2);
+        .maxLength(3),
+      "abcd",
+      [
+        { path: [], message: "did not match pattern", value: "abcd" },
+        { path: [], message: "length 4 was longer than maximum length: 3", value: "abcd" },
+      ]
+    );
   });
 
   it("validates email propertly", () => {
-    expect(
-      jointz.string().email().validate("this is not an email", [])
-    ).to.deep.eq([
+    checkValidates(jointz.string().email(), "this is not an email", [
       {
         message: "must be a valid email",
         path: [],
         value: "this is not an email",
       },
     ]);
-    expect(jointz.string().email().validate("email1@email.com", [])).to.deep.eq(
-      []
-    );
-    expect(jointz.string().email().validate("super@email.test", [])).to.deep.eq(
-      []
-    );
-    expect(
-      jointz.string().email().validate("complex+email.a@dom.dom.dom", [])
-    ).to.deep.eq([]);
+    checkValidates(jointz.string().email(), "email1@email.com", []);
+    checkValidates(jointz.string().email(), "super@email.test", []);
+    checkValidates(jointz.string().email(), "complex+email.a@dom.dom.dom", []);
   });
 
   it("throws with invalid minLength", () => {
