@@ -3,6 +3,8 @@
 [![codecov](https://codecov.io/gh/moodysalem/jointz/branch/master/graph/badge.svg)](https://codecov.io/gh/moodysalem/jointz)
 [![npm](https://img.shields.io/npm/v/jointz.svg)](https://www.npmjs.com/package/jointz)
 [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/jointz.svg)](https://bundlephobia.com/result?p=jointz)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
 
 Zero dependency universal TypeScript validation library. Similar interface to [Joi](https://github.com/hapijs/joi) but without all the bloat, and built for browsers and node with zero dependencies.
 
