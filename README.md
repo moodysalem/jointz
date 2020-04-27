@@ -99,15 +99,21 @@ Errors match the following interface:
 
 ```typescript
 interface ValidationError {
+  // Array of keys indicating where the validation failed. This is empty if top level validation failed.
   path: Array<string | number>;
+  // The error message describing the failed validation.
   message: string;
+  // The value that failed validation. This value may not be defined, e.g. in the case of missing required keys.
   value?: any;
 }
 ```
 
-- `path` is an array of keys indicating where the validation failed.
-- - For arrays the key is a number
-- - For objects the key is a string
-- - e.g. `{abc: [{def: 'valid'}, {def: 'invalid'}]}` if the value `invalid` fails validation, the path is `['abc',1,'def']`
-- `message` is a human readable message that describes the validation error
-- `value` is the erroneous value
+A single validator can produce many errors. However, validators will only produce relevant errors, e.g. a number validator that checks a number is a multiple of 2 will not produce an additional error about the multiple when validating a string.
+
+| Validator                                                             | Example           | Error.path  | Error.message                      | Error.value |
+|-----------------------------------------------------------------------|-------------------|-------------|------------------------------------|-------------|
+| `jointz.number()`                                                     | `'abc'`           | `[]`        | `'must be a number'`               | `'abc'`     |
+| `jointz.string()`                                                     | `3`               | `[]`        | `'must be a string'`               | `3`         |
+| `jointz.object({ abc: jointz.string() })`                             | `{abc:3}`         | `['abc']`   | `'must be a string'`               | `3`         |
+| `jointz.object({ arr: jointz.array(jointz.number().multipleOf(2)) })` | `{arr:[2,'5',8]}` | `['arr',1]` | `'must be a number'`               | `'5'`       |
+| `jointz.object({ arr: jointz.array(jointz.number().multipleOf(2)) })` | `{arr:[2,5,8]}`   | `['arr',1]` | `'number was not a multiple of 2'` | `5`         |
