@@ -17,7 +17,7 @@
     "build": "tsc",
     "prettier": "prettier --write src/",
     "upload-coverage": "codecov",
-    "prepare": "npm run build"
+    "prepublishOnly": "npm run test && npm run build"
   },
   "nyc": {
     "include": [
