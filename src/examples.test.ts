@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { assert, IsExact } from "conditional-type-checks";
-import jointz, { ExtractResultType } from "./index";
+import jointz, { Infer } from "./index";
 
 const ThingValidator = jointz
   .object({
@@ -9,7 +9,7 @@ const ThingValidator = jointz
   })
   .requiredKeys(["id", "name"]);
 
-type Thing = ExtractResultType<typeof ThingValidator>;
+type Thing = Infer<typeof ThingValidator>;
 
 const myObject: unknown = { id: "abc", name: "hello world!" };
 
@@ -38,9 +38,7 @@ describe("examples", () => {
 
   it("indexer is id or name if allow unknown keys is false", () => {
     const falseAllow = ThingValidator.allowUnknownKeys(false);
-    assert<IsExact<keyof ExtractResultType<typeof falseAllow>, "id" | "name">>(
-      true
-    );
+    assert<IsExact<keyof Infer<typeof falseAllow>, "id" | "name">>(true);
   });
 
   it("isValid typeguards", () => {

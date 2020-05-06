@@ -66,11 +66,11 @@ if (errors.length) {
 }
 ```
 
-You can also generate TypeScript types from your validators, using `ExtractResultType`, or get the resulting type
+You can also generate TypeScript types from your validators, using `Infer`, or get the resulting type
 from validation via `checkValid`. 
 
 ```typescript
-type Thing = ExtractResultType<typeof ThingValidator>;
+type Thing = Infer<typeof ThingValidator>;
 
 const myObject: unknown = { id: 'abc', name: 'hello world!' };
 

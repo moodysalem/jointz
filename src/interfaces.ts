@@ -72,15 +72,17 @@ export abstract class Validator<TValid> {
 /**
  * Extracts the result type from a validator. Define your validator and then use this to get the type of result.
  */
-export type ExtractResultType<TValidator> = TValidator extends Validator<
-  infer T
->
+export type Infer<TValidator> = TValidator extends Validator<infer T>
   ? T
+  : TValidator extends Validator<any>[]
+  ? {
+      [P in keyof TValidator]: Infer<TValidator[P]>;
+    }
+  : TValidator extends {}
+  ? {
+      [P in keyof TValidator]: Infer<TValidator[P]>;
+    }
   : unknown;
 
-/**
- * Extract the result types from an array of validators.
- */
-export type ExtractResultTypes<TValidators extends Validator<any>[]> = {
-  [P in keyof TValidators]: ExtractResultType<TValidators[P]>;
-};
+// Legacy alias for Infer
+export type ExtractResultType<TValidator> = Infer<TValidator>;

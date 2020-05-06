@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { assert, IsExact } from "conditional-type-checks";
 import { describe, it } from "mocha";
-import jointz, { ExtractResultType } from "../index";
+import jointz, { Infer } from "../index";
 import checkValidates from "../util/check-validates";
 
 describe("jointz#or", () => {
@@ -44,7 +44,7 @@ describe("jointz#or", () => {
       })
       .requiredKeys("discriminator", "num");
 
-    type AType = ExtractResultType<typeof aValidator>;
+    type AType = Infer<typeof aValidator>;
 
     const bValidator = jointz
       .object({
@@ -56,20 +56,14 @@ describe("jointz#or", () => {
     const aOrB = jointz.or(aValidator, bValidator);
 
     assert<
-      IsExact<
-        ExtractResultType<typeof aValidator>,
-        { discriminator: "a"; num: number }
-      >
+      IsExact<Infer<typeof aValidator>, { discriminator: "a"; num: number }>
+    >(true);
+    assert<
+      IsExact<Infer<typeof bValidator>, { discriminator: "b"; str: string }>
     >(true);
     assert<
       IsExact<
-        ExtractResultType<typeof bValidator>,
-        { discriminator: "b"; str: string }
-      >
-    >(true);
-    assert<
-      IsExact<
-        ExtractResultType<typeof aOrB>,
+        Infer<typeof aOrB>,
         | { discriminator: "a"; num: number }
         | { discriminator: "b"; str: string }
       >
@@ -106,10 +100,7 @@ describe("jointz#or", () => {
     );
 
     assert<
-      IsExact<
-        ExtractResultType<typeof validator>,
-        number | string | [string, number]
-      >
+      IsExact<Infer<typeof validator>, number | string | [string, number]>
     >(true);
   });
 });

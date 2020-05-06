@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { assert, IsExact } from "conditional-type-checks";
 import { describe, it } from "mocha";
-import jointz, { ExtractResultType } from "../index";
+import jointz, { Infer } from "../index";
 import checkValidates from "../util/check-validates";
 
 describe("jointz#object", () => {
@@ -113,7 +113,7 @@ describe("jointz#object", () => {
       .object({ abc: jointz.constant("def") })
       .allowUnknownKeys(true);
 
-    type validatorType = ExtractResultType<typeof validator>;
+    type validatorType = Infer<typeof validator>;
 
     const x: validatorType = { abc: "def", ghi: "fgh" };
 
@@ -140,9 +140,7 @@ describe("jointz#object", () => {
         abc: jointz.number(),
       });
 
-      assert<IsExact<ExtractResultType<typeof validator>, { abc?: number }>>(
-        true
-      );
+      assert<IsExact<Infer<typeof validator>, { abc?: number }>>(true);
     });
 
     it("produces required keys if specified", () => {
@@ -158,7 +156,7 @@ describe("jointz#object", () => {
         test: "test",
       };
 
-      assert<IsExact<typeof x, ExtractResultType<typeof validator>>>(false);
+      assert<IsExact<typeof x, Infer<typeof validator>>>(false);
     });
 
     it("allows unknown keys when unknown", () => {
@@ -169,10 +167,8 @@ describe("jointz#object", () => {
         .requiredKeys("abc")
         .allowUnknownKeys(true);
 
-      assert<
-        IsExact<keyof ExtractResultType<typeof validator>, string | number>
-      >(true);
-      assert<IsExact<ExtractResultType<typeof validator>["abc"], number>>(true);
+      assert<IsExact<keyof Infer<typeof validator>, string | number>>(true);
+      assert<IsExact<Infer<typeof validator>["abc"], number>>(true);
     });
 
     it("does not allow unknown keys by default", () => {
@@ -183,12 +179,8 @@ describe("jointz#object", () => {
         })
         .requiredKeys("abc");
 
-      assert<
-        IsExact<keyof ExtractResultType<typeof validator>, string | number>
-      >(false);
-      assert<
-        IsExact<keyof ExtractResultType<typeof validator>, "abc" | "test">
-      >(true);
+      assert<IsExact<keyof Infer<typeof validator>, string | number>>(false);
+      assert<IsExact<keyof Infer<typeof validator>, "abc" | "test">>(true);
     });
 
     it("has the right shape", () => {
@@ -202,9 +194,9 @@ describe("jointz#object", () => {
         })
         .requiredKeys("abc");
 
-      assert<
-        IsExact<ExtractResultType<typeof validator>, { abc: { def: number[] } }>
-      >(true);
+      assert<IsExact<Infer<typeof validator>, { abc: { def: number[] } }>>(
+        true
+      );
     });
   });
 });

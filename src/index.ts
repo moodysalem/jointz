@@ -1,9 +1,9 @@
 import {
   ExtractResultType,
-  ExtractResultTypes,
   FailedValidationError,
   ValidationError,
   Validator,
+  Infer,
 } from "./interfaces";
 import { spreadArgsToArray } from "./util/spread-args-to-array";
 import AnyValidator, { ANY_VALIDATOR } from "./validators/any-validator";
@@ -61,7 +61,7 @@ export default abstract class jointz {
    */
   static tuple<T extends Validator<any>[]>(
     ...validators: T | [T]
-  ): TupleValidator<ExtractResultTypes<T>> {
+  ): TupleValidator<Infer<T>> {
     return new TupleValidator({
       validators: spreadArgsToArray(validators),
     }) as any;
@@ -73,7 +73,7 @@ export default abstract class jointz {
    */
   static or<T extends Validator<any>[]>(
     ...validators: T | [T]
-  ): OrValidator<ExtractResultTypes<T>[number]> {
+  ): OrValidator<Infer<T>[number]> {
     return new OrValidator({ validators: spreadArgsToArray(validators) });
   }
 
@@ -111,4 +111,10 @@ export default abstract class jointz {
   }
 }
 
-export { Validator, ValidationError, ExtractResultType, FailedValidationError };
+export {
+  Validator,
+  ValidationError,
+  ExtractResultType,
+  Infer,
+  FailedValidationError,
+};

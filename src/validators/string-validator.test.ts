@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { assert, IsExact } from "conditional-type-checks";
 import { describe, it } from "mocha";
-import jointz, { ExtractResultType } from "../index";
+import jointz, { Infer } from "../index";
 import checkValidates from "../util/check-validates";
 
 describe("jointz#string", () => {
@@ -144,6 +144,6 @@ describe("jointz#string", () => {
   it("has the right type", () => {
     const validator = jointz.string();
 
-    assert<IsExact<ExtractResultType<typeof validator>, string>>(true);
+    assert<IsExact<Infer<typeof validator>, string>>(true);
   });
 });

@@ -1,5 +1,5 @@
 import {
-  ExtractResultType,
+  Infer,
   ValidationError,
   ValidationErrorPath,
   Validator,
@@ -11,7 +11,7 @@ export interface Keys {
 }
 
 export type ExtractObjectType<TKeys extends Keys> = {
-  [K in keyof TKeys]: ExtractResultType<TKeys[K]>;
+  [K in keyof TKeys]: Infer<TKeys[K]>;
 };
 
 interface ObjectValidatorOptions<
