@@ -43,7 +43,13 @@
   "keywords": [
     "typescript",
     "validation",
-    "library"
+    "validator",
+    "joi",
+    "schema",
+    "validate",
+    "valid",
+    "joint",
+    "joints"
   ],
   "author": "Moody Salem <moody.salem@gmail.com>",
   "license": "MIT",
