@@ -1,4 +1,3 @@
-import { expect } from "chai";
 import { assert, IsAny } from "conditional-type-checks";
 import { describe, it } from "mocha";
 import jointz, { Infer } from "../index";

@@ -27,7 +27,9 @@ interface ObjectValidatorOptions<
 type AllowUnknownKeyObject<
   TObject extends {},
   AllowUnknownKeys extends boolean
-> = AllowUnknownKeys extends true ? TObject & { [key: string]: any } : TObject;
+> = AllowUnknownKeys extends true
+  ? TObject & { [key: string]: unknown }
+  : TObject;
 
 type WithRequiredKeys<
   TObject extends {},
@@ -123,10 +125,10 @@ export default class ObjectValidator<
     }
 
     if (requiredKeys) {
-      for (let requiredKey of requiredKeys) {
+      for (const requiredKey of requiredKeys) {
         if (value[requiredKey] === undefined) {
           errors.push({
-            message: `required key "${requiredKey}" was not defined`,
+            message: `required key "${String(requiredKey)}" was not defined`,
             path,
             value,
           });

@@ -29,7 +29,7 @@ describe("examples", () => {
     let failedValidation: boolean = false;
     try {
       const thing: Thing = ThingValidator.checkValid(myObject);
-    } catch (validationError) {
+    } catch (validationError: any) {
       expect(validationError.isFailedValidationError).to.eq(true);
       failedValidation = true;
     }

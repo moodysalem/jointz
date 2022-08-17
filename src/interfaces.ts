@@ -41,7 +41,7 @@ export abstract class Validator<TValid> {
    * @param path current path of the validation
    */
   public abstract validate(
-    value: any,
+    value: unknown,
     path?: ValidationErrorPath
   ): ValidationError[];
 
@@ -50,7 +50,7 @@ export abstract class Validator<TValid> {
    * may optimize for performance.
    * @param value value to check
    */
-  public isValid(value: any): value is TValid {
+  public isValid(value: unknown): value is TValid {
     return this.validate(value).length === 0;
   }
 
@@ -58,14 +58,14 @@ export abstract class Validator<TValid> {
    * Validate the given value and throw if it's not valid
    * @param value that is TValid
    */
-  public checkValid(value: any): TValid {
+  public checkValid(value: unknown): TValid {
     const errors = this.validate(value);
 
     if (errors.length > 0) {
       throw new FailedValidationError(errors);
     }
 
-    return value;
+    return value as any as TValid;
   }
 }
 

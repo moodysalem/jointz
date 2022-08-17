@@ -4,6 +4,7 @@ import {
   ValidationError,
   Validator,
   Infer,
+  ValidationErrorPath,
 } from "./interfaces";
 import { spreadArgsToArray } from "./util/spread-args-to-array";
 import AnyValidator, { ANY_VALIDATOR } from "./validators/any-validator";
@@ -17,6 +18,7 @@ import OrValidator from "./validators/or-validator";
 import StringValidator from "./validators/string-validator";
 import TupleValidator from "./validators/tuple-validator";
 import { BOOLEAN_VALIDATOR } from "./validators/boolean-validator";
+import JsonValidator from "./validators/json-validator";
 
 /**
  * The default export of the jointz library that exposes static methods for constructing validators.
@@ -59,7 +61,7 @@ export default abstract class jointz {
    * Create a validator that checks that the given value is a tuple of values that match the given validators.
    * @param validators list of validators that the items in the tuple should match in order
    */
-  static tuple<T extends Validator<any>[]>(
+  static tuple<T extends Validator<unknown>[]>(
     ...validators: T | [T]
   ): TupleValidator<Infer<T>> {
     return new TupleValidator({
@@ -109,6 +111,14 @@ export default abstract class jointz {
   static any(): AnyValidator {
     return ANY_VALIDATOR;
   }
+
+  /**
+   * Return a validator that checks the string contains JSON that when parsed matches some validation
+   * @param parsed the validation to be applied to the parsed JSON
+   */
+  static json<T>(parsed: Validator<T>): Validator<string> {
+    return new JsonValidator(parsed);
+  }
 }
 
 export {
@@ -117,4 +127,5 @@ export {
   ExtractResultType,
   Infer,
   FailedValidationError,
+  ValidationErrorPath,
 };

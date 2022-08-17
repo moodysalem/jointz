@@ -1,14 +1,9 @@
-import {
-  FailedValidationError,
-  ValidationError,
-  ValidationErrorPath,
-  Validator,
-} from "../interfaces";
+import { ValidationError, ValidationErrorPath, Validator } from "../interfaces";
 import { expect } from "chai";
 
 export default function checkValidates(
-  validator: Validator<any>,
-  value: any,
+  validator: Validator<unknown>,
+  value: unknown,
   expectedError?: ValidationError[],
   path?: ValidationErrorPath
 ) {

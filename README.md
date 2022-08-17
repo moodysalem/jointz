@@ -104,7 +104,7 @@ interface ValidationError {
   // The error message describing the failed validation.
   message: string;
   // The value that failed validation. This value may not be defined, e.g. in the case of missing required keys.
-  value?: any;
+  value?: unknown;
 }
 ```
 

@@ -25,7 +25,7 @@ describe("Validator", () => {
     let threw = false;
     try {
       validator.checkValid(1);
-    } catch (error) {
+    } catch (error: any) {
       threw = true;
       expect(error.isFailedValidationError).to.eq(true);
       expect(error.message).to.eq("not a string");
