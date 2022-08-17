@@ -4,6 +4,18 @@ import jointz, { Infer } from "../index";
 import checkValidates from "../util/check-validates";
 
 describe("jointz#json", () => {
+  it("not a string", () => {
+    checkValidates(jointz.json(jointz.any()), 3, [
+      { path: [], message: "must be a string containing valid json", value: 3 },
+    ]);
+    checkValidates(jointz.json(jointz.any()), {}, [
+      {
+        path: [],
+        message: "must be a string containing valid json",
+        value: {},
+      },
+    ]);
+  });
   it("allows any json", () => {
     checkValidates(jointz.json(jointz.any()), '"abc"');
     checkValidates(jointz.json(jointz.any()), "{}");

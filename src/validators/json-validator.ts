@@ -13,7 +13,6 @@ export default class JsonValidator<TParsed> extends Validator<string> {
 
   validate(value: unknown, path: ValidationErrorPath = []): ValidationError[] {
     if (typeof value !== "string") {
-      console.log("test");
       return [
         { path, message: "must be a string containing valid json", value },
       ];

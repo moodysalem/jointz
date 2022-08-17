@@ -7,7 +7,7 @@ import {
 import { spreadArgsToArray } from "../util/spread-args-to-array";
 
 export interface Keys {
-  [key: string]: Validator<any>;
+  [key: string]: Validator<unknown>;
 }
 
 export type ExtractObjectType<TKeys extends Keys> = {
@@ -94,12 +94,12 @@ export default class ObjectValidator<
   }
 
   public validate(
-    value: any,
+    value: unknown,
     path: ValidationErrorPath = []
   ): ValidationError[] {
     const { requiredKeys, keys, allowUnknownKeys } = this.options;
 
-    if (typeof value !== "object" || Array.isArray(value)) {
+    if (typeof value !== "object" || Array.isArray(value) || value === null) {
       return [{ message: `must be an object`, path, value }];
     }
 
@@ -109,7 +109,7 @@ export default class ObjectValidator<
       if (value.hasOwnProperty(key)) {
         if (keys && keys[key] !== undefined) {
           errors = errors.concat(
-            keys[key].validate(value[key], [
+            keys[key].validate((value as any)[key], [
               ...path,
               key,
             ] as ValidationErrorPath)
@@ -126,7 +126,7 @@ export default class ObjectValidator<
 
     if (requiredKeys) {
       for (const requiredKey of requiredKeys) {
-        if (value[requiredKey] === undefined) {
+        if (!value.hasOwnProperty(requiredKey)) {
           errors.push({
             message: `required key "${String(requiredKey)}" was not defined`,
             path,
@@ -140,21 +140,21 @@ export default class ObjectValidator<
   }
 
   isValid(
-    value: any
+    value: unknown
   ): value is AllowUnknownKeyObject<
     WithRequiredKeys<ExtractObjectType<TKeys>, TRequiredKeys>,
     TAllowUnknown
   > {
     const { allowUnknownKeys, keys, requiredKeys } = this.options;
 
-    if (typeof value !== "object" || Array.isArray(value)) {
+    if (typeof value !== "object" || Array.isArray(value) || value === null) {
       return false;
     }
 
     for (let key in value) {
       if (value.hasOwnProperty(key)) {
         if (keys && keys[key] !== undefined) {
-          if (!keys[key].isValid(value[key])) {
+          if (!keys[key].isValid((value as any)[key])) {
             return false;
           }
         } else if (!allowUnknownKeys) {
@@ -164,8 +164,8 @@ export default class ObjectValidator<
     }
 
     if (requiredKeys) {
-      for (let requiredKey of requiredKeys) {
-        if (value[requiredKey] === undefined) {
+      for (const requiredKey of requiredKeys) {
+        if (!value.hasOwnProperty(requiredKey)) {
           return false;
         }
       }
