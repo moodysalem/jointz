@@ -34,10 +34,9 @@ type WithRequiredKeys<
   TRequiredKeys extends keyof TObject
 > = {
   [K in keyof TObject]?: TObject[K];
-} &
-  {
-    [K in keyof Pick<TObject, TRequiredKeys>]: TObject[K];
-  };
+} & {
+  [K in keyof Pick<TObject, TRequiredKeys>]: TObject[K];
+};
 
 /**
  * Validator that checks a value is an object where each key has a value that matches a given validator.
