@@ -1,5 +1,8 @@
 import { ValidationError, ValidationErrorPath, Validator } from "../interfaces";
 
+/**
+ * Validates that a string contains JSON that when parsed matches the given validator
+ */
 export default class JsonValidator<TParsed> extends Validator<string> {
   private readonly parsedValidator: Validator<TParsed>;
 
@@ -10,6 +13,7 @@ export default class JsonValidator<TParsed> extends Validator<string> {
 
   validate(value: unknown, path: ValidationErrorPath = []): ValidationError[] {
     if (typeof value !== "string") {
+      console.log("test");
       return [
         { path, message: "must be a string containing valid json", value },
       ];

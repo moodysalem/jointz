@@ -1,18 +1,18 @@
 import { ValidationError, Validator } from "../interfaces";
 
-export default class AnyValidator extends Validator<any> {
+export default class AnyValidator extends Validator<unknown> {
   validate(
-    value: any,
+    value: unknown,
     path?: ReadonlyArray<string | number>
   ): ValidationError[] {
     return [];
   }
 
-  isValid(value: any): value is any {
+  isValid(value: unknown): value is unknown {
     return true;
   }
 
-  checkValid(value: any): any {
+  checkValid(value: unknown): unknown {
     return true;
   }
 }

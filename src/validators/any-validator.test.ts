@@ -1,4 +1,4 @@
-import { assert, IsAny } from "conditional-type-checks";
+import { assert, IsUnknown } from "conditional-type-checks";
 import { describe, it } from "mocha";
 import jointz, { Infer } from "../index";
 import checkValidates from "../util/check-validates";
@@ -22,6 +22,6 @@ describe("jointz#any", () => {
   it("is the any type", () => {
     const validator = jointz.any();
 
-    assert<IsAny<Infer<typeof validator>>>(true);
+    assert<IsUnknown<Infer<typeof validator>>>(true);
   });
 });

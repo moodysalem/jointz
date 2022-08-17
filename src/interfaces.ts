@@ -9,7 +9,7 @@ export interface ValidationError {
   // The message about the validation.
   readonly message: string;
   // The value that failed validation.
-  readonly value?: any;
+  readonly value?: unknown;
 }
 
 /**

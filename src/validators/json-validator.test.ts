@@ -1,5 +1,4 @@
 import { expect } from "chai";
-import { assert, IsExact } from "conditional-type-checks";
 import { describe, it } from "mocha";
 import jointz, { Infer } from "../index";
 import checkValidates from "../util/check-validates";
@@ -37,5 +36,17 @@ describe("jointz#json", () => {
     ]);
     checkValidates(jointz.json(jointz.boolean()), "true");
     checkValidates(jointz.json(jointz.boolean()), "false");
+  });
+
+  it("isValid typeguards properly", () => {
+    const validator = jointz.json(jointz.any());
+    const value: unknown = '"abc"';
+
+    expect(validator.isValid(value)).eq(true);
+
+    if (validator.isValid(value)) {
+      // substring only available on string type
+      expect(value.substring(0, 1)).eq('"');
+    }
   });
 });
