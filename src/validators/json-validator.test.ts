@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { describe, it } from "mocha";
-import jointz, { Infer } from "../index";
+import jointz from "../index";
 import checkValidates from "../util/check-validates";
 
 describe("jointz#json", () => {

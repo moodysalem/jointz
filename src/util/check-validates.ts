@@ -1,6 +1,13 @@
 import { ValidationError, ValidationErrorPath, Validator } from "../interfaces";
 import { expect } from "chai";
 
+/**
+ * Tests all the exposed functions of a validator, isValid, validate, and checkValid have consistent return values
+ * @param validator the validator to check
+ * @param value the value to validate
+ * @param expectedError if invalid, these are the errors it should throw
+ * @param path the path of the value being passed in
+ */
 export default function checkValidates(
   validator: Validator<unknown>,
   value: unknown,

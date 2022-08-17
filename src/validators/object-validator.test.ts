@@ -72,6 +72,9 @@ describe("jointz#object", () => {
         },
       ]);
     });
+    it("no errors if allowUnknown keys is true", () => {
+      checkValidates(jointz.object({}).allowUnknownKeys(true), { abc: 123 });
+    });
   });
 
   describe("#requiredKeys", () => {
@@ -80,6 +83,24 @@ describe("jointz#object", () => {
         jointz.object({ abc: jointz.any() }).requiredKeys("abc"),
         {},
         [{ message: 'required key "abc" was not defined', path: [], value: {} }]
+      );
+    });
+    it("does not error if key is found", () => {
+      checkValidates(
+        jointz
+          .object({ abc: jointz.any() })
+          .requiredKeys("abc")
+          .allowUnknownKeys(true),
+        { abc: 123 }
+      );
+    });
+    it("does not error if key is found but allow unknown keys is false", () => {
+      checkValidates(
+        jointz
+          .object({ abc: jointz.any() })
+          .requiredKeys("abc")
+          .allowUnknownKeys(false),
+        { abc: 123 }
       );
     });
   });

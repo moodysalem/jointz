@@ -105,7 +105,7 @@ export default class ObjectValidator<
 
     let errors: ValidationError[] = [];
 
-    for (let key in value) {
+    for (const key in value) {
       if (value.hasOwnProperty(key)) {
         if (keys && keys[key] !== undefined) {
           errors = errors.concat(
@@ -151,7 +151,7 @@ export default class ObjectValidator<
       return false;
     }
 
-    for (let key in value) {
+    for (const key in value) {
       if (value.hasOwnProperty(key)) {
         if (keys && keys[key] !== undefined) {
           if (!keys[key].isValid((value as any)[key])) {
