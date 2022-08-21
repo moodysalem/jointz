@@ -29,8 +29,11 @@ export default function checkValidates(
 
   if (typeof expectedError === "undefined" || expectedError.length === 0) {
     expect(() => validator.checkValid(value)).to.not.throw();
+    expect(() => validator.checkValid(value, [0, "abc", 1])).to.not.throw();
   } else {
-    const errorMatcher = expect(() => validator.checkValid(value)).to.throw();
+    const errorMatcher = expect(() =>
+      validator.checkValid(value, path)
+    ).to.throw();
     const messageMatcher = errorMatcher.with.property("message");
 
     //  message must contain information about every message and path

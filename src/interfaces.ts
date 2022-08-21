@@ -57,9 +57,10 @@ export abstract class Validator<TValid> {
   /**
    * Validate the given value and throw if it's not valid
    * @param value that is TValid
+   * @param path The path at which the value being checked was found
    */
-  public checkValid(value: unknown): TValid {
-    const errors = this.validate(value);
+  public checkValid(value: unknown, path?: ValidationErrorPath): TValid {
+    const errors = this.validate(value, path);
 
     if (errors.length > 0) {
       throw new FailedValidationError(errors);
