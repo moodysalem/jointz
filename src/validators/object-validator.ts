@@ -17,19 +17,22 @@ export type ExtractObjectType<TKeys extends Keys> = {
 interface ObjectValidatorOptions<
   TKeys extends Keys,
   TRequiredKeys extends keyof TKeys,
-  AllowUnknownKeys extends boolean | Validator<string>
+  AllowUnknownKeys extends boolean | Validator<string>,
+  TUnknownProperty extends unknown
 > {
   readonly keys: TKeys;
   readonly requiredKeys: TRequiredKeys[];
   readonly allowUnknownKeys: AllowUnknownKeys;
+  readonly unknownPropertyValidator?: Validator<TUnknownProperty>;
 }
 
 type AllowUnknownKeyObject<
   TObject extends {},
-  AllowUnknownKeys extends boolean | Validator<string>
+  AllowUnknownKeys extends boolean | Validator<string>,
+  TUnknownProperty extends unknown
 > = AllowUnknownKeys extends false
   ? TObject
-  : TObject & { [key: string]: unknown };
+  : TObject & { [key: string]: TUnknownProperty };
 
 type WithRequiredKeys<
   TObject extends {},
@@ -46,21 +49,29 @@ type WithRequiredKeys<
 export default class ObjectValidator<
   TKeys extends Keys,
   TRequiredKeys extends keyof TKeys,
-  TAllowUnknown extends boolean | Validator<string>
+  TAllowUnknown extends boolean | Validator<string>,
+  TUnknownProperty extends unknown
 > extends Validator<
   AllowUnknownKeyObject<
     WithRequiredKeys<ExtractObjectType<TKeys>, TRequiredKeys>,
-    TAllowUnknown
+    TAllowUnknown,
+    TUnknownProperty
   >
 > {
   private readonly options: ObjectValidatorOptions<
     TKeys,
     TRequiredKeys,
-    TAllowUnknown
+    TAllowUnknown,
+    TUnknownProperty
   >;
 
   public constructor(
-    options: ObjectValidatorOptions<TKeys, TRequiredKeys, TAllowUnknown>
+    options: ObjectValidatorOptions<
+      TKeys,
+      TRequiredKeys,
+      TAllowUnknown,
+      TUnknownProperty
+    >
   ) {
     super();
     this.options = options;
@@ -74,7 +85,7 @@ export default class ObjectValidator<
    */
   public requiredKeys<T extends (keyof TKeys)[]>(
     ...requiredKeys: T | [T]
-  ): ObjectValidator<TKeys, T[number], TAllowUnknown> {
+  ): ObjectValidator<TKeys, T[number], TAllowUnknown, TUnknownProperty> {
     return new ObjectValidator({
       ...this.options,
       requiredKeys: spreadArgsToArray(requiredKeys),
@@ -86,18 +97,28 @@ export default class ObjectValidator<
    * specified. By default unknown keys are allowed.
    *
    * @param allowUnknownKeys whether to allow keys that are not specified in the object validator to be present
+   * @param unknownPropertyValidator validator that is applied to the value of any unknown key
    */
-  public allowUnknownKeys<TAllow extends boolean | Validator<string>>(
-    allowUnknownKeys: TAllow
-  ): ObjectValidator<TKeys, TRequiredKeys, TAllow> {
-    return new ObjectValidator({ ...this.options, allowUnknownKeys });
+  public allowUnknownKeys<
+    TAllow extends boolean | Validator<string>,
+    TUnknownProperty extends unknown
+  >(
+    allowUnknownKeys: TAllow,
+    unknownPropertyValidator?: Validator<TUnknownProperty>
+  ): ObjectValidator<TKeys, TRequiredKeys, TAllow, TUnknownProperty> {
+    return new ObjectValidator({
+      ...this.options,
+      allowUnknownKeys,
+      unknownPropertyValidator,
+    });
   }
 
   public validate(
     value: unknown,
     path: ValidationErrorPath = []
   ): ValidationError[] {
-    const { requiredKeys, keys, allowUnknownKeys } = this.options;
+    const { requiredKeys, keys, allowUnknownKeys, unknownPropertyValidator } =
+      this.options;
 
     if (typeof value !== "object" || Array.isArray(value) || value === null) {
       return [{ message: `must be an object`, path, value }];
@@ -121,13 +142,23 @@ export default class ObjectValidator<
               path,
               value,
             });
-          } else if (typeof allowUnknownKeys !== "boolean") {
-            errors.push(
-              ...allowUnknownKeys.validate(key, path).map((error) => ({
-                ...error,
-                message: `key "${key}" failed validation: ${error.message}`,
-              }))
-            );
+          } else {
+            if (typeof allowUnknownKeys !== "boolean") {
+              errors.push(
+                ...allowUnknownKeys.validate(key, path).map((error) => ({
+                  ...error,
+                  message: `key "${key}" failed validation: ${error.message}`,
+                }))
+              );
+            }
+            if (unknownPropertyValidator) {
+              errors.push(
+                ...unknownPropertyValidator.validate(
+                  (value as any)[key] as any,
+                  [...path, key]
+                )
+              );
+            }
           }
         }
       }
@@ -152,9 +183,11 @@ export default class ObjectValidator<
     value: unknown
   ): value is AllowUnknownKeyObject<
     WithRequiredKeys<ExtractObjectType<TKeys>, TRequiredKeys>,
-    TAllowUnknown
+    TAllowUnknown,
+    TUnknownProperty
   > {
-    const { allowUnknownKeys, keys, requiredKeys } = this.options;
+    const { allowUnknownKeys, keys, requiredKeys, unknownPropertyValidator } =
+      this.options;
 
     if (typeof value !== "object" || Array.isArray(value) || value === null) {
       return false;
@@ -172,6 +205,11 @@ export default class ObjectValidator<
           } else if (
             typeof allowUnknownKeys !== "boolean" &&
             !allowUnknownKeys.isValid(key)
+          ) {
+            return false;
+          } else if (
+            unknownPropertyValidator &&
+            !unknownPropertyValidator.isValid((value as any)[key])
           ) {
             return false;
           }
