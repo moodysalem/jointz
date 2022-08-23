@@ -29,6 +29,42 @@ describe("jointz#object", () => {
     ]);
   });
 
+  it("allowUnknownKeys can be set to a string validator to force keys to match a pattern", () => {
+    checkValidates(jointz.object({}).allowUnknownKeys(jointz.constant("abc")), {
+      abc: 123,
+    });
+
+    checkValidates(
+      jointz.object({}).allowUnknownKeys(jointz.constant("def")),
+      {
+        abc: 123,
+      },
+      [
+        {
+          message: 'key "abc" failed validation: must be one of "def"',
+          path: [],
+          value: "abc",
+        },
+      ]
+    );
+
+    checkValidates(
+      jointz.object({}).allowUnknownKeys(jointz.string().minLength(5)),
+      {
+        abc: 123,
+        defghi: 567,
+      },
+      [
+        {
+          message:
+            'key "abc" failed validation: length 3 was shorter than minimum length: 5',
+          path: [],
+          value: "abc",
+        },
+      ]
+    );
+  });
+
   it("checks keys", () => {
     checkValidates(
       jointz.object({ abc: jointz.number() }).requiredKeys("abc"),

@@ -17,7 +17,7 @@ export type ExtractObjectType<TKeys extends Keys> = {
 interface ObjectValidatorOptions<
   TKeys extends Keys,
   TRequiredKeys extends keyof TKeys,
-  AllowUnknownKeys extends boolean
+  AllowUnknownKeys extends boolean | Validator<string>
 > {
   readonly keys: TKeys;
   readonly requiredKeys: TRequiredKeys[];
@@ -26,10 +26,10 @@ interface ObjectValidatorOptions<
 
 type AllowUnknownKeyObject<
   TObject extends {},
-  AllowUnknownKeys extends boolean
-> = AllowUnknownKeys extends true
-  ? TObject & { [key: string]: unknown }
-  : TObject;
+  AllowUnknownKeys extends boolean | Validator<string>
+> = AllowUnknownKeys extends false
+  ? TObject
+  : TObject & { [key: string]: unknown };
 
 type WithRequiredKeys<
   TObject extends {},
@@ -46,7 +46,7 @@ type WithRequiredKeys<
 export default class ObjectValidator<
   TKeys extends Keys,
   TRequiredKeys extends keyof TKeys,
-  TAllowUnknown extends boolean
+  TAllowUnknown extends boolean | Validator<string>
 > extends Validator<
   AllowUnknownKeyObject<
     WithRequiredKeys<ExtractObjectType<TKeys>, TRequiredKeys>,
@@ -87,7 +87,7 @@ export default class ObjectValidator<
    *
    * @param allowUnknownKeys whether to allow keys that are not specified in the object validator to be present
    */
-  public allowUnknownKeys<TAllow extends boolean>(
+  public allowUnknownKeys<TAllow extends boolean | Validator<string>>(
     allowUnknownKeys: TAllow
   ): ObjectValidator<TKeys, TRequiredKeys, TAllow> {
     return new ObjectValidator({ ...this.options, allowUnknownKeys });
@@ -114,12 +114,21 @@ export default class ObjectValidator<
               key,
             ] as ValidationErrorPath)
           );
-        } else if (!allowUnknownKeys) {
-          errors.push({
-            message: `encountered unknown key "${key}"`,
-            path,
-            value,
-          });
+        } else {
+          if (!allowUnknownKeys) {
+            errors.push({
+              message: `encountered unknown key "${key}"`,
+              path,
+              value,
+            });
+          } else if (typeof allowUnknownKeys !== "boolean") {
+            errors.push(
+              ...allowUnknownKeys.validate(key, path).map((error) => ({
+                ...error,
+                message: `key "${key}" failed validation: ${error.message}`,
+              }))
+            );
+          }
         }
       }
     }
@@ -157,8 +166,15 @@ export default class ObjectValidator<
           if (!keys[key].isValid((value as any)[key])) {
             return false;
           }
-        } else if (!allowUnknownKeys) {
-          return false;
+        } else {
+          if (!allowUnknownKeys) {
+            return false;
+          } else if (
+            typeof allowUnknownKeys !== "boolean" &&
+            !allowUnknownKeys.isValid(key)
+          ) {
+            return false;
+          }
         }
       }
     }
