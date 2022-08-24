@@ -32,7 +32,7 @@ type AllowUnknownKeyObject<
     | boolean
     | { key: Validator<string>; value: Validator<any> }
 > = AllowUnknownKeys extends { key: Validator<string>; value: Validator<any> }
-  ? { [key: string]: AllowUnknownKeys["value"] } & TObject
+  ? { [key: string]: Infer<AllowUnknownKeys["value"]> } & TObject
   : AllowUnknownKeys extends false
   ? TObject
   : TObject & { [key: string]: unknown };

@@ -49,4 +49,24 @@ describe("examples", () => {
       expect.fail(); // It's not actually valid
     }
   });
+
+  it("isValid with unknown property typeguards", () => {
+    if (
+      ThingValidator.allowUnknownKeys({
+        key: jointz.string(),
+        value: jointz
+          .object({ otherType: jointz.number(), notRequired: jointz.string() })
+          .requiredKeys("otherType"),
+      }).isValid(myObject)
+    ) {
+      // This works because myObject is a valid Thing
+      const id: string = myObject.id;
+
+      const other: number = myObject.otherKey.otherType;
+
+      const notRequird: string | undefined = myObject.otherKey2.notRequired;
+
+      expect.fail(); // It's not actually valid
+    }
+  });
 });
