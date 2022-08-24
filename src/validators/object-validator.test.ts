@@ -19,6 +19,16 @@ describe("jointz#object", () => {
     ]);
   });
 
+  it("more restricted type for allow unknown key", () => {
+    checkValidates(
+      jointz.object({}).allowUnknownKeys({
+        key: jointz.constant("abc", "def", "ghi", "1"),
+        value: jointz.any(),
+      }),
+      { 1: 2, def: "test" }
+    );
+  });
+
   it("allowUnknownKeys can be set to false to prevent unknown keys", () => {
     checkValidates(jointz.object({}).allowUnknownKeys(false), { abc: 123 }, [
       {
