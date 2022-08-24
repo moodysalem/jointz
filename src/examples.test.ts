@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { assert, IsExact } from "conditional-type-checks";
-import jointz, { Infer } from "./index";
+import { assert, Has, IsExact } from "conditional-type-checks";
+import jointz, { Infer, Validator } from "./index";
 
 const ThingValidator = jointz
   .object({

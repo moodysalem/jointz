@@ -8,7 +8,7 @@
     "sourceMap": true,
     "declaration": true,
     "outDir": "lib",
-    "target": "ES2015",
+    "target": "ES2020",
     "module": "commonjs"
   },
   "include": [

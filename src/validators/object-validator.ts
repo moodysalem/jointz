@@ -17,22 +17,25 @@ export type ExtractObjectType<TKeys extends Keys> = {
 interface ObjectValidatorOptions<
   TKeys extends Keys,
   TRequiredKeys extends keyof TKeys,
-  AllowUnknownKeys extends boolean | Validator<string>,
-  TUnknownProperty extends unknown
+  AllowUnknownKeys extends
+    | boolean
+    | { key: Validator<string>; value: Validator<any> }
 > {
   readonly keys: TKeys;
   readonly requiredKeys: TRequiredKeys[];
   readonly allowUnknownKeys: AllowUnknownKeys;
-  readonly unknownPropertyValidator?: Validator<TUnknownProperty>;
 }
 
 type AllowUnknownKeyObject<
   TObject extends {},
-  AllowUnknownKeys extends boolean | Validator<string>,
-  TUnknownProperty extends unknown
-> = AllowUnknownKeys extends false
+  AllowUnknownKeys extends
+    | boolean
+    | { key: Validator<string>; value: Validator<any> }
+> = AllowUnknownKeys extends { key: Validator<string>; value: Validator<any> }
+  ? { [key: string]: AllowUnknownKeys["value"] } & TObject
+  : AllowUnknownKeys extends false
   ? TObject
-  : TObject & { [key: string]: TUnknownProperty };
+  : TObject & { [key: string]: unknown };
 
 type WithRequiredKeys<
   TObject extends {},
@@ -49,29 +52,23 @@ type WithRequiredKeys<
 export default class ObjectValidator<
   TKeys extends Keys,
   TRequiredKeys extends keyof TKeys,
-  TAllowUnknown extends boolean | Validator<string>,
-  TUnknownProperty extends unknown
+  TAllowUnknown extends
+    | boolean
+    | { key: Validator<string>; value: Validator<any> }
 > extends Validator<
   AllowUnknownKeyObject<
     WithRequiredKeys<ExtractObjectType<TKeys>, TRequiredKeys>,
-    TAllowUnknown,
-    TUnknownProperty
+    TAllowUnknown
   >
 > {
   private readonly options: ObjectValidatorOptions<
     TKeys,
     TRequiredKeys,
-    TAllowUnknown,
-    TUnknownProperty
+    TAllowUnknown
   >;
 
   public constructor(
-    options: ObjectValidatorOptions<
-      TKeys,
-      TRequiredKeys,
-      TAllowUnknown,
-      TUnknownProperty
-    >
+    options: ObjectValidatorOptions<TKeys, TRequiredKeys, TAllowUnknown>
   ) {
     super();
     this.options = options;
@@ -85,7 +82,7 @@ export default class ObjectValidator<
    */
   public requiredKeys<T extends (keyof TKeys)[]>(
     ...requiredKeys: T | [T]
-  ): ObjectValidator<TKeys, T[number], TAllowUnknown, TUnknownProperty> {
+  ): ObjectValidator<TKeys, T[number], TAllowUnknown> {
     return new ObjectValidator({
       ...this.options,
       requiredKeys: spreadArgsToArray(requiredKeys),
@@ -97,19 +94,14 @@ export default class ObjectValidator<
    * specified. By default unknown keys are allowed.
    *
    * @param allowUnknownKeys whether to allow keys that are not specified in the object validator to be present
-   * @param unknownPropertyValidator validator that is applied to the value of any unknown key
+   * @param unknownPropertyValidator validator that is applied to the value of any unknown key that is set
    */
   public allowUnknownKeys<
-    TAllow extends boolean | Validator<string>,
-    TUnknownProperty extends unknown
-  >(
-    allowUnknownKeys: TAllow,
-    unknownPropertyValidator?: Validator<TUnknownProperty>
-  ): ObjectValidator<TKeys, TRequiredKeys, TAllow, TUnknownProperty> {
+    TAllow extends boolean | { key: Validator<string>; value: Validator<any> }
+  >(allowUnknownKeys: TAllow): ObjectValidator<TKeys, TRequiredKeys, TAllow> {
     return new ObjectValidator({
       ...this.options,
       allowUnknownKeys,
-      unknownPropertyValidator,
     });
   }
 
@@ -117,8 +109,7 @@ export default class ObjectValidator<
     value: unknown,
     path: ValidationErrorPath = []
   ): ValidationError[] {
-    const { requiredKeys, keys, allowUnknownKeys, unknownPropertyValidator } =
-      this.options;
+    const { requiredKeys, keys, allowUnknownKeys } = this.options;
 
     if (typeof value !== "object" || Array.isArray(value) || value === null) {
       return [{ message: `must be an object`, path, value }];
@@ -126,15 +117,10 @@ export default class ObjectValidator<
 
     let errors: ValidationError[] = [];
 
-    for (const key in value) {
+    for (const [key, keyValue] of Object.entries(value)) {
       if (value.hasOwnProperty(key)) {
         if (keys && keys[key] !== undefined) {
-          errors = errors.concat(
-            keys[key].validate((value as any)[key], [
-              ...path,
-              key,
-            ] as ValidationErrorPath)
-          );
+          errors = errors.concat(keys[key].validate(keyValue, [...path, key]));
         } else {
           if (!allowUnknownKeys) {
             errors.push({
@@ -145,18 +131,18 @@ export default class ObjectValidator<
           } else {
             if (typeof allowUnknownKeys !== "boolean") {
               errors.push(
-                ...allowUnknownKeys.validate(key, path).map((error) => ({
+                ...allowUnknownKeys.key.validate(key, path).map((error) => ({
                   ...error,
                   message: `key "${key}" failed validation: ${error.message}`,
                 }))
               );
-            }
-            if (unknownPropertyValidator) {
               errors.push(
-                ...unknownPropertyValidator.validate(
-                  (value as any)[key] as any,
-                  [...path, key]
-                )
+                ...allowUnknownKeys.value
+                  .validate(keyValue, [...path, key])
+                  .map((error) => ({
+                    ...error,
+                    message: `value for key "${key}" failed validation: ${error.message}`,
+                  }))
               );
             }
           }
@@ -183,17 +169,15 @@ export default class ObjectValidator<
     value: unknown
   ): value is AllowUnknownKeyObject<
     WithRequiredKeys<ExtractObjectType<TKeys>, TRequiredKeys>,
-    TAllowUnknown,
-    TUnknownProperty
+    TAllowUnknown
   > {
-    const { allowUnknownKeys, keys, requiredKeys, unknownPropertyValidator } =
-      this.options;
+    const { allowUnknownKeys, keys, requiredKeys } = this.options;
 
     if (typeof value !== "object" || Array.isArray(value) || value === null) {
       return false;
     }
 
-    for (const key in value) {
+    for (const [key, keyValue] of Object.entries(value)) {
       if (value.hasOwnProperty(key)) {
         if (keys && keys[key] !== undefined) {
           if (!keys[key].isValid((value as any)[key])) {
@@ -204,12 +188,8 @@ export default class ObjectValidator<
             return false;
           } else if (
             typeof allowUnknownKeys !== "boolean" &&
-            !allowUnknownKeys.isValid(key)
-          ) {
-            return false;
-          } else if (
-            unknownPropertyValidator &&
-            !unknownPropertyValidator.isValid((value as any)[key])
+            (!allowUnknownKeys.key.isValid(key) ||
+              !allowUnknownKeys.value.isValid(keyValue))
           ) {
             return false;
           }

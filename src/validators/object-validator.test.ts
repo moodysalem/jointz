@@ -29,13 +29,20 @@ describe("jointz#object", () => {
     ]);
   });
 
-  it("allowUnknownKeys can be set to a string validator to force keys to match a pattern", () => {
-    checkValidates(jointz.object({}).allowUnknownKeys(jointz.constant("abc")), {
-      abc: 123,
-    });
+  it("allowUnknownKeys can be set to a object with validators to force keys to match a pattern", () => {
+    checkValidates(
+      jointz
+        .object({})
+        .allowUnknownKeys({ key: jointz.constant("abc"), value: jointz.any() }),
+      {
+        abc: 123,
+      }
+    );
 
     checkValidates(
-      jointz.object({}).allowUnknownKeys(jointz.constant("def")),
+      jointz
+        .object({})
+        .allowUnknownKeys({ key: jointz.constant("def"), value: jointz.any() }),
       {
         abc: 123,
       },
@@ -49,7 +56,10 @@ describe("jointz#object", () => {
     );
 
     checkValidates(
-      jointz.object({}).allowUnknownKeys(jointz.string().minLength(5)),
+      jointz.object({}).allowUnknownKeys({
+        key: jointz.string().minLength(5),
+        value: jointz.number(),
+      }),
       {
         abc: 123,
         defghi: 567,
@@ -60,6 +70,31 @@ describe("jointz#object", () => {
             'key "abc" failed validation: length 3 was shorter than minimum length: 5',
           path: [],
           value: "abc",
+        },
+      ]
+    );
+
+    checkValidates(
+      jointz.object({}).allowUnknownKeys({
+        key: jointz.string().minLength(5),
+        value: jointz.number().max(5),
+      }),
+      {
+        abc: 123,
+        defghi: 2,
+      },
+      [
+        {
+          message:
+            'key "abc" failed validation: length 3 was shorter than minimum length: 5',
+          path: [],
+          value: "abc",
+        },
+        {
+          message:
+            'value for key "abc" failed validation: 123 must be less than or equal to 5',
+          path: ["abc"],
+          value: 123,
         },
       ]
     );
@@ -251,9 +286,14 @@ describe("jointz#object", () => {
         })
         .requiredKeys("abc");
 
-      assert<IsExact<Infer<typeof validator>, { abc: { def: number[] } }>>(
-        true
-      );
+      assert<
+        IsExact<
+          Infer<typeof validator>,
+          {
+            abc: { def: number[] };
+          }
+        >
+      >(true);
     });
   });
 });
