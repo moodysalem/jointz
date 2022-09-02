@@ -1,4 +1,5 @@
-import { JSONSchema4, JSONSchema7 } from "json-schema";
+import { JSONSchema7 } from "json-schema";
+import { removeUndefinedProperties } from "./util/remove-undefined-properties";
 
 export type ValidationErrorPath = Readonly<Array<string | number>>;
 
@@ -30,22 +31,6 @@ export class FailedValidationError extends Error {
         .join("; ")
     );
     this.errors = errors;
-  }
-}
-
-function removeUndefinedProperties(x: JSONSchema7): JSONSchema7 {
-  if (Array.isArray(x)) {
-    x.forEach(removeUndefinedProperties);
-    return x;
-  } else if (typeof x === "object") {
-    for (const k in x) {
-      if ((x as any)[k] === undefined) {
-        delete (x as any)[k];
-      }
-    }
-    return x;
-  } else {
-    return x;
   }
 }
 
