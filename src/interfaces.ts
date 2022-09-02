@@ -104,6 +104,3 @@ export type Infer<TValidator> = TValidator extends Validator<infer T>
       [P in keyof TValidator]: Infer<TValidator[P]>;
     }
   : unknown;
-
-// Legacy alias for Infer
-export type ExtractResultType<TValidator> = Infer<TValidator>;

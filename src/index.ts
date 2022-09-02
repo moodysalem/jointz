@@ -1,5 +1,4 @@
 import {
-  ExtractResultType,
   FailedValidationError,
   ValidationError,
   Validator,
@@ -124,7 +123,6 @@ export default abstract class jointz {
 export {
   Validator,
   ValidationError,
-  ExtractResultType,
   Infer,
   FailedValidationError,
   ValidationErrorPath,
