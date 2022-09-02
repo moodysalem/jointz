@@ -6,7 +6,11 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 
-Zero dependency universal TypeScript validation library. Similar interface to [Joi](https://github.com/hapijs/joi) but without all the bloat, and built for browsers and node with zero dependencies.
+Zero dependency universal TypeScript validation library. 
+Similar interface to [Joi](https://github.com/hapijs/joi) but without all the bloat, and built for browsers and node with zero dependencies.
+
+Unlike Joi, the goal is to write validation code only once, in the code where it's used, and from that can export all the
+necessary information (TypeScript types, JSON schema).
 
 ## Features
 
@@ -14,6 +18,7 @@ Zero dependency universal TypeScript validation library. Similar interface to [J
 - Zero dependencies, tiny, and well tested
 - [Pretty fast](https://github.com/moltar/typescript-runtime-type-benchmarks#data-type-checks-sans-ts-json-validator)
 - Infer TypeScript types from validators
+- Produce JSON schema from validators
 - Supports `any`, `string`, `number`, `array`, `tuple`, `constant`, `boolean`, `or` and `object` validation
 - Implement your own validator and use it with any of the other validators
 - Fluid immutable interface
@@ -92,6 +97,10 @@ if (ThingValidator.isValid(myObject)) {
     const id: string = myObject.id;
 }
 ```
+
+### JSON Schema
+
+All validators expose a method `#toJsonSchema(): JSONSchema7` which return the JSON schema corresponding to the given type.
 
 ### Errors
 
