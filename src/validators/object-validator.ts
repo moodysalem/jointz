@@ -105,6 +105,69 @@ export default class ObjectValidator<
     });
   }
 
+  /**
+   * Produce a new object validator by removing the specified keys from the current object validator, similar to TypeScript
+   * Omit
+   * @param omitted the keys to omit
+   */
+  public omit<TOmitted extends (keyof TKeys)[]>(
+    ...omitted: TOmitted
+  ): ObjectValidator<
+    Omit<TKeys, TOmitted[number]>,
+    Exclude<TRequiredKeys, TOmitted[number]>,
+    TAllowUnknown
+  > {
+    const omittedMap = omitted.reduce<{
+      [key in keyof TKeys]?: true;
+    }>((memo, value) => {
+      memo[value] = true;
+      return memo;
+    }, {});
+
+    return new ObjectValidator({
+      ...this.options,
+      keys: {
+        ...Object.fromEntries(
+          Object.entries(this.options.keys).filter(([key]) => !omittedMap[key])
+        ),
+      },
+      requiredKeys: this.options.requiredKeys.filter(
+        (requiredKey) => !omittedMap[requiredKey]
+      ) as any,
+    }) as any;
+  }
+
+  /**
+   * Produce a new object validator by selecting only the specified keys from the current set of keys, same as TypeScript Pick
+   * @param selected the keys to select
+   */
+  public pick<TSelected extends (keyof TKeys)[]>(
+    ...selected: TSelected
+  ): ObjectValidator<
+    Pick<TKeys, TSelected[number]>,
+    TSelected[number],
+    TAllowUnknown
+  > {
+    const selectedMap = selected.reduce<{
+      [key in keyof TKeys]?: true;
+    }>((memo, value) => {
+      memo[value] = true;
+      return memo;
+    }, {});
+
+    return new ObjectValidator({
+      ...this.options,
+      keys: {
+        ...Object.fromEntries(
+          Object.entries(this.options.keys).filter(([key]) => selectedMap[key])
+        ),
+      },
+      requiredKeys: this.options.requiredKeys.filter(
+        (requiredKey) => selectedMap[requiredKey]
+      ) as any,
+    }) as any;
+  }
+
   public validate(
     value: unknown,
     path: ValidationErrorPath = []
@@ -165,7 +228,7 @@ export default class ObjectValidator<
     return errors;
   }
 
-  isValid(
+  public isValid(
     value: unknown
   ): value is AllowUnknownKeyObject<
     WithRequiredKeys<ExtractObjectType<TKeys>, TRequiredKeys>,

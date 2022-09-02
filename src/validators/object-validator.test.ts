@@ -285,6 +285,125 @@ describe("jointz#object", () => {
       assert<IsExact<keyof Infer<typeof validator>, "abc" | "test">>(true);
     });
 
+    describe("#omit", () => {
+      it("removes the keys", () => {
+        const validator = jointz
+          .object({
+            abc: jointz.number(),
+            test: jointz.string(),
+          })
+          .requiredKeys("abc");
+
+        const omitAbc = validator.omit("abc");
+        const omitTest = validator.omit("test");
+
+        assert<IsExact<keyof Infer<typeof omitAbc>, "test">>(true);
+        assert<IsExact<keyof Infer<typeof omitAbc>, "abc">>(false);
+        assert<IsExact<keyof Infer<typeof omitTest>, "abc">>(true);
+        assert<IsExact<keyof Infer<typeof omitTest>, "test">>(false);
+      });
+      it("only checks for the keys", () => {
+        const validator = jointz
+          .object({
+            abc: jointz.number(),
+            test: jointz.string(),
+          })
+          .requiredKeys("abc");
+
+        const omitAbc = validator.omit("abc");
+        const omitTest = validator.omit("test");
+
+        checkValidates(omitAbc, {});
+        checkValidates(omitAbc, { test: "not-abc" });
+        checkValidates(omitAbc, { test: "not-abc", abc: 5 }, [
+          {
+            path: [],
+            message: 'encountered unknown key "abc"',
+            value: { abc: 5, test: "not-abc" },
+          },
+        ]);
+        checkValidates(omitTest, { abc: 5 });
+        checkValidates(omitTest, { abc: 5, test: "string" }, [
+          {
+            path: [],
+            message: 'encountered unknown key "test"',
+            value: { abc: 5, test: "string" },
+          },
+        ]);
+      });
+    });
+
+    describe("#pick", () => {
+      it("selects the keys", () => {
+        const validator = jointz
+          .object({
+            abc: jointz.number(),
+            test: jointz.string(),
+          })
+          .requiredKeys("abc");
+
+        const pickAbc = validator.pick("abc");
+        const pickTest = validator.pick("test");
+
+        assert<IsExact<keyof Infer<typeof pickAbc>, "test">>(false);
+        assert<IsExact<keyof Infer<typeof pickAbc>, "abc">>(true);
+        assert<IsExact<keyof Infer<typeof pickTest>, "abc">>(false);
+        assert<IsExact<keyof Infer<typeof pickTest>, "test">>(true);
+      });
+      it("only checks for the selected keys", () => {
+        const validator = jointz
+          .object({
+            abc: jointz.number(),
+            test: jointz.string(),
+          })
+          .requiredKeys("abc");
+
+        const pickAbc = validator.pick("abc");
+        const pickTest = validator.pick("test");
+
+        checkValidates(pickAbc, {}, [
+          {
+            message: 'required key "abc" was not defined',
+            path: [],
+            value: {},
+          },
+        ]);
+        checkValidates(pickAbc, { test: "not-abc" }, [
+          {
+            message: 'encountered unknown key "test"',
+            path: [],
+            value: { test: "not-abc" },
+          },
+          {
+            message: 'required key "abc" was not defined',
+            path: [],
+            value: { test: "not-abc" },
+          },
+        ]);
+        checkValidates(pickAbc, { test: "not-abc", abc: 5 }, [
+          {
+            path: [],
+            message: 'encountered unknown key "test"',
+            value: { abc: 5, test: "not-abc" },
+          },
+        ]);
+        checkValidates(pickTest, { abc: 5 }, [
+          {
+            message: 'encountered unknown key "abc"',
+            path: [],
+            value: { abc: 5 },
+          },
+        ]);
+        checkValidates(pickTest, { abc: 5, test: "string" }, [
+          {
+            path: [],
+            message: 'encountered unknown key "abc"',
+            value: { abc: 5, test: "string" },
+          },
+        ]);
+      });
+    });
+
     it("has the right shape", () => {
       const validator = jointz
         .object({
