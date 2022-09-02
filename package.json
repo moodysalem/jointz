@@ -13,7 +13,7 @@
     "start": "yarn test --watch",
     "coverage": "nyc yarn test",
     "clean": "rimraf lib",
-    "docs": "typedoc --out docs/ src/index.ts --readme none --name jointz --mode file",
+    "docs": "typedoc --out docs/ src/index.ts --readme none --name jointz",
     "publish-docs": "npm run docs && gh-pages -d docs",
     "prebuild": "yarn clean",
     "build": "tsc",
