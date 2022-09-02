@@ -1,6 +1,6 @@
 # jointz
 [![Tests](https://github.com/moodysalem/jointz/actions/workflows/test.yml/badge.svg)](https://github.com/moodysalem/jointz/actions/workflows/test.yml)
-[![codecov](https://codecov.io/gh/moodysalem/jointz/branch/master/graph/badge.svg)](https://codecov.io/gh/moodysalem/jointz)
+[![codecov](https://codecov.io/gh/moodysalem/jointz/branch/main/graph/badge.svg)](https://codecov.io/gh/moodysalem/jointz)
 [![npm](https://img.shields.io/npm/v/jointz.svg)](https://www.npmjs.com/package/jointz)
 [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/jointz.svg)](https://bundlephobia.com/result?p=jointz)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
