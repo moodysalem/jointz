@@ -1,7 +1,7 @@
 import { removeUndefinedProperties } from "./remove-undefined-properties";
 import { expect } from "chai";
 
-describe.only("#removeUndefinedProperties", () => {
+describe("#removeUndefinedProperties", () => {
   it("empty object", () => {
     expect(removeUndefinedProperties({})).to.deep.eq({});
   });
