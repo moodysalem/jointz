@@ -186,6 +186,47 @@ describe("jointz#object", () => {
     });
   });
 
+  describe("#extends", () => {
+    it("adds properties", () => {
+      const obj = jointz.object({ abc: jointz.number() });
+      const extended = obj
+        .extend({ test: jointz.string() })
+        .requiredKeys("test");
+
+      assert<IsExact<Infer<typeof extended>, { abc: number; test: string }>>(
+        true
+      );
+
+      checkValidates(extended, { abc: 5 }, [
+        {
+          message: 'required key "test" was not defined',
+          path: [],
+          value: { abc: 5 },
+        },
+      ]);
+      checkValidates(extended, { test: "string" });
+      checkValidates(extended, { abc: "red" }, [
+        {
+          message: "must be a number",
+          path: ["abc"],
+          value: "red",
+        },
+        {
+          message: 'required key "test" was not defined',
+          path: [],
+          value: { abc: "red" },
+        },
+      ]);
+      checkValidates(extended, { test: 5 }, [
+        {
+          message: "must be a string",
+          path: ["test"],
+          value: 5,
+        },
+      ]);
+    });
+  });
+
   it("can have keys specified", () => {
     checkValidates(jointz.object({ abc: jointz.constant("def") }), {
       abc: "def",

@@ -168,6 +168,22 @@ export default class ObjectValidator<
     }) as any;
   }
 
+  /**
+   * Add additional properties to the object validator
+   * @param additionalKeys the additional keys to add
+   */
+  public extend<TMoreKeys extends Keys>(
+    additionalKeys: TMoreKeys
+  ): ObjectValidator<TKeys & TMoreKeys, TRequiredKeys, TAllowUnknown> {
+    return new ObjectValidator({
+      ...this.options,
+      keys: {
+        ...this.options.keys,
+        ...additionalKeys,
+      },
+    });
+  }
+
   public validate(
     value: unknown,
     path: ValidationErrorPath = []
