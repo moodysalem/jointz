@@ -1,3 +1,4 @@
+import { JSONSchema7 } from "json-schema";
 import { ValidationError, ValidationErrorPath, Validator } from "../interfaces";
 
 interface ArrayValidatorOptions<TItem> {
@@ -11,7 +12,6 @@ interface ArrayValidatorOptions<TItem> {
  */
 export default class ArrayValidator<TItem> extends Validator<TItem[]> {
   private readonly options: ArrayValidatorOptions<TItem>;
-
   public constructor(options: ArrayValidatorOptions<TItem>) {
     super();
     this.options = options;
@@ -104,5 +104,14 @@ export default class ArrayValidator<TItem> extends Validator<TItem[]> {
       }
     }
     return false;
+  }
+
+  public _toJsonSchema(): JSONSchema7 {
+    return {
+      type: "array",
+      minItems: this.options.minLength,
+      maxItems: this.options.maxLength,
+      items: this.options.items?.toJsonSchema(),
+    };
   }
 }

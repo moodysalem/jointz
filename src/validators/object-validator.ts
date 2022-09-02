@@ -1,3 +1,4 @@
+import { JSONSchema7 } from "json-schema";
 import {
   Infer,
   ValidationError,
@@ -66,7 +67,6 @@ export default class ObjectValidator<
     TRequiredKeys,
     TAllowUnknown
   >;
-
   public constructor(
     options: ObjectValidatorOptions<TKeys, TRequiredKeys, TAllowUnknown>
   ) {
@@ -285,5 +285,27 @@ export default class ObjectValidator<
     }
 
     return true;
+  }
+
+  public _toJsonSchema(): JSONSchema7 {
+    return {
+      type: "object",
+      properties: Object.fromEntries(
+        Object.entries(this.options.keys).map(([key, val]) => [
+          key,
+          val.toJsonSchema(),
+        ])
+      ),
+      additionalProperties: !this.options.allowUnknownKeys
+        ? false
+        : this.options.allowUnknownKeys === true
+        ? true
+        : this.options.allowUnknownKeys.value.toJsonSchema(),
+      propertyNames:
+        typeof this.options.allowUnknownKeys === "boolean"
+          ? undefined
+          : this.options.allowUnknownKeys.key.toJsonSchema(),
+      required: this.options.requiredKeys as string[],
+    };
   }
 }

@@ -45,7 +45,7 @@ describe("jointz#array", () => {
     );
   });
 
-  it("validates arrays properly", () => {
+  it("validates alphanumeric string array", () => {
     checkValidates(
       jointz
         .array()
@@ -54,7 +54,9 @@ describe("jointz#array", () => {
         .items(jointz.string().alphanum().minLength(3)),
       ["abc", "123"]
     );
+  });
 
+  it("throws error for item in middle of array", () => {
     checkValidates(
       jointz.array().items(jointz.string().alphanum().minLength(3)),
       ["ab", "123"],
@@ -66,7 +68,9 @@ describe("jointz#array", () => {
         },
       ]
     );
+  });
 
+  it("can throw multiple errors from a single array", () => {
     checkValidates(
       jointz.array().items(jointz.string().alphanum().minLength(3)),
       ["a19-", "de"],

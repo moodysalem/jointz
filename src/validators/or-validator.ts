@@ -1,4 +1,5 @@
 import { ValidationError, ValidationErrorPath, Validator } from "../interfaces";
+import { JSONSchema7 } from "json-schema";
 
 interface OrValidatorOptions {
   // The list of validators of which any one validator must pass for the value to be considered valid
@@ -43,5 +44,11 @@ export default class OrValidator<TOptions> extends Validator<TOptions> {
       }
     }
     return false;
+  }
+
+  _toJsonSchema(): JSONSchema7 {
+    return {
+      anyOf: this.options.validators.map((v) => v.toJsonSchema()),
+    };
   }
 }

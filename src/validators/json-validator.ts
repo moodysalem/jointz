@@ -1,4 +1,5 @@
 import { ValidationError, ValidationErrorPath, Validator } from "../interfaces";
+import { JSONSchema7 } from "json-schema";
 
 /**
  * Validates that a string contains JSON that when parsed matches the given validator
@@ -36,5 +37,14 @@ export default class JsonValidator<TParsed> extends Validator<string> {
     } catch (error) {
       return false;
     }
+  }
+
+  _toJsonSchema(): JSONSchema7 {
+    return {
+      type: "string",
+      contentMediaType: "application/json",
+      // next version of json schema
+      // contentSchema: this.parsedValidator.toJsonSchema(),
+    };
   }
 }

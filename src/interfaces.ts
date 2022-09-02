@@ -1,3 +1,5 @@
+import { JSONSchema4, JSONSchema7 } from "json-schema";
+
 export type ValidationErrorPath = Readonly<Array<string | number>>;
 
 /**
@@ -31,6 +33,22 @@ export class FailedValidationError extends Error {
   }
 }
 
+function removeUndefinedProperties(x: JSONSchema7): JSONSchema7 {
+  if (Array.isArray(x)) {
+    x.forEach(removeUndefinedProperties);
+    return x;
+  } else if (typeof x === "object") {
+    for (const k in x) {
+      if ((x as any)[k] === undefined) {
+        delete (x as any)[k];
+      }
+    }
+    return x;
+  } else {
+    return x;
+  }
+}
+
 /**
  * The base class of all the validators in this package. TValid is the type of any value that passes validation.
  */
@@ -44,6 +62,23 @@ export abstract class Validator<TValid> {
     value: unknown,
     path?: ValidationErrorPath
   ): ValidationError[];
+
+  private cachedJsonSchema: JSONSchema7 | undefined;
+
+  /**
+   * Handles caching and removing undefined properties
+   */
+  public toJsonSchema(): JSONSchema7 {
+    return (
+      this.cachedJsonSchema ??
+      (this.cachedJsonSchema = removeUndefinedProperties(this._toJsonSchema()))
+    );
+  }
+
+  /**
+   * Return the JSON schema for the given validator
+   */
+  protected abstract _toJsonSchema(): JSONSchema7;
 
   /**
    * Return true if the value is valid. #isValid is unique in that validation errors are not surfaced, so the validator

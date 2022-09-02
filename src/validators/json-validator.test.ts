@@ -25,27 +25,51 @@ describe("jointz#json", () => {
   });
 
   it("throws for invalid json", () => {
-    checkValidates(jointz.json(jointz.any()), '"ab', [
-      { message: "invalid json", path: [], value: '"ab' },
-    ]);
-    checkValidates(jointz.json(jointz.any()), "{", [
-      { message: "invalid json", path: [], value: "{" },
-    ]);
-    checkValidates(jointz.json(jointz.any()), "tru", [
-      { message: "invalid json", path: [], value: "tru" },
-    ]);
-    checkValidates(jointz.json(jointz.any()), "fals", [
-      { message: "invalid json", path: [], value: "fals" },
-    ]);
+    checkValidates(
+      jointz.json(jointz.any()),
+      '"ab',
+      [{ message: "invalid json", path: [], value: '"ab' }],
+      undefined,
+      true
+    );
+    checkValidates(
+      jointz.json(jointz.any()),
+      "{",
+      [{ message: "invalid json", path: [], value: "{" }],
+      undefined,
+      true
+    );
+    checkValidates(
+      jointz.json(jointz.any()),
+      "tru",
+      [{ message: "invalid json", path: [], value: "tru" }],
+      undefined,
+      true
+    );
+    checkValidates(
+      jointz.json(jointz.any()),
+      "fals",
+      [{ message: "invalid json", path: [], value: "fals" }],
+      undefined,
+      true
+    );
   });
 
   it("checks for a particular type in the json", () => {
-    checkValidates(jointz.json(jointz.boolean()), '""', [
-      { path: [], message: "must be a boolean", value: "" },
-    ]);
-    checkValidates(jointz.json(jointz.boolean()), "{}", [
-      { path: [], message: "must be a boolean", value: {} },
-    ]);
+    checkValidates(
+      jointz.json(jointz.boolean()),
+      '""',
+      [{ path: [], message: "must be a boolean", value: "" }],
+      undefined,
+      true
+    );
+    checkValidates(
+      jointz.json(jointz.boolean()),
+      "{}",
+      [{ path: [], message: "must be a boolean", value: {} }],
+      undefined,
+      true
+    );
     checkValidates(jointz.json(jointz.boolean()), "true");
     checkValidates(jointz.json(jointz.boolean()), "false");
   });

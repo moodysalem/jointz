@@ -1,14 +1,15 @@
 import { ValidationError, ValidationErrorPath, Validator } from "../interfaces";
+import { JSONSchema7 } from "json-schema";
 
-const ALPHANUMERIC_REGEX = /^[a-z0-9]*$/i;
+const ALPHANUMERIC_REGEX = /^[a-zA-Z0-9]*$/;
 const UUID_REGEX =
-  /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
+  /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
 
 /**
  * Based on https://stackoverflow.com/a/46181/1126380
  */
 const EMAIL_REGEX =
-  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
+  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 interface StringValidatorOptions {
   readonly pattern?: RegExp;
@@ -137,5 +138,14 @@ export default class StringValidator extends Validator<string> {
       (minLength === undefined || value.length >= minLength) &&
       (pattern === undefined || pattern.test(value))
     );
+  }
+
+  _toJsonSchema(): JSONSchema7 {
+    return {
+      type: "string",
+      pattern: this.options.pattern?.source,
+      minLength: this.options.minLength,
+      maxLength: this.options.maxLength,
+    };
   }
 }

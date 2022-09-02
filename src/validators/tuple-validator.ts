@@ -1,10 +1,11 @@
 import { ValidationError, ValidationErrorPath, Validator } from "../interfaces";
+import { JSONSchema7 } from "json-schema";
 
-type TupleValidators<T extends Array<any>> = {
+type TupleValidators<T extends Array<unknown>> = {
   [K in keyof T]: Validator<T[K]>;
 };
 
-interface TupleValidatorOptions<TTuple extends Array<any>> {
+interface TupleValidatorOptions<TTuple extends Array<unknown>> {
   readonly validators: TupleValidators<TTuple>;
 }
 
@@ -13,7 +14,7 @@ interface TupleValidatorOptions<TTuple extends Array<any>> {
  * given validators.
  */
 export default class TupleValidator<
-  TTuple extends Array<any>
+  TTuple extends Array<unknown>
 > extends Validator<TTuple> {
   private readonly options: TupleValidatorOptions<TTuple>;
 
@@ -23,7 +24,7 @@ export default class TupleValidator<
   }
 
   public validate(
-    value: any,
+    value: unknown,
     path: ValidationErrorPath = []
   ): ValidationError[] {
     const { validators } = this.options;
@@ -49,7 +50,7 @@ export default class TupleValidator<
     return errors;
   }
 
-  isValid(value: any): value is TTuple {
+  isValid(value: unknown): value is TTuple {
     const { validators } = this.options;
     if (typeof value !== "object" || !Array.isArray(value)) {
       return false;
@@ -63,5 +64,17 @@ export default class TupleValidator<
       }
     }
     return true;
+  }
+
+  _toJsonSchema(): JSONSchema7 {
+    return {
+      type: "array",
+      // this is not part of the json schema 7 type, but is part of the spec
+      // https://json-schema.org/understanding-json-schema/reference/array.html?highlight=tuple#additional-items
+      items: this.options.validators.map((v) => v.toJsonSchema()),
+      additionalItems: false,
+      minItems: this.options.validators.length,
+      maxItems: this.options.validators.length,
+    };
   }
 }

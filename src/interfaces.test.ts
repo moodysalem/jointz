@@ -1,12 +1,19 @@
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import { ValidationError, Validator, FailedValidationError } from "./index";
+import { JSONSchema7 } from "json-schema";
 
 class CustomValidator extends Validator<string> {
   validate(value: any, path: Array<string> = []): ValidationError[] {
     return typeof value === "string"
       ? []
       : [{ message: "not a string", path, value }];
+  }
+
+  _toJsonSchema(): JSONSchema7 {
+    return {
+      type: "string",
+    };
   }
 }
 

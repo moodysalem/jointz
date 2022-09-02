@@ -1,12 +1,12 @@
 import { ValidationError, ValidationErrorPath, Validator } from "../interfaces";
+import { JSONSchema7 } from "json-schema";
 
-export type AllowedValueTypes = string | number | boolean | null | undefined;
+export type AllowedValueTypes = string | number | boolean | null;
 
 const SUPPORTED_VALUE_TYPEOF: readonly string[] = [
   "string",
   "number",
   "boolean",
-  "undefined",
 ];
 
 /**
@@ -70,5 +70,14 @@ export default class ConstantValidator<
 
   isValid(value: any): value is TValues[number] {
     return this.options.allowedValues.indexOf(value) !== -1;
+  }
+
+  _toJsonSchema(): JSONSchema7 {
+    // todo: should we support enum here?
+    return {
+      anyOf: this.options.allowedValues.map((item) =>
+        item === null ? { type: "null" } : { const: item }
+      ),
+    };
   }
 }

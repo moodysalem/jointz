@@ -17,14 +17,10 @@ describe("jointz#constant", () => {
     expect(() => jointz.constant([] as any)).to.throw();
   });
 
-  it("allows null and undefined", () => {
+  it("allows null", () => {
     checkValidates(jointz.constant(null), null, []);
-    checkValidates(jointz.constant(undefined), undefined, []);
     checkValidates(jointz.constant(null), undefined, [
       { message: "must be one of null", path: [], value: undefined },
-    ]);
-    checkValidates(jointz.constant(undefined), null, [
-      { message: "must be one of undefined", path: [], value: null },
     ]);
   });
 

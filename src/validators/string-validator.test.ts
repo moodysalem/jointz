@@ -34,6 +34,18 @@ describe("jointz#string", () => {
     ]);
   });
 
+  it("json schema for patterns", () => {
+    expect(jointz.string().uuid().toJsonSchema()).to.deep.eq({
+      type: "string",
+      pattern:
+        "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+    });
+    expect(jointz.string().alphanum().toJsonSchema()).to.deep.eq({
+      type: "string",
+      pattern: "^[a-zA-Z0-9]*$",
+    });
+  });
+
   it("validates uuids correctly", () => {
     checkValidates(jointz.string().uuid(), "", [
       { message: "must be a uuid", path: [], value: "" },

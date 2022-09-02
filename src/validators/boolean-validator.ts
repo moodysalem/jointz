@@ -1,4 +1,5 @@
 import { ValidationError, ValidationErrorPath, Validator } from "../interfaces";
+import { JSONSchema7 } from "json-schema";
 
 export default class BooleanValidator extends Validator<boolean> {
   validate(value: any, path: ValidationErrorPath = []): ValidationError[] {
@@ -10,6 +11,12 @@ export default class BooleanValidator extends Validator<boolean> {
 
   isValid(value: any): value is boolean {
     return value === true || value === false;
+  }
+
+  _toJsonSchema(): JSONSchema7 {
+    return {
+      type: "boolean",
+    };
   }
 }
 

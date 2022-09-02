@@ -1,3 +1,4 @@
+import { JSONSchema7 } from "json-schema";
 import { ValidationError, ValidationErrorPath, Validator } from "../interfaces";
 
 interface NumberValidatorOptions {
@@ -8,7 +9,6 @@ interface NumberValidatorOptions {
 
 export default class NumberValidator extends Validator<number> {
   private readonly options: NumberValidatorOptions;
-
   public constructor(options: NumberValidatorOptions) {
     super();
     this.options = options;
@@ -95,5 +95,14 @@ export default class NumberValidator extends Validator<number> {
       (min === undefined || value >= min) &&
       (multipleOf === undefined || value % multipleOf === 0)
     );
+  }
+
+  public _toJsonSchema(): JSONSchema7 {
+    return {
+      type: "number",
+      multipleOf: this.options.multipleOf,
+      minimum: this.options.min,
+      maximum: this.options.max,
+    };
   }
 }

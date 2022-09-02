@@ -1,4 +1,5 @@
 import { ValidationError, Validator } from "../interfaces";
+import { JSONSchema7 } from "json-schema";
 
 export default class AnyValidator extends Validator<unknown> {
   validate(
@@ -14,6 +15,10 @@ export default class AnyValidator extends Validator<unknown> {
 
   checkValid(value: unknown): unknown {
     return true;
+  }
+
+  _toJsonSchema(): JSONSchema7 {
+    return {};
   }
 }
 
