@@ -251,6 +251,49 @@ describe("jointz#object", () => {
     }
   });
 
+  describe("#toJsonSchema", () => {
+    it("throws with overlapping properties", () => {
+      const schema = jointz
+        .object({ abc: jointz.number() })
+        .requiredKeys("abc")
+        .allowUnknownKeys({
+          key: jointz.constant("abc", "def"),
+          value: jointz.string(),
+        });
+
+      expect(() => schema.toJsonSchema()).to.throw(
+        "Additional properties overlaps with specified properties"
+      );
+    });
+
+    it("works without overlap", () => {
+      const schema = jointz
+        .object({ ghi: jointz.number() })
+        .requiredKeys("ghi")
+        .allowUnknownKeys({
+          key: jointz.constant("abc", "def"),
+          value: jointz.string(),
+        });
+
+      expect(schema.toJsonSchema()).to.deep.eq({
+        type: "object",
+        additionalProperties: false,
+        required: ["ghi"],
+        properties: {
+          abc: {
+            type: "string",
+          },
+          def: {
+            type: "string",
+          },
+          ghi: {
+            type: "number",
+          },
+        },
+      });
+    });
+  });
+
   it("type extracted from object that allows unknown keys allows any other key", () => {
     const validator = jointz
       .object({ abc: jointz.constant("def") })

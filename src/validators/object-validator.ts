@@ -1,4 +1,4 @@
-import { JSONSchema7 } from "json-schema";
+import { JSONSchema4, JSONSchema7 } from "json-schema";
 import {
   Infer,
   ValidationError,
@@ -288,23 +288,41 @@ export default class ObjectValidator<
   }
 
   public _toJsonSchema(): JSONSchema7 {
+    let propertyNames =
+      typeof this.options.allowUnknownKeys !== "boolean"
+        ? this.options.allowUnknownKeys.key.toJsonSchema()
+        : undefined;
+
+    let additionalProperties = !this.options.allowUnknownKeys
+      ? false
+      : this.options.allowUnknownKeys === true
+      ? true
+      : this.options.allowUnknownKeys.value.toJsonSchema();
+
+    let extraProperties: [string, JSONSchema7][] = [];
+    if (propertyNames?.enum && typeof additionalProperties !== "boolean") {
+      // we have to assign this because of typescript
+      const property = additionalProperties;
+      extraProperties = propertyNames.enum.map((enumValue) => {
+        if (this.options.keys[String(enumValue)])
+          throw new Error(
+            "Additional properties overlaps with specified properties"
+          );
+        return [String(enumValue), property];
+      });
+      propertyNames = undefined;
+      additionalProperties = false;
+    }
+
     return {
       type: "object",
       properties: Object.fromEntries(
-        Object.entries(this.options.keys).map(([key, val]) => [
-          key,
-          val.toJsonSchema(),
-        ])
+        Object.entries(this.options.keys)
+          .map(([key, val]) => [key, val.toJsonSchema()])
+          .concat(extraProperties ?? [])
       ),
-      additionalProperties: !this.options.allowUnknownKeys
-        ? false
-        : this.options.allowUnknownKeys === true
-        ? true
-        : this.options.allowUnknownKeys.value.toJsonSchema(),
-      propertyNames:
-        typeof this.options.allowUnknownKeys === "boolean"
-          ? undefined
-          : this.options.allowUnknownKeys.key.toJsonSchema(),
+      additionalProperties,
+      propertyNames,
       required: this.options.requiredKeys.length
         ? (this.options.requiredKeys as string[])
         : undefined,
