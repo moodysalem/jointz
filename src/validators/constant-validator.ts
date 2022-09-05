@@ -73,11 +73,8 @@ export default class ConstantValidator<
   }
 
   _toJsonSchema(): JSONSchema7 {
-    // todo: should we support enum here?
     return {
-      anyOf: this.options.allowedValues.map((item) =>
-        item === null ? { type: "null" } : { const: item }
-      ),
+      enum: this.options.allowedValues.map((item) => item),
     };
   }
 }

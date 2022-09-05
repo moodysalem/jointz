@@ -32,7 +32,11 @@ export default function checkValidates(
     typeof expectedError === "undefined" || expectedError.length === 0;
   expect(validator.isValid(value)).to.eq(isExpectedValid);
 
-  const schemaValidator = ajv.compile(validator.toJsonSchema());
+  const schema = validator.toJsonSchema();
+  const schemaValidator = ajv.compile(schema);
+
+  ajv.validateSchema(schema, true);
+
   schemaValidator(value);
   if (looserJsonSchemaValidation) {
     if (isExpectedValid) expect(!schemaValidator.errors?.length).to.eq(true);

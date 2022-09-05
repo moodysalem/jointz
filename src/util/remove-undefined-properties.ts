@@ -7,7 +7,7 @@ import { JSONSchema7 } from "json-schema";
 export function removeUndefinedProperties(schema: JSONSchema7): JSONSchema7 {
   if (Array.isArray(schema)) {
     schema.forEach(removeUndefinedProperties);
-  } else if (typeof schema === "object") {
+  } else if (typeof schema === "object" && schema !== null) {
     for (const k of Object.keys(schema)) {
       if ((schema as any)[k] === undefined) {
         delete (schema as any)[k];

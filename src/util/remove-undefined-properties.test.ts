@@ -21,4 +21,13 @@ describe("#removeUndefinedProperties", () => {
       removeUndefinedProperties({ type: "array", items: [{ type: undefined }] })
     ).to.deep.eq({ type: "array", items: [{}] });
   });
+
+  it("handles null correctly", () => {
+    expect(
+      removeUndefinedProperties({
+        type: "array",
+        items: [{ type: undefined, const: null, enum: [null] }],
+      })
+    ).to.deep.eq({ type: "array", items: [{ const: null, enum: [null] }] });
+  });
 });
