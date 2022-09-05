@@ -305,7 +305,9 @@ export default class ObjectValidator<
         typeof this.options.allowUnknownKeys === "boolean"
           ? undefined
           : this.options.allowUnknownKeys.key.toJsonSchema(),
-      required: this.options.requiredKeys as string[],
+      required: this.options.requiredKeys.length
+        ? (this.options.requiredKeys as string[])
+        : undefined,
     };
   }
 }
